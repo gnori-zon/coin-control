@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol CoinActionProtocol {
+public protocol CoinActionProtocol {
     
     var value: Decimal { get }
     var type: CoinActionType { get }
