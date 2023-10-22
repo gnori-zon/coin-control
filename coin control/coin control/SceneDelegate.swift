@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  coin control
 //
-//  Created by Степан Конашенко on 21.10.2023.
+//  Created by Stepan Konashenko on 21.10.2023.
 //
 
 import UIKit
