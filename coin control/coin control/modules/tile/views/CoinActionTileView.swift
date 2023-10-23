@@ -94,7 +94,7 @@ public class CoinActionTileView: UIView, CoinActionTileProtocol {
             verticalStack.topAnchor.constraint(equalTo: topAnchor, constant: 35),
             verticalStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
             verticalStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            verticalStack.trailingAnchor.constraint(equalTo: trailingAnchor, -10)
+            verticalStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
         ])
         
         return verticalStack
