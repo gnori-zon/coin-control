@@ -7,10 +7,22 @@
 
 import Foundation
 
+// MARK: - CoinActionProtocol
+
+public protocol CoinActionProtocol {
+    
+    var date: Date { get }
+    var value: Decimal { get }
+    var type: CoinActionType { get }
+    var currency: CurrencyType { get }
+}
+
+// MARK: - CoinAction
+
 public struct CoinAction: CoinActionProtocol {
     
+    public let date: Date
     public let value: Decimal
     public let type: CoinActionType
-    public let date: Date
     public let currency: CurrencyType
 }

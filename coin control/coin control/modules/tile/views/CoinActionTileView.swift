@@ -7,10 +7,14 @@
 
 import UIKit
 
+//MARK: - CoinActionTileProtocol
+
 public protocol CoinActionTileProtocol: TileProtocol {
     
     func setup(title titleText: String, records recordsTexts: [String])
 }
+
+//MARK: - CoinActionTileView
 
 public class CoinActionTileView: UIView, CoinActionTileProtocol {
     
@@ -38,7 +42,7 @@ public class CoinActionTileView: UIView, CoinActionTileProtocol {
         displayTitle(text: titleText)
         displayRecords(records: recordsTexts)
         
-        print("DEBUG: displayed CoinIncomeTile view")
+        print("DEBUG: displayed CoinActionTileView")
     }
     
     private func displayTitle(text: String) {
@@ -90,7 +94,7 @@ public class CoinActionTileView: UIView, CoinActionTileProtocol {
             verticalStack.topAnchor.constraint(equalTo: topAnchor, constant: 35),
             verticalStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
             verticalStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            verticalStack.trailingAnchor.constraint(equalTo: trailingAnchor)
+            verticalStack.trailingAnchor.constraint(equalTo: trailingAnchor, -10)
         ])
         
         return verticalStack

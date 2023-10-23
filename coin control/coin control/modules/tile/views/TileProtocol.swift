@@ -6,5 +6,4 @@
 //
 
 public protocol TileProtocol {
-    
 }
