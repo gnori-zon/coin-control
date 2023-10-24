@@ -7,7 +7,7 @@
 
 //MARK: - CurrencyRawTuple
 
-public typealias CurrencyRawTuple = (str: String, sign: Character)
+public typealias CurrencyRawTuple = (str: String, imagePath: String)
 
 //MARK: - CurrencyType
 
@@ -20,11 +20,11 @@ public enum CurrencyType {
         switch self {
             
         case .usd:
-            return (str: "usd", sign: "$")
+            return (str: "usd", imagePath: "dollarsign")
         case .eur:
-            return (str: "eur", sign: "€")
+            return (str: "eur", imagePath: "eurosign")
         case .rub:
-            return (str: "rub", sign: "₽")
+            return (str: "rub", imagePath: "rublesign")
         }
     }
 }
