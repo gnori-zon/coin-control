@@ -66,7 +66,7 @@ public class TileCollectionViewController: UICollectionViewController, TileColle
         layout.itemSize = CGSize(width: view.frame.width / 2 - 20, height: 150)
         layout.scrollDirection = .vertical
         layout.sectionInset = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10)
-        layout.minimumLineSpacing = 1
+        layout.minimumLineSpacing = 20
         layout.minimumInteritemSpacing = 5
         
         return layout
@@ -74,19 +74,28 @@ public class TileCollectionViewController: UICollectionViewController, TileColle
     
     public func displayTile(tile: TileProtocol) {
         
-        if let coinActionTile = tile as? CoinActionTileView {
-                        
-            let longPressGestureRecognizer = UILongPressGestureRecognizer(target: coinActionTile, action: #selector(coinActionTile.longPress))
+        switch tile {
+        case _ where tile is CoinActionTileView:
+            displayCoinActionTileView(tile: tile as! CoinActionTileView)
+        case _ where tile is CurrencyRateTileView:
+            tiles.append(tile as! CurrencyRateTileView)
             
-            longPressGestureRecognizer.minimumPressDuration = 1
-            coinActionTile.addGestureRecognizer(longPressGestureRecognizer)
-            
-            tiles.append(coinActionTile)
+        default:
+            print("DEBUG: receive unknown tile")
         }
+    }
+    
+    private func displayCoinActionTileView(tile: CoinActionTileView) {
+        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: tile, action: #selector(tile.longPress))
+        
+        longPressGestureRecognizer.minimumPressDuration = 1
+        tile.addGestureRecognizer(longPressGestureRecognizer)
+        
+        tiles.append(tile)
     }
 }
 
-// MARK: - CoinIncomeTile
+// MARK: - CoinActionTileView
 
 fileprivate extension CoinActionTileView {
     

@@ -7,8 +7,6 @@
 
 import Foundation
 
-public typealias RawTile = (title: String, records: [String])
-
 public protocol TileCollectionInteractorProtocol {
     func loadRawTiles()
 }
@@ -20,12 +18,21 @@ public class TileCollectionInteractor: TileCollectionInteractorProtocol {
     public func loadRawTiles() {
        
     // do load
-        let rawTiles = loadMockRawTiles()
-        presenter?.rawTilesDidLoad(rawTiles: rawTiles)
+        let tiles = loadMockTiles()
+        presenter?.tilesDidLoad(tiles: tiles)
     }
     
-    private func loadMockRawTiles() -> [RawTile] {
-        [("Траты", ["1. 50 rub", "2. 140 usd", "3. 122 rub", "4. 11 rub"]),
-         ("Прибыль", ["1. 530 rub", "2. 10 usd", "3. 12 rub", "4. 111 rub"])]
+    private func loadMockTiles() -> [TileProtocol] {
+        
+        let tile1 = CoinActionTileView()
+        tile1.setup(title: "Траты", records: ["1. 50 rub", "2. 140 usd", "3. 122 rub", "4. 11 rub"])
+        
+        let tile2 = CoinActionTileView()
+        tile2.setup(title: "Прибыль", records: ["1. 530 rub", "2. 10 usd", "3. 12 rub", "4. 111 rub"])
+        
+        let tile3 = CurrencyRateTileView()
+        tile3.setup(title: "Курсы", timeUpdate: "12:12", records: [(imagePath: CurrencyType.eur.currencyRaw.imagePath, text: "103 rub")])
+        
+        return [tile1, tile2, tile3]
     }
 }

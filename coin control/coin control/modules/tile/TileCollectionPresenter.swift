@@ -7,7 +7,7 @@
 
 public protocol TileCollectionPresenterProtocol: AnyObject {
     func viewDidLoad()
-    func rawTilesDidLoad(rawTiles: [RawTile])
+    func tilesDidLoad(tiles: [TileProtocol])
 }
 
 public class TileCollectionPresenter: TileCollectionPresenterProtocol {
@@ -25,13 +25,9 @@ public class TileCollectionPresenter: TileCollectionPresenterProtocol {
         interactor.loadRawTiles()
     }
     
-    public func rawTilesDidLoad(rawTiles: [RawTile]) {
+    public func tilesDidLoad(tiles: [TileProtocol]) {
         
-        rawTiles.forEach {rawTile in
-            
-            let tile = CoinActionTileView()
-            tile.setup(title: rawTile.title, records: rawTile.records)
-            
+        tiles.forEach {tile in
             viewController?.displayTile(tile: tile)
         }
     }
