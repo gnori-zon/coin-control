@@ -95,16 +95,12 @@ public class CurrencyRateTileView: UIView, CurrencyRateTileProtocol {
             
             let recordContainer = createHorizontalUIStackView(in: recordContainer)
             
-            let image = UIImage(named: raw.imagePath)
+            let image = UIImage(systemName: raw.imagePath)
+            
             let iconView = UIImageView(image: image)
+            iconView.tintColor = .black
             
-            iconView.translatesAutoresizingMaskIntoConstraints = false
             recordContainer.addSubview(iconView)
-            
-            NSLayoutConstraint.activate([
-                iconView.heightAnchor.constraint(equalToConstant: 25),
-                iconView.widthAnchor.constraint(equalToConstant: 25)
-            ])
             
             let recordLabel = UILabel()
             
@@ -114,7 +110,8 @@ public class CurrencyRateTileView: UIView, CurrencyRateTileProtocol {
             
             NSLayoutConstraint.activate([
                 recordLabel.topAnchor.constraint(equalTo: recordContainer.topAnchor),
-                recordLabel.bottomAnchor.constraint(equalTo: recordContainer.bottomAnchor)
+                recordLabel.bottomAnchor.constraint(equalTo: recordContainer.bottomAnchor),
+                recordLabel.trailingAnchor.constraint(equalTo: recordContainer.trailingAnchor)
             ])
         }
     }
@@ -132,7 +129,7 @@ public class CurrencyRateTileView: UIView, CurrencyRateTileProtocol {
         NSLayoutConstraint.activate([
             verticalStack.topAnchor.constraint(equalTo: topAnchor, constant: 35),
             verticalStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
-            verticalStack.leadingAnchor.constraint(equalTo: leftAnchor, constant: 10),
+            verticalStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             verticalStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
         ])
         
