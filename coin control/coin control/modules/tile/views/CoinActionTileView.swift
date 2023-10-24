@@ -62,7 +62,7 @@ public class CoinActionTileView: UIView, CoinActionTileProtocol {
     
     private func displayRecords(records recordsTexts: [String]) {
         
-        let recordContainer = createVerticalUIStackView()
+        let recordContainer = createVerticalUIStackView(in: self)
         
         recordsTexts.forEach { recordText in
             
@@ -79,24 +79,7 @@ public class CoinActionTileView: UIView, CoinActionTileProtocol {
             ])
         }
     }
-    
-    private func createVerticalUIStackView() -> UIStackView {
-        
-        let verticalStack = UIStackView()
-        
-        verticalStack.axis = .vertical
-        verticalStack.alignment = .center
-        verticalStack.distribution = .fillEqually
-        verticalStack.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(verticalStack)
-        
-        NSLayoutConstraint.activate([
-            verticalStack.topAnchor.constraint(equalTo: topAnchor, constant: 35),
-            verticalStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
-            verticalStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            verticalStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
-        ])
-        
-        return verticalStack
-    }
 }
+
+extension CoinActionTileView: UIStackCreatorProtocol {}
+

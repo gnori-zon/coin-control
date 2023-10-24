@@ -152,6 +152,7 @@
 		0F42E1DE2AE4041D00982A09 /* coin control */ = {
 			isa = PBXGroup;
 			children = (
+				0F2DF83E2AE85BC3002F6BA3 /* utils */,
 				0F2DF82A2AE57CFD002F6BA3 /* entities */,
 				0F2DF8292AE57CE5002F6BA3 /* modules */,
 				0F2DF80F2AE40A87002F6BA3 /* constants */,
@@ -240,6 +241,7 @@
 				0F42E1E42AE4041D00982A09 /* TileCollectionViewController.swift in Sources */,
 				0F2DF8112AE40AB4002F6BA3 /* MainDefaultColors.swift in Sources */,
 				0F2DF82E2AE57EA3002F6BA3 /* TileCollectionInteractor.swift in Sources */,
+				0F2DF8402AE85BF4002F6BA3 /* UIStackCreatorProtocol.swift in Sources */,
 				0F2DF83A2AE7053D002F6BA3 /* CurrencyRate.swift in Sources */,
 				0F2DF8372AE6E7E3002F6BA3 /* CurrencyRateTileView.swift in Sources */,
 				0F2DF8182AE413A9002F6BA3 /* CurrencyType.swift in Sources */,

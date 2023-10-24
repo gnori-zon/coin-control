@@ -89,7 +89,7 @@ public class CurrencyRateTileView: UIView, CurrencyRateTileProtocol {
     
     private func displayCurrencyRateRecords(rawRecords: [CurrencyRateRecordRaw]) {
         
-        let recordContainer = createVerticalUIStackView()
+        let recordContainer = createVerticalUIStackView(in: self)
         
         rawRecords.forEach { raw in
             
@@ -115,42 +115,6 @@ public class CurrencyRateTileView: UIView, CurrencyRateTileProtocol {
             ])
         }
     }
-    
-    private func createVerticalUIStackView() -> UIStackView {
-        
-        let verticalStack = UIStackView()
-        
-        verticalStack.axis = .vertical
-        verticalStack.alignment = .center
-        verticalStack.distribution = .fillEqually
-        verticalStack.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(verticalStack)
-        
-        NSLayoutConstraint.activate([
-            verticalStack.topAnchor.constraint(equalTo: topAnchor, constant: 35),
-            verticalStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
-            verticalStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
-            verticalStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
-        ])
-        
-        return verticalStack
-    }
-    
-    private func createHorizontalUIStackView<T: UIView>(in superContainer: T) -> UIStackView {
-        
-        let horizontalStack = UIStackView()
-        
-        horizontalStack.axis = .horizontal
-        horizontalStack.alignment = .center
-        horizontalStack.distribution = .fillEqually
-        horizontalStack.translatesAutoresizingMaskIntoConstraints = false
-        superContainer.addSubview(horizontalStack)
-        
-        NSLayoutConstraint.activate([
-            horizontalStack.leadingAnchor.constraint(equalTo: superContainer.leadingAnchor),
-            horizontalStack.trailingAnchor.constraint(equalTo: superContainer.trailingAnchor)
-        ])
-        
-        return horizontalStack
-    }
 }
+
+extension CurrencyRateTileView: UIStackCreatorProtocol {}
