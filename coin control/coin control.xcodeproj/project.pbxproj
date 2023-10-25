@@ -25,6 +25,7 @@
 		0F2DF8432AE99A81002F6BA3 /* TileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2DF8422AE99A81002F6BA3 /* TileType.swift */; };
 		0F2DF8482AE99CB0002F6BA3 /* TileSettingsEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2DF8442AE99CB0002F6BA3 /* TileSettingsEntity.swift */; };
 		0F2DF84A2AE99CB0002F6BA3 /* CoinActionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2DF8462AE99CB0002F6BA3 /* CoinActionEntity.swift */; };
+		0F2DF84F2AE9A857002F6BA3 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2DF84E2AE9A857002F6BA3 /* StorageService.swift */; };
 		0F2DF8512AE9B63A002F6BA3 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2DF8502AE9B63A002F6BA3 /* Entity.swift */; };
 		0F42E1E02AE4041D00982A09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F42E1DF2AE4041D00982A09 /* AppDelegate.swift */; };
 		0F42E1E22AE4041D00982A09 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F42E1E12AE4041D00982A09 /* SceneDelegate.swift */; };
@@ -53,6 +54,7 @@
 		0F2DF8422AE99A81002F6BA3 /* TileType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileType.swift; sourceTree = "<group>"; };
 		0F2DF8442AE99CB0002F6BA3 /* TileSettingsEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSettingsEntity.swift; sourceTree = "<group>"; };
 		0F2DF8462AE99CB0002F6BA3 /* CoinActionEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinActionEntity.swift; sourceTree = "<group>"; };
+		0F2DF84E2AE9A857002F6BA3 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		0F2DF8502AE9B63A002F6BA3 /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		0F42E1DC2AE4041D00982A09 /* coin control.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "coin control.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F42E1DF2AE4041D00982A09 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 		0F2DF81B2AE4158B002F6BA3 /* tile */ = {
 			isa = PBXGroup;
 			children = (
+				0F2DF84D2AE9A83B002F6BA3 /* services */,
 				0F2DF84C2AE9A1F4002F6BA3 /* dto */,
 				0F2DF8332AE57FC1002F6BA3 /* views */,
 				0F42E1E32AE4041D00982A09 /* TileCollectionViewController.swift */,
@@ -292,6 +295,7 @@
 				0F2DF8402AE85BF4002F6BA3 /* UIStackCreatorProtocol.swift in Sources */,
 				0F2DF83A2AE7053D002F6BA3 /* CurrencyRate.swift in Sources */,
 				0F2DF8372AE6E7E3002F6BA3 /* CurrencyRateTileView.swift in Sources */,
+				0F2DF84F2AE9A857002F6BA3 /* StorageService.swift in Sources */,
 				0F2DF8512AE9B63A002F6BA3 /* Entity.swift in Sources */,
 				0F2DF8182AE413A9002F6BA3 /* CurrencyType.swift in Sources */,
 				0F2DF8302AE57EB9002F6BA3 /* TileCollectionPresenter.swift in Sources */,
