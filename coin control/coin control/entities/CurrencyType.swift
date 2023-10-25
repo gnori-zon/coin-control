@@ -11,9 +11,13 @@ public typealias CurrencyRawTuple = (str: String, imagePath: String)
 
 //MARK: - CurrencyType
 
-public enum CurrencyType {
+public enum CurrencyType: Int16 {
 
-    case usd, rub, eur
+    case usd = 1
+    case rub = 2
+    case eur = 3
+    
+    case undefined = -1
     
     var currencyRaw: CurrencyRawTuple {
         
@@ -25,6 +29,8 @@ public enum CurrencyType {
             return (str: "eur", imagePath: "eurosign")
         case .rub:
             return (str: "rub", imagePath: "rublesign")
+        case .undefined:
+            return(str: "?", imagePath: "")
         }
     }
 }
