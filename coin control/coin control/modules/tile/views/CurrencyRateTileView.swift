@@ -62,6 +62,7 @@ public class CurrencyRateTileView: UIView, CurrencyRateTileProtocol {
         titleLabel.text = text
         titleLabel.textColor = TileDefaultColors.text.getUIColor()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.adjustsFontSizeToFitWidth = true
         addSubview(titleLabel)
         
         NSLayoutConstraint.activate([

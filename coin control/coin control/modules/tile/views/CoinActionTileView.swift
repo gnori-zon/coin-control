@@ -50,12 +50,13 @@ public class CoinActionTileView: UIView, CoinActionTileProtocol {
         titleLabel.text = text
         titleLabel.textColor = TileDefaultColors.text.getUIColor()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.adjustsFontSizeToFitWidth = true
         addSubview(titleLabel)
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
             titleLabel.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
