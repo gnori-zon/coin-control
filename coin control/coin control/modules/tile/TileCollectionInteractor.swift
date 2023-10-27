@@ -17,9 +17,13 @@ public class TileCollectionInteractor: TileCollectionInteractorProtocol {
     
     public func loadRawTiles() {
         
-        let tiles = loadMockTiles()
-        presenter?.tilesDidLoad(tiles: tiles)
-        
+        DispatchQueue.global(qos: .userInitiated).async {
+            let tiles = self.loadMockTiles()
+            
+            DispatchQueue.main.async {
+                self.presenter?.tilesDidLoad(tiles: tiles)
+            }
+        }
     }
     
     private func loadMockTiles() -> [TileProtocol] {
