@@ -13,8 +13,8 @@ public protocol TileCollectionPresenterProtocol: AnyObject {
 public class TileCollectionPresenter: TileCollectionPresenterProtocol {
     
     weak var viewController: TileCollectionViewControllerProtocol?
-    var router: TileCollectionRouterProtocol
-    var interactor: TileCollectionInteractorProtocol
+    let router: TileCollectionRouterProtocol
+    let interactor: TileCollectionInteractorProtocol
     
     init(router: TileCollectionRouterProtocol, interactor: TileCollectionInteractorProtocol) {
         self.router = router
