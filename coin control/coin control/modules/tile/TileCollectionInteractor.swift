@@ -16,10 +16,10 @@ public class TileCollectionInteractor: TileCollectionInteractorProtocol {
     weak var presenter: TileCollectionPresenterProtocol?
     
     public func loadRawTiles() {
-       
-    // do load
+        
         let tiles = loadMockTiles()
         presenter?.tilesDidLoad(tiles: tiles)
+        
     }
     
     private func loadMockTiles() -> [TileProtocol] {
@@ -31,7 +31,10 @@ public class TileCollectionInteractor: TileCollectionInteractorProtocol {
         tile2.setup(title: "Прибыль", records: ["1. 530 rub", "2. 10 usd", "3. 12 rub", "4. 111 rub"])
         
         let tile3 = CurrencyRateTileView()
-        tile3.setup(title: "Курсы", timeUpdate: "12:12", records: [(imagePath: CurrencyType.eur.currencyRaw.imagePath, text: "103 rub")])
+        tile3.setup(title: "Курсы", timeUpdate: "12:12", records: [
+            (imagePath: CurrencyType.eur.currencyRaw.imagePath, text: "103 rub"),
+            (imagePath: CurrencyType.usd.currencyRaw.imagePath, text: "97 rub")
+        ])
         
         return [tile1, tile2, tile3]
     }

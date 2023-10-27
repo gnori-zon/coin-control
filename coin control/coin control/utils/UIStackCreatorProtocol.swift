@@ -28,8 +28,9 @@ public extension UIStackCreatorProtocol {
         let viewStack = UIStackView()
         
         viewStack.axis = axis
-        viewStack.alignment = .center
-        viewStack.distribution = .fillEqually
+        viewStack.alignment = .leading
+        viewStack.distribution = .fillProportionally
+        
         viewStack.translatesAutoresizingMaskIntoConstraints = false
         superContainer.addSubview(viewStack)
         

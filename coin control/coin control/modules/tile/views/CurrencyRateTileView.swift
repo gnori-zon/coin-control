@@ -90,18 +90,24 @@ public class CurrencyRateTileView: UIView, CurrencyRateTileProtocol {
     
     private func displayCurrencyRateRecords(rawRecords: [CurrencyRateRecordRaw]) {
         
-        let recordContainer = createVerticalUIStackView(in: self)
+        let recordsContainer = createVerticalUIStackView(in: self)
         
         rawRecords.forEach { raw in
             
-            let recordContainer = createHorizontalUIStackView(in: recordContainer)
+            let recordContainer = createHorizontalUIStackView(in: recordsContainer)
             
             let image = UIImage(systemName: raw.imagePath)
             
             let iconView = UIImageView(image: image)
             iconView.tintColor = .black
+            iconView.translatesAutoresizingMaskIntoConstraints = false
             
             recordContainer.addSubview(iconView)
+            
+            NSLayoutConstraint.activate([
+                iconView.centerYAnchor.constraint(equalTo: recordContainer.centerYAnchor),
+                iconView.leadingAnchor.constraint(equalTo: recordContainer.leadingAnchor)
+            ])
             
             let recordLabel = UILabel()
             
@@ -114,6 +120,8 @@ public class CurrencyRateTileView: UIView, CurrencyRateTileProtocol {
                 recordLabel.bottomAnchor.constraint(equalTo: recordContainer.bottomAnchor),
                 recordLabel.trailingAnchor.constraint(equalTo: recordContainer.trailingAnchor)
             ])
+            
+            recordsContainer.addArrangedSubview(recordContainer)
         }
     }
 }
