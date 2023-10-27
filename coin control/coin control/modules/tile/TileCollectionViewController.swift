@@ -36,15 +36,48 @@ public class TileCollectionViewController: UICollectionViewController, TileColle
         collectionView!.backgroundColor = MainDefaultColors.background.getUIColor()
         
         presenter?.viewDidLoad()
-        
         print("DEBUG: displayed main view")
     }
+    
+    public override func viewDidAppear(_ animated: Bool) {
+        showCoinActionWriterViewControllerInCustomizedSheet()
+    }
+    
+    public func addTile(tile: TileProtocol) {
+        
+        switch tile {
+        case _ where tile is CoinActionTileView:
+            displayCoinActionTileView(tile: tile as! CoinActionTileView)
+        case _ where tile is CurrencyRateTileView:
+            tiles.append(tile as! CurrencyRateTileView)
+        
+        default:
+            print("DEBUG: receive unknown tile")
+        }
+    }
+    
+    public func reloadData() {
+        self.collectionView.reloadData()
+    }
+    
+    private func displayCoinActionTileView(tile: CoinActionTileView) {
+        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: tile, action: #selector(tile.longPress))
+        
+        longPressGestureRecognizer.minimumPressDuration = 1
+        tile.addGestureRecognizer(longPressGestureRecognizer)
+        
+        tiles.append(tile)
+    }
+}
 
-    public override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection: Int) -> Int {
+//MARK: - methods CollectionViewController
+public extension TileCollectionViewController {
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection: Int) -> Int {
         tiles.count
     }
 
-    public override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
         let tile = tiles[indexPath.row]
@@ -72,32 +105,6 @@ public class TileCollectionViewController: UICollectionViewController, TileColle
         
         return layout
     }
-    
-    public func reloadData() {
-        self.collectionView.reloadData()
-    }
-    
-    public func addTile(tile: TileProtocol) {
-        
-        switch tile {
-        case _ where tile is CoinActionTileView:
-            displayCoinActionTileView(tile: tile as! CoinActionTileView)
-        case _ where tile is CurrencyRateTileView:
-            tiles.append(tile as! CurrencyRateTileView)
-        
-        default:
-            print("DEBUG: receive unknown tile")
-        }
-    }
-    
-    private func displayCoinActionTileView(tile: CoinActionTileView) {
-        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: tile, action: #selector(tile.longPress))
-        
-        longPressGestureRecognizer.minimumPressDuration = 1
-        tile.addGestureRecognizer(longPressGestureRecognizer)
-        
-        tiles.append(tile)
-    }
 }
 
 // MARK: - CoinActionTileView
@@ -122,5 +129,27 @@ fileprivate extension CoinActionTileView {
     
     func identitySize() {
         UIView.animate(withDuration: 0.1, animations: { self.transform = CGAffineTransform.identity })
+    }
+}
+
+//MARK: - show CoinActionWriterViewController (may be move to Router?)
+
+fileprivate extension TileCollectionViewController {
+    
+    func showCoinActionWriterViewControllerInCustomizedSheet() {
+        
+        let viewControllerToPresent = CoinActionWriterViewController()
+        
+        if let sheet = viewControllerToPresent.sheetPresentationController {
+            
+            sheet.detents = [.medium(), .large()]
+            sheet.largestUndimmedDetentIdentifier = .medium
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            sheet.prefersEdgeAttachedInCompactHeight = true
+            sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
+            sheet.prefersGrabberVisible = true
+        }
+        
+        present(viewControllerToPresent, animated: true, completion: nil)
     }
 }
