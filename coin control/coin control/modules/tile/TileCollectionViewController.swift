@@ -15,7 +15,8 @@ typealias TileView = TileProtocol & UIView
 public protocol TileCollectionViewControllerProtocol: AnyObject {
     
     var presenter: TileCollectionPresenterProtocol? { get set }
-    func displayTile(tile: TileProtocol)
+    func addTile(tile: TileProtocol)
+    func reloadData()
 }
 
 // MARK: - TileCollectionViewController
@@ -72,14 +73,18 @@ public class TileCollectionViewController: UICollectionViewController, TileColle
         return layout
     }
     
-    public func displayTile(tile: TileProtocol) {
+    public func reloadData() {
+        self.collectionView.reloadData()
+    }
+    
+    public func addTile(tile: TileProtocol) {
         
         switch tile {
         case _ where tile is CoinActionTileView:
             displayCoinActionTileView(tile: tile as! CoinActionTileView)
         case _ where tile is CurrencyRateTileView:
             tiles.append(tile as! CurrencyRateTileView)
-            
+        
         default:
             print("DEBUG: receive unknown tile")
         }

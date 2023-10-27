@@ -28,7 +28,9 @@ public class TileCollectionPresenter: TileCollectionPresenterProtocol {
     public func tilesDidLoad(tiles: [TileProtocol]) {
         
         tiles.forEach {tile in
-            viewController?.displayTile(tile: tile)
+            viewController?.addTile(tile: tile)
         }
+        
+        viewController?.reloadData()
     }
 }
