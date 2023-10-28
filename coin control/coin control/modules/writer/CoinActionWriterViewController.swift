@@ -28,4 +28,33 @@ public class CoinActionWriterViewController: UIViewController, CoinActionWriterV
         
         print("DEBUG: displayed bottom sheet view")
     }
+    
+    public func initSheetPresentationController() {
+        
+        isModalInPresentation = true
+        
+        if let sheet = sheetPresentationController {
+            
+            sheet.detents = [.medium(), .low()]
+            sheet.largestUndimmedDetentIdentifier = .medium
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            sheet.prefersEdgeAttachedInCompactHeight = true
+            sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
+            sheet.prefersGrabberVisible = true
+        }
+    }
+}
+
+//MARK: - CUSTOM UISheetPresentationController.Detent
+
+fileprivate typealias Detent = UISheetPresentationController.Detent
+
+fileprivate extension Detent {
+    
+    static func low() -> Detent {
+        
+        Detent.custom(identifier: Detent.Identifier.init("low")) { context in
+            return context.maximumDetentValue / 12
+        }
+    }
 }

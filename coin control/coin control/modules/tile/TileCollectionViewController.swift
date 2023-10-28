@@ -139,16 +139,7 @@ fileprivate extension TileCollectionViewController {
     func showCoinActionWriterViewControllerInCustomizedSheet() {
         
         let viewControllerToPresent = CoinActionWriterViewController()
-        
-        if let sheet = viewControllerToPresent.sheetPresentationController {
-            
-            sheet.detents = [.medium(), .large()]
-            sheet.largestUndimmedDetentIdentifier = .medium
-            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-            sheet.prefersEdgeAttachedInCompactHeight = true
-            sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
-            sheet.prefersGrabberVisible = true
-        }
+        viewControllerToPresent.initSheetPresentationController();
         
         present(viewControllerToPresent, animated: true, completion: nil)
     }
