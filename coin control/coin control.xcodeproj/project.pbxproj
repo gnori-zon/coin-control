@@ -33,6 +33,8 @@
 		0F2DF85A2AEC5427002F6BA3 /* CoinActionWriterAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2DF8592AEC5427002F6BA3 /* CoinActionWriterAssembly.swift */; };
 		0F2DF85C2AEC543D002F6BA3 /* CoinActionWriterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2DF85B2AEC543D002F6BA3 /* CoinActionWriterInteractor.swift */; };
 		0F2DF85E2AEC5465002F6BA3 /* CoinActionWriterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2DF85D2AEC5465002F6BA3 /* CoinActionWriterRouter.swift */; };
+		0F2DF8602AECF7BE002F6BA3 /* BottomSheetDefaultColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2DF85F2AECF7BE002F6BA3 /* BottomSheetDefaultColors.swift */; };
+		0F2DF8622AED85E2002F6BA3 /* TextFieldDecimalValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2DF8612AED85E2002F6BA3 /* TextFieldDecimalValidator.swift */; };
 		0F42E1E02AE4041D00982A09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F42E1DF2AE4041D00982A09 /* AppDelegate.swift */; };
 		0F42E1E22AE4041D00982A09 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F42E1E12AE4041D00982A09 /* SceneDelegate.swift */; };
 		0F42E1E42AE4041D00982A09 /* TileCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F42E1E32AE4041D00982A09 /* TileCollectionViewController.swift */; };
@@ -68,6 +70,8 @@
 		0F2DF8592AEC5427002F6BA3 /* CoinActionWriterAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinActionWriterAssembly.swift; sourceTree = "<group>"; };
 		0F2DF85B2AEC543D002F6BA3 /* CoinActionWriterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinActionWriterInteractor.swift; sourceTree = "<group>"; };
 		0F2DF85D2AEC5465002F6BA3 /* CoinActionWriterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinActionWriterRouter.swift; sourceTree = "<group>"; };
+		0F2DF85F2AECF7BE002F6BA3 /* BottomSheetDefaultColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetDefaultColors.swift; sourceTree = "<group>"; };
+		0F2DF8612AED85E2002F6BA3 /* TextFieldDecimalValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldDecimalValidator.swift; sourceTree = "<group>"; };
 		0F42E1DC2AE4041D00982A09 /* coin control.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "coin control.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F42E1DF2AE4041D00982A09 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0F42E1E12AE4041D00982A09 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -127,6 +131,7 @@
 			children = (
 				0F2DF8102AE40AB4002F6BA3 /* MainDefaultColors.swift */,
 				0F2DF8232AE41C50002F6BA3 /* TileDefaultColors.swift */,
+				0F2DF85F2AECF7BE002F6BA3 /* BottomSheetDefaultColors.swift */,
 			);
 			path = impl;
 			sourceTree = "<group>";
@@ -166,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				0F2DF83F2AE85BF4002F6BA3 /* UIStackCreatorProtocol.swift */,
+				0F2DF8612AED85E2002F6BA3 /* TextFieldDecimalValidator.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -312,6 +318,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F2DF8602AECF7BE002F6BA3 /* BottomSheetDefaultColors.swift in Sources */,
 				0F2DF83D2AE84E9C002F6BA3 /* ModelCoreData.xcdatamodeld in Sources */,
 				0F2DF8322AE57EF0002F6BA3 /* TileCollectionRouter.swift in Sources */,
 				0F2DF8542AEC53EF002F6BA3 /* CoinActionWriterViewController.swift in Sources */,
@@ -341,6 +348,7 @@
 				0F2DF8352AE5880D002F6BA3 /* TileProtocol.swift in Sources */,
 				0F2DF8432AE99A81002F6BA3 /* TileType.swift in Sources */,
 				0F2DF81F2AE41630002F6BA3 /* CoinActionTileView.swift in Sources */,
+				0F2DF8622AED85E2002F6BA3 /* TextFieldDecimalValidator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
