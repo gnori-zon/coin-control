@@ -7,8 +7,6 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
-
 typealias TileView = TileProtocol & UIView
 
 // MARK: - TileCollectionViewControllerProtocol
@@ -23,6 +21,8 @@ public protocol TileCollectionViewControllerProtocol: AnyObject {
 
 public class TileCollectionViewController: UICollectionViewController, TileCollectionViewControllerProtocol {
     
+    static let reuseIdentifier = "Cell"
+    
     private var tiles = [TileView]()
     public var presenter: TileCollectionPresenterProtocol?
     
@@ -31,7 +31,7 @@ public class TileCollectionViewController: UICollectionViewController, TileColle
         TileCollectionAssembly().assemble(with: self)
         
         super.viewDidLoad()
-        collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: TileCollectionViewController.reuseIdentifier)
         collectionView.collectionViewLayout = createCollectionViewLayout()
         collectionView!.backgroundColor = MainDefaultColors.background.getUIColor()
         
@@ -79,7 +79,7 @@ public extension TileCollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TileCollectionViewController.reuseIdentifier, for: indexPath)
         let tile = tiles[indexPath.row]
         cell.addSubview(tile)
         
