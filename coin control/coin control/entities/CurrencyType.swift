@@ -11,7 +11,7 @@ public typealias CurrencyRawTuple = (str: String, imagePath: String)
 
 //MARK: - CurrencyType
 
-public enum CurrencyType: Int16 {
+public enum CurrencyType: Int16, CaseIterable {
 
     case usd = 1
     case rub = 2
@@ -32,5 +32,9 @@ public enum CurrencyType: Int16 {
         case .undefined:
             return(str: "?", imagePath: "")
         }
+    }
+    
+    static var validCases: [CurrencyType] {
+        CurrencyType.allCases.filter { $0.rawValue >= 0 }
     }
 }
