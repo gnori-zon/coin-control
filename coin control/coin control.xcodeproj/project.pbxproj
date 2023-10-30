@@ -36,6 +36,7 @@
 		0F2DF8602AECF7BE002F6BA3 /* BottomSheetDefaultColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2DF85F2AECF7BE002F6BA3 /* BottomSheetDefaultColors.swift */; };
 		0F2DF8622AED85E2002F6BA3 /* TextFieldDecimalValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2DF8612AED85E2002F6BA3 /* TextFieldDecimalValidator.swift */; };
 		0F2DF8652AEE75EB002F6BA3 /* UIDropDownList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2DF8642AEE75EB002F6BA3 /* UIDropDownList.swift */; };
+		0F33EFC22AF05765000DDFD0 /* DefaultAnimations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F33EFC12AF05765000DDFD0 /* DefaultAnimations.swift */; };
 		0F42E1E02AE4041D00982A09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F42E1DF2AE4041D00982A09 /* AppDelegate.swift */; };
 		0F42E1E22AE4041D00982A09 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F42E1E12AE4041D00982A09 /* SceneDelegate.swift */; };
 		0F42E1E42AE4041D00982A09 /* TileCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F42E1E32AE4041D00982A09 /* TileCollectionViewController.swift */; };
@@ -74,6 +75,7 @@
 		0F2DF85F2AECF7BE002F6BA3 /* BottomSheetDefaultColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetDefaultColors.swift; sourceTree = "<group>"; };
 		0F2DF8612AED85E2002F6BA3 /* TextFieldDecimalValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldDecimalValidator.swift; sourceTree = "<group>"; };
 		0F2DF8642AEE75EB002F6BA3 /* UIDropDownList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDropDownList.swift; sourceTree = "<group>"; };
+		0F33EFC12AF05765000DDFD0 /* DefaultAnimations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAnimations.swift; sourceTree = "<group>"; };
 		0F42E1DC2AE4041D00982A09 /* coin control.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "coin control.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F42E1DF2AE4041D00982A09 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0F42E1E12AE4041D00982A09 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 			children = (
 				0F2DF83F2AE85BF4002F6BA3 /* UIStackCreatorProtocol.swift */,
 				0F2DF8612AED85E2002F6BA3 /* TextFieldDecimalValidator.swift */,
+				0F33EFC12AF05765000DDFD0 /* DefaultAnimations.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				0F2DF85C2AEC543D002F6BA3 /* CoinActionWriterInteractor.swift in Sources */,
 				0F2DF8352AE5880D002F6BA3 /* TileProtocol.swift in Sources */,
 				0F2DF8432AE99A81002F6BA3 /* TileType.swift in Sources */,
+				0F33EFC22AF05765000DDFD0 /* DefaultAnimations.swift in Sources */,
 				0F2DF81F2AE41630002F6BA3 /* CoinActionTileView.swift in Sources */,
 				0F2DF8622AED85E2002F6BA3 /* TextFieldDecimalValidator.swift in Sources */,
 			);
