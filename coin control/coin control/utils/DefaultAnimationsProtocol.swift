@@ -1,5 +1,5 @@
 //
-//  DefaultAnimations.swift
+//  DefaultAnimationsProtocol.swift
 //  coin control
 //
 //  Created by Stepan Konashenko on 31.10.2023.
@@ -7,12 +7,12 @@
 
 import UIKit
 
-public protocol DefaultAnimations {
+public protocol DefaultAnimationsProtocol {
     
     func snake(_ view: UIView)
 }
 
-public extension DefaultAnimations {
+public extension DefaultAnimationsProtocol {
     
     func snake(_ view: UIView) {
         

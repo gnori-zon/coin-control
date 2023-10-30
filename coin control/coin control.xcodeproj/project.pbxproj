@@ -222,6 +222,7 @@
 		0F2DF8632AEE75CC002F6BA3 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				0F2DF8552AEC53FE002F6BA3 /* CoinActionWriterView.swift */,
 				0F2DF8642AEE75EB002F6BA3 /* UIDropDownList.swift */,
 			);
 			path = views;
