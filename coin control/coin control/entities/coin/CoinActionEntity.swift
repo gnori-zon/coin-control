@@ -28,11 +28,11 @@ extension CoinActionEntity: Entity {
         return NSEntityDescription.entity(forEntityName: entityName, in: context)
     }
 
-    @NSManaged public var id: Int64
     @NSManaged public var value: NSDecimalNumber
     @NSManaged public var date: Date
     @NSManaged public var actionTypeCode: Int16
     @NSManaged public var currencyTypeCode: Int16
+    @NSManaged public var id: String
     
     public var actionType: CoinActionType {
         

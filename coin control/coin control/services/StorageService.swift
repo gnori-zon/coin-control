@@ -17,14 +17,14 @@ public protocol StorageServiceProtocol {
     
     static var shared: S { get }
     
-    func create<T: ManagedEntity>(type: T.Type, filler: (T) -> Void)
+    func create<T: ManagedEntity>(type: T.Type, filler: (T) -> Void) -> T?
     
     func fetch<T: ManagedEntity>(type: T.Type) -> [T]
-    func fetch<T: ManagedEntity>(type: T.Type, by id: Int64) -> T?
+    func fetch<T: ManagedEntity>(type: T.Type, by id: String) -> T?
     
-    func update<T: ManagedEntity>(type: T.Type, by id: Int64, filler: (T) -> Void)
+    func update<T: ManagedEntity>(type: T.Type, by id: String, filler: (T) -> Void)
     
-    func delete<T: ManagedEntity>(type: T.Type, by id: Int64)
+    func delete<T: ManagedEntity>(type: T.Type, by id: String)
     func delete<T: ManagedEntity>(type: T.Type)
 }
 
@@ -47,16 +47,19 @@ public final class StorageService: NSObject, StorageServiceProtocol {
         appDelegate.persistentContainer.viewContext
     }
     // TODO: add error optional
-    public func create<T: ManagedEntity>(type: T.Type, filler: (T) -> Void) {
+    public func create<T: ManagedEntity>(type: T.Type, filler: (T) -> Void) -> T? {
         
         guard let entityDescription = type.getDescription(in: context) else {
-            return
+            return nil
         }
         
-        let entity = type.init(entity: entityDescription, insertInto: context)
+        var entity = type.init(entity: entityDescription, insertInto: context)
         filler(entity)
+        entity.id = entity.objectID.uriRepresentation().absoluteString
         
         appDelegate.saveContext()
+        
+        return entity
     }
     
     public func fetch<T: ManagedEntity>(type: T.Type) -> [T] {
@@ -68,7 +71,7 @@ public final class StorageService: NSObject, StorageServiceProtocol {
         }
     }
     
-    public func fetch<T: ManagedEntity>(type: T.Type, by id: Int64) -> T? {
+    public func fetch<T: ManagedEntity>(type: T.Type, by id: String) -> T? {
         
         let fetchRequest = type.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id == %@", id)
@@ -80,7 +83,7 @@ public final class StorageService: NSObject, StorageServiceProtocol {
         }
     }
     
-    public func update<T: ManagedEntity>(type: T.Type, by id: Int64, filler: (T) -> Void) {
+    public func update<T: ManagedEntity>(type: T.Type, by id: String, filler: (T) -> Void) {
         
         let fetchRequest = type.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id == %@", id)
@@ -98,7 +101,7 @@ public final class StorageService: NSObject, StorageServiceProtocol {
         }
     }
     
-    public func delete<T: ManagedEntity>(type: T.Type, by id: Int64) {
+    public func delete<T: ManagedEntity>(type: T.Type, by id: String) {
         
         let fetchRequest = type.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id == %@", id)

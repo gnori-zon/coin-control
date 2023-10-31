@@ -28,10 +28,10 @@ extension TileSettingsEntity: Entity {
         return NSEntityDescription.entity(forEntityName: entityName, in: context)
     }
 
-    @NSManaged public var id: Int64
     @NSManaged public var title: String
     @NSManaged public var tileTypeCode: Int16
     @NSManaged public var currencyTypeCode: Int16
+    @NSManaged public var id: String
     
     public var tileType: TileType {
         

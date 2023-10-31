@@ -13,5 +13,5 @@ public protocol Entity {
     static func fetchRequest() -> NSFetchRequest<T>
     static func getDescription(in context:  NSManagedObjectContext) -> NSEntityDescription?
     init(entity: NSEntityDescription, insertInto: NSManagedObjectContext?)
-    var id: Int64 { get }
+    var id: String { get set }
 }
