@@ -7,9 +7,13 @@
 
 import Foundation
 
+// MARK: - CoinActionWriterRouterProtocol
+
 public protocol CoinActionWriterRouterProtocol {
     
 }
+
+// MARK: - CoinActionWriterRouter
 
 public class CoinActionWriterRouter: CoinActionWriterRouterProtocol {
     

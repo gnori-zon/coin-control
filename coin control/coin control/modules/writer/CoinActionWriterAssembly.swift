@@ -7,10 +7,14 @@
 
 import UIKit
 
+// MARK: - CoinActionWriterAssemblyProtocol
+
 public protocol CoinActionWriterAssemblyProtocol {
     
     static func assemble(with viewController: CoinActionWriterViewControllerProtocol)
 }
+
+// MARK: - CoinActionWriterAssembly
 
 public class CoinActionWriterAssembly: CoinActionWriterAssemblyProtocol {
     
