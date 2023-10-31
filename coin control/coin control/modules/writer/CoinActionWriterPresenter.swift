@@ -7,10 +7,13 @@
 
 import UIKit
 
+// MARK: - CoinActionWriterPresenterProtocol
 public protocol CoinActionWriterPresenterProtocol: AnyObject {
     
-    func viewDidLoad()
+    func getConfirmHandler() -> (CoinActionType, String, CurrencyType) -> Void
 }
+
+// MARK: - CoinActionWriterPresenter
 
 public class CoinActionWriterPresenter: CoinActionWriterPresenterProtocol {
     
@@ -23,8 +26,11 @@ public class CoinActionWriterPresenter: CoinActionWriterPresenterProtocol {
         self.interactor = interactor
     }
     
-    public func viewDidLoad() {
+    public func getConfirmHandler() -> (CoinActionType, String, CurrencyType) -> Void {
         
+        return { actionType, value, currencyType in
+            self.interactor.saveCoinAction(actionType, value, currencyType)
+        }
     }
     
 }

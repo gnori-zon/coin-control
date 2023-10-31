@@ -7,11 +7,14 @@
 
 import UIKit
 
+//MARK: - CoinActionWriterViewControllerProtocol
+
 public protocol CoinActionWriterViewControllerProtocol: AnyObject {
     
     var presenter: CoinActionWriterPresenterProtocol? { get set }
 }
 
+//MARK: - CoinActionWriterViewController
 
 public class CoinActionWriterViewController: UIViewController, CoinActionWriterViewControllerProtocol {
     
@@ -20,16 +23,35 @@ public class CoinActionWriterViewController: UIViewController, CoinActionWriterV
     public override func viewDidLoad() {
         
         CoinActionWriterAssembly.assemble(with: self)
-        
-        view.backgroundColor = TileDefaultColors.background.getUIColor()
-        title = "Укажите активность"
-        
-        presenter?.viewDidLoad()
+        view = createCoinActionWriterView()
         
         print("DEBUG: displayed bottom sheet view")
     }
     
-    public func initSheetPresentationController() {
+    private func createCoinActionWriterView() -> CoinActionWriterView {
+        
+        let writerView = CoinActionWriterView()
+        writerView.setup(
+            title: "Укажите активность",
+            confirmButtonTitle: "Добавить",
+            currencyValues: CurrencyType.validCases,
+            actionValues: CoinActionType.validCases
+            
+        )
+
+        writerView.valueValidator = TextFieldDecimalValidator.validate
+        writerView.confirmHandler = presenter?.getConfirmHandler()
+        
+        return writerView
+    }
+    
+}
+
+//MARK: - initSheetPresentationController
+
+public extension CoinActionWriterViewController {
+    
+    func initSheetPresentationController() {
         
         isModalInPresentation = true
         
