@@ -7,12 +7,18 @@
         <attribute name="id" attributeType="String"/>
         <attribute name="value" attributeType="Decimal" defaultValueString="0.0"/>
     </entity>
-    <entity name="TileSettingsEntity" representedClassName=".TileSettingsEntity" syncable="YES">
+    <entity name="CoinActionTileSettingsEntity" representedClassName=".CoinActionTileSettingsEntity" syncable="YES">
+        <attribute name="coinActionTypeCode" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="currencyTypeCode" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="String"/>
         <attribute name="sortingDirectionCode" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="sortingTypeCode" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="tileTypeCode" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" customClassName=".TileType"/>
+        <attribute name="title" attributeType="String"/>
+    </entity>
+    <entity name="CurrencyRateTileSettingsEntity" representedClassName="CurrencyRateTileSettingsEntity" syncable="YES">
+        <attribute name="id" attributeType="String"/>
+        <attribute name="selectedCurrencyCodes" optional="YES" attributeType="String"/>
+        <attribute name="targetCurrencyTypeCode" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="title" attributeType="String"/>
     </entity>
 </model>

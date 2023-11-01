@@ -9,19 +9,19 @@
 import Foundation
 import CoreData
 
-@objc(TileSettingsEntity)
-public final class TileSettingsEntity: NSManagedObject {
+@objc(CoinActionTileSettingsEntity)
+public final class CoinActionTileSettingsEntity: NSManagedObject {
 
 }
 
 //MARK: - TileSettingsEntity
 
-extension TileSettingsEntity: Entity {
+extension CoinActionTileSettingsEntity: Entity, TileSettingsProtocol {
     
-    private static let entityName = "TileSettingsEntity"
+    private static let entityName = "CoinActionTileSettingsEntity"
     
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<TileSettingsEntity> {
-        return NSFetchRequest<TileSettingsEntity>(entityName: entityName)
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<CoinActionTileSettingsEntity> {
+        return NSFetchRequest<CoinActionTileSettingsEntity>(entityName: entityName)
     }
     
     @nonobjc public class func getDescription(in context:  NSManagedObjectContext) -> NSEntityDescription? {
@@ -29,19 +29,19 @@ extension TileSettingsEntity: Entity {
     }
 
     @NSManaged public var title: String
-    @NSManaged public var tileTypeCode: Int16
+    @NSManaged public var coinActionTypeCode: Int16
     @NSManaged public var currencyTypeCode: Int16
     @NSManaged public var sortingTypeCode: Int16
     @NSManaged public var sortingDirectionCode: Int16
     @NSManaged public var id: String
     
-    public var tileType: TileType {
+    public var coinActionType: CoinActionType {
         
         get {
-            return TileType(rawValue: Int16(self.tileTypeCode)) ?? .undefined
+            return CoinActionType(rawValue: coinActionTypeCode) ?? .undefined
         }
         set {
-            self.tileTypeCode = Int16(newValue.rawValue)
+            self.coinActionTypeCode = Int16(newValue.rawValue)
         }
     }
     
@@ -77,6 +77,6 @@ extension TileSettingsEntity: Entity {
 
 }
 
-extension TileSettingsEntity : Identifiable {
+extension CoinActionTileSettingsEntity : Identifiable {
 
 }
