@@ -31,6 +31,8 @@ extension TileSettingsEntity: Entity {
     @NSManaged public var title: String
     @NSManaged public var tileTypeCode: Int16
     @NSManaged public var currencyTypeCode: Int16
+    @NSManaged public var sortingTypeCode: Int16
+    @NSManaged public var sortingDirectionCode: Int16
     @NSManaged public var id: String
     
     public var tileType: TileType {
@@ -50,6 +52,26 @@ extension TileSettingsEntity: Entity {
         }
         set {
             self.currencyTypeCode = Int16(newValue.rawValue)
+        }
+    }
+    
+    public var sortingType: SortingType {
+        
+        get {
+            return SortingType(rawValue: sortingTypeCode) ?? .undefined
+        }
+        set {
+            self.sortingTypeCode = Int16(newValue.rawValue)
+        }
+    }
+    
+    public var sortingDirection: SortingDirection {
+        
+        get {
+            return SortingDirection(rawValue: sortingDirectionCode) ?? .undefined
+        }
+        set {
+            self.sortingDirectionCode = Int16(newValue.rawValue)
         }
     }
 

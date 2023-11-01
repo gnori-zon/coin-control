@@ -37,6 +37,8 @@
 		0F2DF8622AED85E2002F6BA3 /* TextFieldDecimalValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2DF8612AED85E2002F6BA3 /* TextFieldDecimalValidator.swift */; };
 		0F2DF8652AEE75EB002F6BA3 /* UIDropDownList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2DF8642AEE75EB002F6BA3 /* UIDropDownList.swift */; };
 		0F33EFC22AF05765000DDFD0 /* DefaultAnimationsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F33EFC12AF05765000DDFD0 /* DefaultAnimationsProtocol.swift */; };
+		0F33EFC42AF2CCF2000DDFD0 /* SortingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F33EFC32AF2CCF2000DDFD0 /* SortingType.swift */; };
+		0F33EFC62AF2CE33000DDFD0 /* SortingDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F33EFC52AF2CE33000DDFD0 /* SortingDirection.swift */; };
 		0F42E1E02AE4041D00982A09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F42E1DF2AE4041D00982A09 /* AppDelegate.swift */; };
 		0F42E1E22AE4041D00982A09 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F42E1E12AE4041D00982A09 /* SceneDelegate.swift */; };
 		0F42E1E42AE4041D00982A09 /* TileCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F42E1E32AE4041D00982A09 /* TileCollectionViewController.swift */; };
@@ -76,6 +78,8 @@
 		0F2DF8612AED85E2002F6BA3 /* TextFieldDecimalValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldDecimalValidator.swift; sourceTree = "<group>"; };
 		0F2DF8642AEE75EB002F6BA3 /* UIDropDownList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDropDownList.swift; sourceTree = "<group>"; };
 		0F33EFC12AF05765000DDFD0 /* DefaultAnimationsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAnimationsProtocol.swift; sourceTree = "<group>"; };
+		0F33EFC32AF2CCF2000DDFD0 /* SortingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingType.swift; sourceTree = "<group>"; };
+		0F33EFC52AF2CE33000DDFD0 /* SortingDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingDirection.swift; sourceTree = "<group>"; };
 		0F42E1DC2AE4041D00982A09 /* coin control.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "coin control.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F42E1DF2AE4041D00982A09 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0F42E1E12AE4041D00982A09 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -183,6 +187,8 @@
 		0F2DF8412AE99A6F002F6BA3 /* tile */ = {
 			isa = PBXGroup;
 			children = (
+				0F33EFC32AF2CCF2000DDFD0 /* SortingType.swift */,
+				0F33EFC52AF2CE33000DDFD0 /* SortingDirection.swift */,
 				0F2DF8442AE99CB0002F6BA3 /* TileSettingsEntity.swift */,
 				0F2DF8422AE99A81002F6BA3 /* TileType.swift */,
 			);
@@ -338,6 +344,7 @@
 				0F2DF8542AEC53EF002F6BA3 /* CoinActionWriterViewController.swift in Sources */,
 				0F42E1E42AE4041D00982A09 /* TileCollectionViewController.swift in Sources */,
 				0F2DF8112AE40AB4002F6BA3 /* MainDefaultColors.swift in Sources */,
+				0F33EFC42AF2CCF2000DDFD0 /* SortingType.swift in Sources */,
 				0F2DF8562AEC53FE002F6BA3 /* CoinActionWriterView.swift in Sources */,
 				0F2DF82E2AE57EA3002F6BA3 /* TileCollectionInteractor.swift in Sources */,
 				0F2DF8482AE99CB0002F6BA3 /* TileSettingsEntity.swift in Sources */,
@@ -352,6 +359,7 @@
 				0F2DF8302AE57EB9002F6BA3 /* TileCollectionPresenter.swift in Sources */,
 				0F2DF8242AE41C50002F6BA3 /* TileDefaultColors.swift in Sources */,
 				0F2DF8162AE411F3002F6BA3 /* CoinActionType.swift in Sources */,
+				0F33EFC62AF2CE33000DDFD0 /* SortingDirection.swift in Sources */,
 				0F42E1E02AE4041D00982A09 /* AppDelegate.swift in Sources */,
 				0F2DF82C2AE57E4F002F6BA3 /* TileCollectionAssembly.swift in Sources */,
 				0F2DF8652AEE75EB002F6BA3 /* UIDropDownList.swift in Sources */,
