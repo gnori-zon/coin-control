@@ -19,8 +19,8 @@ public protocol CoinActionWriterInteractorProtocol {
 public class CoinActionWriterInteractor: CoinActionWriterInteractorProtocol {
     
     weak var presenter: CoinActionWriterPresenterProtocol?
-    public var storage: any StorageServiceProtocol = StorageService.shared()
-
+    private var storage: any StorageServiceProtocol = StorageService.shared()
+    
     public func saveCoinAction(_ actionType: CoinActionType, _ value: String, _ currencyType: CurrencyType) {
         
         let createdCoinAction = storage.create(type: CoinActionEntity.self) { entity in

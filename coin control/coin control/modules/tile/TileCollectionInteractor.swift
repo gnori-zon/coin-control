@@ -14,32 +14,79 @@ public protocol TileCollectionInteractorProtocol {
 public class TileCollectionInteractor: TileCollectionInteractorProtocol {
 
     weak var presenter: TileCollectionPresenterProtocol?
+    private var storage: some StorageServiceProtocol = StorageService.shared()
+    private var tileSettingsService: TileSettingsServiceProtocol
+    
+    init(_ tileSettingsService: TileSettingsServiceProtocol) {
+        self.tileSettingsService = tileSettingsService
+    }
     
     public func loadRawTiles() {
         
-        DispatchQueue.global(qos: .userInitiated).async {
-            // TODO: load from core data
-            DispatchQueue.main.async {
-                let tiles = self.loadMockTiles()
-                self.presenter?.tilesDidLoad(tiles: tiles)
+        DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
+            
+            let tileSettings = self.tileSettingsService.getAllTileSettings()
+            let coinActions = Dictionary.init(grouping: storage.fetch(type: CoinActionEntity.self), by: { $0.actionType })
+            var setups = [() -> TileProtocol]()
+            
+            for tileSetting in tileSettings {
+                
+                if let tile = tileSetting as? CoinActionTileSettingsEntity {
+                    setups.append({
+                        
+                        let tileView = CoinActionTileView()
+                        tileView.setup(title: tile.title, records: coinActions.convertToRecords(by: tile.coinActionType))
+                        
+                        return tileView
+                    })
+                    
+                }
+            }
+            
+            // create raw not released yet
+           
+            setups.append({
+                
+                let tileView = CurrencyRateTileView()
+                tileView.setup(title: "Курсы", timeUpdate: "12:12", records: [
+                    (imagePath: CurrencyType.eur.currencyRaw.imagePath, text: "103 rub"),
+                    (imagePath: CurrencyType.usd.currencyRaw.imagePath, text: "97 rub")
+                ])
+                
+                return tileView
+            })
+            
+            DispatchQueue.main.async { [unowned self] in
+                let tileViews = self.applySetups(setups)
+                self.presenter?.tilesDidLoad(tiles: tileViews)
             }
         }
     }
     
-    private func loadMockTiles() -> [TileProtocol] {
+    private func applySetups(_ setups: [() -> TileProtocol]) -> [TileProtocol] {
         
-        let tile1 = CoinActionTileView()
-        tile1.setup(title: "Траты", records: ["1. 50 rub", "2. 140 usd", "3. 122 rub", "4. 11 rub"])
+        return setups.map { $0() }
+    }
+}
+
+fileprivate extension Dictionary where Key == CoinActionType, Value == [CoinActionEntity] {
+    
+    func convertToRecords(by coinActionType: CoinActionType) -> [String] {
         
-        let tile2 = CoinActionTileView()
-        tile2.setup(title: "Прибыль", records: ["1. 530 rub", "2. 10 usd", "3. 12 rub", "4. 111 rub"])
+        var records = [String]()
+        let maxItems = 5
+        var currentCount = 0
         
-        let tile3 = CurrencyRateTileView()
-        tile3.setup(title: "Курсы", timeUpdate: "12:12", records: [
-            (imagePath: CurrencyType.eur.currencyRaw.imagePath, text: "103 rub"),
-            (imagePath: CurrencyType.usd.currencyRaw.imagePath, text: "97 rub")
-        ])
+        for incomeItem in self[coinActionType] ?? [] {
+            
+            currentCount += 1
+            if currentCount >= maxItems {
+                break
+            }
+            
+            records.append("\(incomeItem.value) \(incomeItem.currencyType.currencyRaw.str)")
+        }
         
-        return [tile1, tile2, tile3]
+        return records
     }
 }
