@@ -10,7 +10,7 @@ public protocol TileSettingsServiceProtocol {
     func getAllTileSettings() -> [any TileSettingsProtocol]
 }
 
-public class TileSettingsService: TileSettingsServiceProtocol {
+public struct TileSettingsService: TileSettingsServiceProtocol {
     
     private let storage: some StorageServiceProtocol = StorageService.shared()
     private var defaultTileSettings: [any TileSettingsProtocol] {
