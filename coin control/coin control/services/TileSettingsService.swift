@@ -24,7 +24,8 @@ public struct TileSettingsService: TileSettingsServiceProtocol {
     
     public func getAllTileSettings() -> [any TileSettingsProtocol] {
         
-        let tileSettings: [any TileSettingsProtocol] = storage.fetch(type: CoinActionTileSettingsEntity.self)
+        var tileSettings: [any TileSettingsProtocol] = storage.fetch(type: CoinActionTileSettingsEntity.self)
+        storage.fetch(type: CurrencyRateTileSettingsEntity.self).forEach { tileSettings.append($0) }
         
         if tileSettings.count < 1 {
             return defaultTileSettings
