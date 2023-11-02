@@ -16,21 +16,30 @@ public typealias CurrencyRateRecordRaw = (imagePath: String, text: String)
 
 public protocol CurrencyRateTileProtocol: TileProtocol {
     
-    func setup(title titleText: String, timeUpdate timeUpdateText: String, records currencyRateRecordRaw: [CurrencyRateRecordRaw])
+    func setup(title titleText: String, timeUpdate timeUpdateText: String)
 }
 
 //MARK: - CurrencyRateTileView
 
 public class CurrencyRateTileView: UIView, CurrencyRateTileProtocol {
     
+    static let cellHeight: CGFloat = 30
+    static let cellTextSize: CGFloat = 18
+    static let reusableId = "CurrencyRateTileCell"
+    
     private var titleLabel: UILabel
     private var timeUpdateLabel: UILabel
-    private var currencyRateRecords: [CurrencyRateRecord]
+    private var currencyRateRecordsTableView: UITableView
+    var currencyRateRecordRaws: [CurrencyRateRecordRaw]
+    let id: String
     
-    public init() {
+    public init(_ id: String, records currencyRateRecordRaws: [CurrencyRateRecordRaw]) {
+        
+        self.id = id
+        self.currencyRateRecordRaws = currencyRateRecordRaws
         titleLabel = UILabel()
         timeUpdateLabel = UILabel()
-        currencyRateRecords = []
+        currencyRateRecordsTableView = UITableView()
         super.init(frame: CGRect())
     }
     
@@ -40,8 +49,7 @@ public class CurrencyRateTileView: UIView, CurrencyRateTileProtocol {
     
     public func setup(
         title titleText: String,
-        timeUpdate timeUpdateText: String,
-        records currencyRateRecordRaw: [CurrencyRateRecordRaw]
+        timeUpdate timeUpdateText: String
     ) {
         
         translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +60,7 @@ public class CurrencyRateTileView: UIView, CurrencyRateTileProtocol {
         
         displayTitle(text: titleText)
         displayTimeUpdate(textDate: timeUpdateText)
-        displayCurrencyRateRecords(rawRecords: currencyRateRecordRaw)
+        displayCurrencyRateRecords()
         
         print("DEBUG: displayed CurrencyRateTileView")
     }
@@ -88,42 +96,83 @@ public class CurrencyRateTileView: UIView, CurrencyRateTileProtocol {
         ])
     }
     
-    private func displayCurrencyRateRecords(rawRecords: [CurrencyRateRecordRaw]) {
+    private func displayCurrencyRateRecords() {
         
-        let recordsContainer = createVerticalUIStackView(in: self)
+        currencyRateRecordsTableView.dataSource = self
+        currencyRateRecordsTableView.delegate = self
+        currencyRateRecordsTableView.rowHeight = CurrencyRateTileView.cellHeight
+        currencyRateRecordsTableView.backgroundColor = .clear
+        currencyRateRecordsTableView.isUserInteractionEnabled = false
+        currencyRateRecordsTableView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(currencyRateRecordsTableView)
         
-        rawRecords.forEach { raw in
-            
-            let recordContainer = createHorizontalUIStackView(in: recordsContainer)
-            
-            let image = UIImage(systemName: raw.imagePath)
-            
-            let iconView = UIImageView(image: image)
-            iconView.tintColor = .black
-            iconView.translatesAutoresizingMaskIntoConstraints = false
-            
-            recordContainer.addSubview(iconView)
-            
-            NSLayoutConstraint.activate([
-                iconView.centerYAnchor.constraint(equalTo: recordContainer.centerYAnchor),
-                iconView.leadingAnchor.constraint(equalTo: recordContainer.leadingAnchor)
-            ])
-            
-            let recordLabel = UILabel()
-            
-            recordLabel.text = raw.text
-            recordLabel.translatesAutoresizingMaskIntoConstraints = false
-            recordContainer.addSubview(recordLabel)
-            
-            NSLayoutConstraint.activate([
-                recordLabel.topAnchor.constraint(equalTo: recordContainer.topAnchor),
-                recordLabel.bottomAnchor.constraint(equalTo: recordContainer.bottomAnchor),
-                recordLabel.trailingAnchor.constraint(equalTo: recordContainer.trailingAnchor)
-            ])
-            
-            recordsContainer.addArrangedSubview(recordContainer)
+        NSLayoutConstraint.activate([
+            currencyRateRecordsTableView.topAnchor.constraint(equalTo: topAnchor, constant: 35),
+            currencyRateRecordsTableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            currencyRateRecordsTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            currencyRateRecordsTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15)
+        ])
+    }
+    
+}
+
+// MARK: - UITableView delegates
+
+extension CurrencyRateTileView: UITableViewDelegate, UITableViewDataSource {
+    
+    public func reloadData() {
+        self.currencyRateRecordsTableView.reloadData()
+    }
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        currencyRateRecordRaws.count
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        var cell = currencyRateRecordsTableView.dequeueReusableCell(withIdentifier: CurrencyRateTileView.reusableId)
+        
+        if cell == nil {
+            cell = UITableViewCell(style: .default, reuseIdentifier: CurrencyRateTileView.reusableId)
         }
+        cell?.backgroundColor = .clear
+        
+        cell?.fill(from: currencyRateRecordRaws, by: indexPath)
+
+        return cell!
     }
 }
 
-extension CurrencyRateTileView: UIStackCreatorProtocol {}
+extension UITableViewCell: UIStackCreatorProtocol {
+    
+    fileprivate func fill(from currencyRateRecordRaws: [CurrencyRateRecordRaw], by indexPath: IndexPath) {
+        
+        let recordContainer = createHorizontalUIStackView(in: self)
+        let row = currencyRateRecordRaws[indexPath.row]
+
+        let image = UIImage(systemName: row.imagePath)
+        let iconView = UIImageView(image: image)
+        iconView.tintColor = .black
+        iconView.translatesAutoresizingMaskIntoConstraints = false
+        
+        recordContainer.addSubview(iconView)
+        
+        NSLayoutConstraint.activate([
+            iconView.centerYAnchor.constraint(equalTo: recordContainer.centerYAnchor),
+            iconView.leadingAnchor.constraint(equalTo: recordContainer.leadingAnchor)
+        ])
+        
+        let recordLabel = UILabel()
+        
+        recordLabel.text = row.text
+        recordLabel.font = UIFont.systemFont(ofSize: CurrencyRateTileView.cellTextSize)
+        recordLabel.translatesAutoresizingMaskIntoConstraints = false
+        recordContainer.addSubview(recordLabel)
+        
+        NSLayoutConstraint.activate([
+            recordLabel.topAnchor.constraint(equalTo: recordContainer.topAnchor),
+            recordLabel.bottomAnchor.constraint(equalTo: recordContainer.bottomAnchor),
+            recordLabel.trailingAnchor.constraint(equalTo: recordContainer.trailingAnchor)
+        ])
+    }
+}

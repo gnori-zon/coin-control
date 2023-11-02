@@ -17,8 +17,8 @@ public struct CoinActionTileViewSetupCollector: TileViewSetupCollectorProtocol {
         
         return {
             
-            let tileView = CoinActionTileView()
-            tileView.setup(title: tileSetting.title, records: rawData.convertToRecords(by: tileSetting.coinActionType))
+            let tileView = CoinActionTileView(tileSetting.id, records: rawData.convertToRecords(by: tileSetting.coinActionType))
+            tileView.setup(title: tileSetting.title)
             
             return tileView
         }
@@ -36,7 +36,7 @@ fileprivate extension Dictionary where Key == CoinActionType, Value == [CoinActi
         for incomeItem in self[coinActionType] ?? [] {
             
             currentCount += 1
-            if currentCount >= maxItems {
+            if currentCount > maxItems {
                 break
             }
             
