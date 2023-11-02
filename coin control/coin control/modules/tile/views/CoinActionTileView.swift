@@ -11,18 +11,27 @@ import UIKit
 
 public protocol CoinActionTileProtocol: TileProtocol {
     
-    func setup(title titleText: String, records recordsTexts: [String])
+    func setup(title titleText: String)
 }
 
 //MARK: - CoinActionTileView
 
 public class CoinActionTileView: UIView, CoinActionTileProtocol {
     
-    var titleLabel: UILabel
-    var recordLabels: [UILabel]
+    static let cellHeight: CGFloat = 22
+    static let cellTextSize: CGFloat = 14
+    static let reusableId = "CoinActionTileCell"
     
-    public init() {
-        recordLabels = []
+    private var titleLabel: UILabel
+    private let recordsTableView: UITableView
+    var records: [String]
+    let id: String
+    
+    public init(_ id: String, records: [String]) {
+        
+        self.id = id
+        self.records = records
+        recordsTableView = UITableView()
         titleLabel = UILabel()
         super.init(frame: CGRect())
     }
@@ -31,7 +40,7 @@ public class CoinActionTileView: UIView, CoinActionTileProtocol {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func setup(title titleText: String = "unnamed", records recordsTexts: [String]) {
+    public func setup(title titleText: String = "unnamed") {
         
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = TileDefaultColors.background.getUIColor()
@@ -40,7 +49,7 @@ public class CoinActionTileView: UIView, CoinActionTileProtocol {
         layer.cornerRadius = 15
         
         displayTitle(text: titleText)
-        displayRecords(records: recordsTexts)
+        displayRecords()
         
         print("DEBUG: displayed CoinActionTileView")
     }
@@ -61,26 +70,53 @@ public class CoinActionTileView: UIView, CoinActionTileProtocol {
         ])
     }
     
-    private func displayRecords(records recordsTexts: [String]) {
+    private func displayRecords() {
         
-        let recordContainer = createVerticalUIStackView(in: self)
+        recordsTableView.delegate = self
+        recordsTableView.dataSource = self
+        recordsTableView.isScrollEnabled = false
+        recordsTableView.isUserInteractionEnabled = false
+        recordsTableView.backgroundColor = .clear
+        recordsTableView.rowHeight = CoinActionTileView.cellHeight
+        recordsTableView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(recordsTableView)
         
-        recordsTexts.forEach { recordText in
-            
-            let recordLabel = UILabel()
-            recordLabel.text = recordText
-            recordLabel.translatesAutoresizingMaskIntoConstraints = false
-            
-            recordLabels.append(recordLabel)
-            recordContainer.addArrangedSubview(recordLabel)
-            
-            NSLayoutConstraint.activate([
-                recordLabel.leadingAnchor.constraint(equalTo: recordContainer.leadingAnchor),
-                recordLabel.trailingAnchor.constraint(equalTo: recordContainer.trailingAnchor)
-            ])
-        }
+        NSLayoutConstraint.activate([
+            recordsTableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
+            recordsTableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            recordsTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            recordsTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
+        ])
     }
 }
 
 extension CoinActionTileView: UIStackCreatorProtocol {}
 
+// MARK: - UITableView delegates
+
+extension CoinActionTileView: UITableViewDelegate, UITableViewDataSource {
+    
+    public func reloadData() {
+        self.recordsTableView.reloadData()
+    }
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        self.records.count
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        var cell = tableView.dequeueReusableCell(withIdentifier: CoinActionTileView.reusableId)
+        
+        if cell == nil {
+            cell = UITableViewCell(style: .default, reuseIdentifier: CoinActionTileView.reusableId)
+        }
+        cell?.textLabel?.textAlignment = .left
+        cell?.textLabel?.font = UIFont.systemFont(ofSize: CoinActionTileView.cellTextSize)
+        cell?.textLabel?.textColor = .black
+        cell?.backgroundColor = .clear
+        cell?.textLabel?.text = self.records[indexPath.row]
+        
+        return cell!
+    }
+}
