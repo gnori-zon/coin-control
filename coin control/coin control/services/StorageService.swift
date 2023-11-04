@@ -39,9 +39,9 @@ public final class StorageService: NSObject, StorageServiceProtocol {
     
     private override init() {}
     
-    private var appDelegate: AppDelegate {
+    private var appDelegate: AppDelegate = {
         UIApplication.shared.delegate as! AppDelegate
-    }
+    }()
     
     private var context: NSManagedObjectContext {
         appDelegate.persistentContainer.viewContext
