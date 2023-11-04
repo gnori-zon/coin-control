@@ -9,7 +9,7 @@
 
 public protocol TileViewSetupCollectorContainerProtocol {
     
-    func loadAllSetups() -> [() -> TileProtocol]
+    func loadAllSetups() -> [() -> any TileProtocol]
 }
 
 // MARK: - TileViewSetupCollectorContainer
@@ -23,7 +23,7 @@ public struct TileViewSetupCollectorContainer: TileViewSetupCollectorContainerPr
         self.tileSettingsService = tileSettingsService
     }
     
-    public func loadAllSetups() -> [() -> TileProtocol] {
+    public func loadAllSetups() -> [() -> any TileProtocol] {
         
         let tileSettings = self.tileSettingsService.getAllTileSettings()
         let coinActions = Dictionary(grouping: storage.fetch(type: CoinActionEntity.self), by: { $0.actionType })

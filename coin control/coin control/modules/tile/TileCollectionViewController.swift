@@ -7,13 +7,14 @@
 
 import UIKit
 
-typealias TileView = TileProtocol & UIView
+public typealias TileView = TileProtocol & UIView
 
 // MARK: - TileCollectionViewControllerProtocol
 public protocol TileCollectionViewControllerProtocol: AnyObject {
     
     var presenter: TileCollectionPresenterProtocol? { get set }
-    func addTile(tile: TileProtocol)
+    func addTile(tile: any TileProtocol)
+    func clearTiles()
     func reloadData()
 }
 
@@ -23,7 +24,7 @@ public class TileCollectionViewController: UICollectionViewController, TileColle
     
     static let reuseIdentifier = "Cell"
     
-    private var tiles = [TileView]()
+    private var tiles = [any TileView]()
     public var presenter: TileCollectionPresenterProtocol?
     
     public override func viewDidLoad() {
@@ -43,34 +44,24 @@ public class TileCollectionViewController: UICollectionViewController, TileColle
         showCoinActionWriterViewControllerInCustomizedSheet()
     }
     
-    public func addTile(tile: TileProtocol) {
+    public func clearTiles() {
+        tiles = [any TileView]()
+    }
+    
+    public func addTile(tile: any TileProtocol) {
         
-        switch tile {
-        case _ where tile is CoinActionTileView:
-            displayCoinActionTileView(tile: tile as! CoinActionTileView)
-        case _ where tile is CurrencyRateTileView:
-            tiles.append(tile as! CurrencyRateTileView)
-        
-        default:
-            print("DEBUG: receive unknown tile")
+        if let tileView = tile as? any TileView {
+            tiles.append(tileView)
         }
     }
     
     public func reloadData() {
         self.collectionView.reloadData()
     }
-    
-    private func displayCoinActionTileView(tile: CoinActionTileView) {
-        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: tile, action: #selector(tile.longPress))
-        
-        longPressGestureRecognizer.minimumPressDuration = 1
-        tile.addGestureRecognizer(longPressGestureRecognizer)
-        
-        tiles.append(tile)
-    }
 }
 
 //MARK: - methods CollectionViewController
+
 public extension TileCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection: Int) -> Int {
@@ -104,31 +95,6 @@ public extension TileCollectionViewController {
         layout.minimumInteritemSpacing = 5
         
         return layout
-    }
-}
-
-// MARK: - CoinActionTileView
-
-fileprivate extension CoinActionTileView {
-    
-    @objc func longPress(sender: UILongPressGestureRecognizer) {
-        
-        switch sender.state {
-        case .began:
-            compressSize()
-        case .ended:
-            identitySize()
-        default:
-            return
-        }
-    }
-    
-    func compressSize() {
-        UIView.animate(withDuration: 0.2, animations: { self.transform = CGAffineTransform(scaleX: 0.8, y: 0.8) })
-    }
-    
-    func identitySize() {
-        UIView.animate(withDuration: 0.1, animations: { self.transform = CGAffineTransform.identity })
     }
 }
 

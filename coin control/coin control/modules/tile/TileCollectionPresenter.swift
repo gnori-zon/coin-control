@@ -7,7 +7,7 @@
 
 public protocol TileCollectionPresenterProtocol: AnyObject {
     func viewDidLoad()
-    func tilesDidLoad(tiles: [TileProtocol])
+    func tilesDidLoad(tiles: [any TileProtocol])
 }
 
 public class TileCollectionPresenter: TileCollectionPresenterProtocol {
@@ -22,15 +22,13 @@ public class TileCollectionPresenter: TileCollectionPresenterProtocol {
     }
     
     public func viewDidLoad() {
-        interactor.loadRawTiles()
+        interactor.loadTiles()
     }
     
-    public func tilesDidLoad(tiles: [TileProtocol]) {
+    public func tilesDidLoad(tiles: [any TileProtocol]) {
         
-        tiles.forEach {tile in
-            viewController?.addTile(tile: tile)
-        }
-        
+        viewController?.clearTiles()
+        tiles.forEach { viewController?.addTile(tile: $0) }
         viewController?.reloadData()
     }
 }

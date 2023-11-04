@@ -7,7 +7,7 @@
 
 public struct CurrencyRateTileViewSetupCollector: TileViewSetupCollectorProtocol {
     
-    public func collect(for tileSetting: CurrencyRateTileSettingsEntity) -> () -> TileProtocol {
+    public func collect(for tileSetting: CurrencyRateTileSettingsEntity) -> () -> any TileProtocol {
         
         return {
             // TODO: replace this mock

@@ -13,7 +13,7 @@ public struct CoinActionTileViewSetupCollector: TileViewSetupCollectorProtocol {
         rawData = data
     }
     
-    public func collect(for tileSetting: CoinActionTileSettingsEntity) -> () -> TileProtocol {
+    public func collect(for tileSetting: CoinActionTileSettingsEntity) -> () -> any TileProtocol {
         
         return {
             

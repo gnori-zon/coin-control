@@ -8,5 +8,5 @@
 public protocol TileViewSetupCollectorProtocol {
     associatedtype TileSetting: TileSettingsProtocol
     
-    func collect(for tileSetting: TileSetting) -> () -> TileProtocol
+    func collect(for tileSetting: TileSetting) -> () -> any TileProtocol
 }
