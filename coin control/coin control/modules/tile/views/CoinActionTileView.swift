@@ -25,7 +25,7 @@ public class CoinActionTileView: UIView, CoinActionTileProtocol {
     private var titleLabel: UILabel
     private let recordsTableView: UITableView
     var records: [String]
-    let id: String
+    public let id: String
     
     public init(_ id: String, records: [String]) {
         

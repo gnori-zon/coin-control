@@ -31,7 +31,7 @@ public class CurrencyRateTileView: UIView, CurrencyRateTileProtocol {
     private var timeUpdateLabel: UILabel
     private var currencyRateRecordsTableView: UITableView
     var currencyRateRecordRaws: [CurrencyRateRecordRaw]
-    let id: String
+    public let id: String
     
     public init(_ id: String, records currencyRateRecordRaws: [CurrencyRateRecordRaw]) {
         
@@ -100,6 +100,7 @@ public class CurrencyRateTileView: UIView, CurrencyRateTileProtocol {
         
         currencyRateRecordsTableView.dataSource = self
         currencyRateRecordsTableView.delegate = self
+        currencyRateRecordsTableView.allowsSelection = false
         currencyRateRecordsTableView.rowHeight = CurrencyRateTileView.cellHeight
         currencyRateRecordsTableView.backgroundColor = .clear
         currencyRateRecordsTableView.isUserInteractionEnabled = false
