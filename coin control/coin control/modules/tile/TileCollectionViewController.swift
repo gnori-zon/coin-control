@@ -26,6 +26,7 @@ public class TileCollectionViewController: UICollectionViewController, TileColle
     static let reuseIdentifier = "Cell"
     
     private var tiles = [any TileView]()
+    private var tilesPerId = [String: any TileView]()
     public var presenter: TileCollectionPresenterProtocol?
     
     public override func viewDidLoad() {
@@ -47,18 +48,20 @@ public class TileCollectionViewController: UICollectionViewController, TileColle
     
     public func clearTiles() {
         tiles = [any TileView]()
+        tilesPerId = [String: any TileView]()
     }
     
     public func addTile(tile: any TileProtocol) {
         
         if let tileView = tile as? any TileView {
             tiles.append(tileView)
+            tilesPerId[tileView.id] = tileView
         }
     }
     
     public func findTile(by id: String) -> (any TileProtocol)? {
         
-        return tiles.first { $0.id == id }
+        return tilesPerId[id]
     }
     
     public func reloadData() {
