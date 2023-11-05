@@ -16,7 +16,7 @@ public final class CoinActionTileSettingsEntity: NSManagedObject {
 
 //MARK: - TileSettingsEntity
 
-extension CoinActionTileSettingsEntity: Entity, TileSettingsProtocol {
+extension CoinActionTileSettingsEntity: TileSettingsEntityProtocol {
     
     private static let entityName = "CoinActionTileSettingsEntity"
     

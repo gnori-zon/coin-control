@@ -9,11 +9,11 @@ import Foundation
 import CoreData
 
 @objc(CurrencyRateTileSettingsEntity)
-public final class CurrencyRateTileSettingsEntity: NSManagedObject{
+public final class CurrencyRateTileSettingsEntity: NSManagedObject {
     
 }
 
-extension CurrencyRateTileSettingsEntity: Entity, TileSettingsProtocol {
+extension CurrencyRateTileSettingsEntity: TileSettingsEntityProtocol {
    
     private static let entityName = "CurrencyRateTileSettingsEntity"
     
