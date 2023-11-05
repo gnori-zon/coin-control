@@ -16,7 +16,7 @@ public protocol CoinActionWriterViewControllerProtocol: AnyObject {
 
 //MARK: - CoinActionWriterViewController
 
-public class CoinActionWriterViewController: UIViewController, CoinActionWriterViewControllerProtocol {
+public final class CoinActionWriterViewController: UIViewController, CoinActionWriterViewControllerProtocol {
     
     public var presenter: CoinActionWriterPresenterProtocol?
     

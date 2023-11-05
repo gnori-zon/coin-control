@@ -15,7 +15,7 @@ public protocol CoinActionWriterRouterProtocol {
 
 // MARK: - CoinActionWriterRouter
 
-public class CoinActionWriterRouter: CoinActionWriterRouterProtocol {
+public final class CoinActionWriterRouter: CoinActionWriterRouterProtocol {
     
     weak var viewController: CoinActionWriterViewControllerProtocol?
 }

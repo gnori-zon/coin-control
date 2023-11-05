@@ -16,7 +16,7 @@ public protocol CoinActionWriterAssemblyProtocol {
 
 // MARK: - CoinActionWriterAssembly
 
-public class CoinActionWriterAssembly: CoinActionWriterAssemblyProtocol {
+public struct CoinActionWriterAssembly: CoinActionWriterAssemblyProtocol {
     
     public static func assemble(with viewController: CoinActionWriterViewControllerProtocol) {
         

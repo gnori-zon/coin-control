@@ -21,7 +21,7 @@ public protocol TileCollectionViewControllerProtocol: AnyObject {
 
 // MARK: - TileCollectionViewController
 
-public class TileCollectionViewController: UICollectionViewController, TileCollectionViewControllerProtocol {
+public final class TileCollectionViewController: UICollectionViewController, TileCollectionViewControllerProtocol {
     
     static let reuseIdentifier = "Cell"
     

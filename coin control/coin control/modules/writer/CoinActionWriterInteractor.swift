@@ -16,7 +16,7 @@ public protocol CoinActionWriterInteractorProtocol {
 
 // MARK: - CoinActionWriterInteractor
 
-public class CoinActionWriterInteractor: CoinActionWriterInteractorProtocol {
+public final class CoinActionWriterInteractor: CoinActionWriterInteractorProtocol {
     
     weak var presenter: CoinActionWriterPresenterProtocol?
     private var storage: any StorageServiceProtocol = StorageService.shared()

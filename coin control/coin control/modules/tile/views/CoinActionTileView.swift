@@ -16,7 +16,7 @@ public protocol CoinActionTileProtocol: TileProtocol {
 
 //MARK: - CoinActionTileView
 
-public class CoinActionTileView: UIView, CoinActionTileProtocol {
+public final class CoinActionTileView: UIView, CoinActionTileProtocol {
     
     static let cellHeight: CGFloat = 22
     static let cellTextSize: CGFloat = 14

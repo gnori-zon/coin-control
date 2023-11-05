@@ -11,7 +11,7 @@ public protocol CoinActionWriterViewProtocol {
     func setup(title titleText: String, confirmButtonTitle: String, currencyValues: [CurrencyType], actionValues: [CoinActionType])
 }
 
-public class CoinActionWriterView: UIView, CoinActionWriterViewProtocol {
+public final class CoinActionWriterView: UIView, CoinActionWriterViewProtocol {
     
     private var titleLabel: UILabel
     private var coinValueField: UITextField

@@ -21,7 +21,7 @@ public protocol CurrencyRateTileProtocol: TileProtocol {
 
 //MARK: - CurrencyRateTileView
 
-public class CurrencyRateTileView: UIView, CurrencyRateTileProtocol {
+public final class CurrencyRateTileView: UIView, CurrencyRateTileProtocol {
     
     static let cellHeight: CGFloat = 30
     static let cellTextSize: CGFloat = 18

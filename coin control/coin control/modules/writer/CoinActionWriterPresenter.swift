@@ -15,7 +15,7 @@ public protocol CoinActionWriterPresenterProtocol: AnyObject {
 
 // MARK: - CoinActionWriterPresenter
 
-public class CoinActionWriterPresenter: CoinActionWriterPresenterProtocol {
+public final class CoinActionWriterPresenter: CoinActionWriterPresenterProtocol {
     
     weak var viewController: CoinActionWriterViewControllerProtocol?
     let router: CoinActionWriterRouterProtocol

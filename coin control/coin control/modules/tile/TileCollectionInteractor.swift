@@ -11,7 +11,7 @@ public protocol TileCollectionInteractorProtocol {
     func loadTiles()
 }
 
-public class TileCollectionInteractor: TileCollectionInteractorProtocol {
+public final class TileCollectionInteractor: TileCollectionInteractorProtocol {
 
     weak var presenter: TileCollectionPresenterProtocol?
     private let tileViewCollectorContainer: TileViewCollectorContainerProtocol

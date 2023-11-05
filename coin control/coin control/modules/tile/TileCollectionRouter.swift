@@ -11,7 +11,7 @@ public protocol TileCollectionRouterProtocol {
     
 }
 
-public class TileCollectionRouter: TileCollectionRouterProtocol {
+public final class TileCollectionRouter: TileCollectionRouterProtocol {
     
     weak var viewController: TileCollectionViewControllerProtocol?
 }

@@ -13,7 +13,7 @@ public protocol TileCollectionPresenterProtocol: AnyObject {
     func replaceContent(for id: String, replacer: (any TileProtocol) -> Void)
 }
 
-public class TileCollectionPresenter: TileCollectionPresenterProtocol {
+public final class TileCollectionPresenter: TileCollectionPresenterProtocol {
     
     weak var viewController: TileCollectionViewControllerProtocol?
     let router: TileCollectionRouterProtocol

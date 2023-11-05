@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class UIDropDownList<T>: UIView, UITableViewDelegate, UITableViewDataSource {
+public final class UIDropDownList<T>: UIView, UITableViewDelegate, UITableViewDataSource {
     
     private let cellHeight: CGFloat = 44
     private let cellCornerRadius: CGFloat = 5
