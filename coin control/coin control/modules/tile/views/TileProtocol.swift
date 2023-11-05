@@ -6,7 +6,9 @@
 //
 
 public protocol TileProtocol: Hashable {
+    
     var id: String { get }
+    func reloadContent()
 }
 
 extension TileProtocol {

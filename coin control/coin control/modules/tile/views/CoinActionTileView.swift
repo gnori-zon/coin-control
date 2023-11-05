@@ -96,7 +96,7 @@ extension CoinActionTileView: UIStackCreatorProtocol {}
 
 extension CoinActionTileView: UITableViewDelegate, UITableViewDataSource {
     
-    public func reloadData() {
+    public func reloadContent() {
         self.recordsTableView.reloadData()
     }
     

@@ -121,7 +121,7 @@ public class CurrencyRateTileView: UIView, CurrencyRateTileProtocol {
 
 extension CurrencyRateTileView: UITableViewDelegate, UITableViewDataSource {
     
-    public func reloadData() {
+    public func reloadContent() {
         self.currencyRateRecordsTableView.reloadData()
     }
     
