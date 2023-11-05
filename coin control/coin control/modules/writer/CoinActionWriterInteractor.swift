@@ -23,12 +23,28 @@ public class CoinActionWriterInteractor: CoinActionWriterInteractorProtocol {
     
     public func saveCoinAction(_ actionType: CoinActionType, _ value: String, _ currencyType: CurrencyType) {
         
-        let createdCoinAction = storage.create(type: CoinActionEntity.self) { entity in
+        DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
             
-            entity.actionType = actionType
-            entity.currencyType = currencyType
-            entity.date = .now
-            entity.value = NSDecimalNumber.init(string: value)
+            let createdCoinAction = self.storage.create(type: CoinActionEntity.self) { entity in
+                
+                entity.actionType = actionType
+                entity.currencyType = currencyType
+                entity.date = .now
+                entity.value = NSDecimalNumber.init(string: value)
+            }
+            
+            guard let createdActionType = createdCoinAction?.actionType else {
+                print("DEBUG: coin action not saved")
+                return
+            }
+            
+            NotificationCenter.default.post(name: .didAddCoinAction, object: createdActionType)
         }
     }
+}
+
+//MARK: - Notification.Name
+
+extension Notification.Name {
+    static let didAddCoinAction = Notification.Name("didAddCoinAction")
 }

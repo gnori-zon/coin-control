@@ -16,7 +16,7 @@ public struct TileCollectionAssembly: TileCollectionAssemblyProtocol {
    
     public func assemble(with viewController: TileCollectionViewControllerProtocol) {
         
-        let interactor = TileCollectionInteractor(TileViewSetupCollectorContainer(TileSettingsService()))
+        let interactor = TileCollectionInteractor(TileViewCollectorContainer(TileSettingsService()))
         let router = TileCollectionRouter()
         let presenter = TileCollectionPresenter(router: router, interactor: interactor)
         

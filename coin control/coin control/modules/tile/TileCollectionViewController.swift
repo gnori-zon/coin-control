@@ -16,6 +16,7 @@ public protocol TileCollectionViewControllerProtocol: AnyObject {
     func addTile(tile: any TileProtocol)
     func clearTiles()
     func reloadData()
+    func findTile(by id: String) -> (any TileProtocol)?
 }
 
 // MARK: - TileCollectionViewController
@@ -53,6 +54,11 @@ public class TileCollectionViewController: UICollectionViewController, TileColle
         if let tileView = tile as? any TileView {
             tiles.append(tileView)
         }
+    }
+    
+    public func findTile(by id: String) -> (any TileProtocol)? {
+        
+        return tiles.first { $0.id == id }
     }
     
     public func reloadData() {

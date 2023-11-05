@@ -14,10 +14,11 @@ public protocol TileCollectionInteractorProtocol {
 public class TileCollectionInteractor: TileCollectionInteractorProtocol {
 
     weak var presenter: TileCollectionPresenterProtocol?
-    private let tileViewCollectorContainer: TileViewSetupCollectorContainerProtocol
+    private let tileViewCollectorContainer: TileViewCollectorContainerProtocol
     
-    init(_ tileViewCollectorContainer: TileViewSetupCollectorContainerProtocol) {
+    init(_ tileViewCollectorContainer: TileViewCollectorContainerProtocol) {
         self.tileViewCollectorContainer = tileViewCollectorContainer
+        NotificationCenter.default.addObserver(self, selector: #selector(didAddCoinAction), name: .didAddCoinAction, object: nil)
     }
     
     public func loadTiles() {
@@ -47,6 +48,31 @@ public class TileCollectionInteractor: TileCollectionInteractorProtocol {
 
             longPressGestureRecognizer.minimumPressDuration = 1
             view.addGestureRecognizer(longPressGestureRecognizer)
+        }
+    }
+        
+    @objc private func didAddCoinAction(_ notification: Notification) {
+        
+        DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
+            
+            guard notification.object is CoinActionType else {
+                print("DEBUG: receive undefined 'didAddCoinAction' notification")
+                return
+            }
+            
+            let replacers = self.tileViewCollectorContainer.loadAllReplacers(for: .coinAction)
+            
+            replacers.forEach { replacer in
+                
+                self.presenter?.replaceContent(for: replacer.id) { tileView in
+                    
+                    replacer.action(tileView)
+                    
+                    DispatchQueue.main.async {
+                        tileView.reloadContent()
+                    }
+                }
+            }
         }
     }
 }
