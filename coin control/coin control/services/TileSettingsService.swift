@@ -5,33 +5,43 @@
 //  Created by Stepan Konashenko on 01.11.2023.
 //
 
+import CoreData
+
+public typealias InstanceTileSettingsEntityProtocol = TileSettingsEntityProtocol & NSManagedObject
+
 public protocol TileSettingsServiceProtocol {
     
-    func getAllTileSettings() -> [any TileSettingsProtocol]
+    func getAllTileSettings() -> [any TileSettingsEntityProtocol]
+    func getAllTileSettings<T: InstanceTileSettingsEntityProtocol> (type: T.Type) -> [T]
 }
 
 public struct TileSettingsService: TileSettingsServiceProtocol {
     
     private let storage: some StorageServiceProtocol = StorageService.shared()
-    private var defaultTileSettings: [any TileSettingsProtocol] {
+    
+    public func getAllTileSettings() -> [any TileSettingsEntityProtocol] {
+        
+        var tileSettings: [any TileSettingsEntityProtocol] = storage.fetch(type: CoinActionTileSettingsEntity.self)
+        storage.fetch(type: CurrencyRateTileSettingsEntity.self).forEach { tileSettings.append($0) }
+        
+        if tileSettings.count < 1 {
+            return createDefaultTileSettings()
+        }
+        
+        return tileSettings
+    }
+        
+    public func getAllTileSettings<T: InstanceTileSettingsEntityProtocol> (type: T.Type) -> [T] {
+        return storage.fetch(type: type.self)
+    }
+    
+    private func createDefaultTileSettings() -> [any TileSettingsEntityProtocol] {
                 
         let incomeTileSettings = CoinActionTileSettingsEntity.defaultOf(from: storage, title: "Прибыль", type: .income)
         let outcomeTileSettings = CoinActionTileSettingsEntity.defaultOf(from: storage, title: "Траты", type: .outcome)
         let coursesTileSettings = CurrencyRateTileSettingsEntity.defaultOf(from: storage, title: "Курсы")
         
         return [incomeTileSettings, outcomeTileSettings, coursesTileSettings].compactMap { $0 }
-    }
-    
-    public func getAllTileSettings() -> [any TileSettingsProtocol] {
-        
-        var tileSettings: [any TileSettingsProtocol] = storage.fetch(type: CoinActionTileSettingsEntity.self)
-        storage.fetch(type: CurrencyRateTileSettingsEntity.self).forEach { tileSettings.append($0) }
-        
-        if tileSettings.count < 1 {
-            return defaultTileSettings
-        }
-        
-        return tileSettings
     }
 }
 
