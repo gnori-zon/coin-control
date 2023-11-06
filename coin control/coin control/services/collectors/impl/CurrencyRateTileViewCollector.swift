@@ -9,7 +9,7 @@
 
 public struct CurrencyRateTileViewCollector: TileViewCollectorProtocol {
     
-    public func castedCollectSetups(for tileSetting: CurrencyRateTileSettingsEntity) -> () -> any TileProtocol {
+    public func collectSetups(for tileSetting: CurrencyRateTileSettingsEntity) -> () -> any TileProtocol {
         
         return {
             let tileView = CurrencyRateTileView(tileSetting.id, records: [
@@ -22,7 +22,7 @@ public struct CurrencyRateTileViewCollector: TileViewCollectorProtocol {
         }
     }
     
-    public func castedCollectReplacer(for tileSetting: CurrencyRateTileSettingsEntity) -> (any TileProtocol) -> Void {
+    public func collectReplacer(for tileSetting: CurrencyRateTileSettingsEntity) -> (any TileProtocol) -> Void {
        
         return { tileView in
             

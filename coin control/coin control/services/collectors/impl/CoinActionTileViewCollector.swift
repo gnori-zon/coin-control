@@ -9,7 +9,7 @@ public struct CoinActionTileViewCollector: TileViewCollectorProtocol {
     
     private var storage: some StorageServiceProtocol = StorageService.shared()
 
-    public func castedCollectSetups(for tileSetting: CoinActionTileSettingsEntity) -> () -> any TileProtocol {
+    public func collectSetups(for tileSetting: CoinActionTileSettingsEntity) -> () -> any TileProtocol {
         
         let rawData = getData(by: tileSetting)
         let records = rawData.convertToRecords()
@@ -23,7 +23,7 @@ public struct CoinActionTileViewCollector: TileViewCollectorProtocol {
         }
     }
     
-    public func castedCollectReplacer(for tileSetting: CoinActionTileSettingsEntity) -> (any TileProtocol) -> Void {
+    public func collectReplacer(for tileSetting: CoinActionTileSettingsEntity) -> (any TileProtocol) -> Void {
 
         let rawData = getData(by: tileSetting)
         let records = rawData.convertToRecords()

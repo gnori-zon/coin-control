@@ -54,9 +54,9 @@ public struct TileViewCollectorContainer: TileViewCollectorContainerProtocol {
             
             switch tileSettingsType {
             case .coinAction:
-                replacer = CoinActionTileViewCollector().castedCollectReplacer(for: tileSettingRaw as! CoinActionTileSettingsEntity)
+                replacer = CoinActionTileViewCollector().collectReplacer(for: tileSettingRaw as! CoinActionTileSettingsEntity)
             case.currencyRate:
-                replacer = CurrencyRateTileViewCollector().castedCollectReplacer(for: tileSettingRaw as! CurrencyRateTileSettingsEntity)
+                replacer = CurrencyRateTileViewCollector().collectReplacer(for: tileSettingRaw as! CurrencyRateTileSettingsEntity)
             }
             
             return (tileSettingRaw.id, replacer)
