@@ -11,7 +11,7 @@ public struct CoinActionTileViewCollector: TileViewCollectorProtocol {
 
     public func castedCollectSetups(for tileSetting: CoinActionTileSettingsEntity) -> () -> any TileProtocol {
         
-        let rawData = getData(by: tileSetting.coinActionType)
+        let rawData = getData(by: tileSetting)
         let records = rawData.convertToRecords()
         
         return {
@@ -25,7 +25,7 @@ public struct CoinActionTileViewCollector: TileViewCollectorProtocol {
     
     public func castedCollectReplacer(for tileSetting: CoinActionTileSettingsEntity) -> (any TileProtocol) -> Void {
 
-        let rawData = getData(by: tileSetting.coinActionType)
+        let rawData = getData(by: tileSetting)
         let records = rawData.convertToRecords()
         
         return { tileView in
@@ -39,10 +39,12 @@ public struct CoinActionTileViewCollector: TileViewCollectorProtocol {
         }
     }
     
-    private func getData(by coinActionType: CoinActionType) -> [CoinActionEntity] {
+    private func getData(by entity: CoinActionTileSettingsEntity) -> [CoinActionEntity] {
         
-        let filter: FilterEntities = (field: .actionTypeCode, sign: .equals, value: coinActionType.rawValue)
-        return storage.fetch(type: CoinActionEntity.self, where: [filter])
+        let filter: FilterEntity = (field: .actionTypeCode, sign: .equals, value: entity.coinActionType.rawValue)
+        let sorting: SortingEntity = (type: entity.sortingType, direction: entity.sortingDirection)
+        
+        return storage.fetch(type: CoinActionEntity.self, where: [filter], orderBy: [sorting])
     }
 }
 
@@ -54,7 +56,7 @@ fileprivate extension Array where Element == CoinActionEntity {
         let maxItems = 5
         var currentCount = 0
         
-        for item in self.reversed() {
+        for item in self {
             
             currentCount += 1
             if currentCount > maxItems {

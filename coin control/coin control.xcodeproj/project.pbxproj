@@ -47,7 +47,7 @@
 		0F33EFD62AF440E7000DDFD0 /* CurrencyRateTileViewCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F33EFD52AF440E7000DDFD0 /* CurrencyRateTileViewCollector.swift */; };
 		0F33EFDE2AF7A908000DDFD0 /* TileSettingsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F33EFDD2AF7A908000DDFD0 /* TileSettingsType.swift */; };
 		0F33EFE02AF83EE2000DDFD0 /* FilterSign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F33EFDF2AF83EE2000DDFD0 /* FilterSign.swift */; };
-		0F33EFE32AF862FE000DDFD0 /* FilterEntitiesFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F33EFE22AF862FE000DDFD0 /* FilterEntitiesFields.swift */; };
+		0F33EFE32AF862FE000DDFD0 /* EntityFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F33EFE22AF862FE000DDFD0 /* EntityFields.swift */; };
 		0F42E1E02AE4041D00982A09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F42E1DF2AE4041D00982A09 /* AppDelegate.swift */; };
 		0F42E1E22AE4041D00982A09 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F42E1E12AE4041D00982A09 /* SceneDelegate.swift */; };
 		0F42E1E42AE4041D00982A09 /* TileCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F42E1E32AE4041D00982A09 /* TileCollectionViewController.swift */; };
@@ -97,7 +97,7 @@
 		0F33EFD52AF440E7000DDFD0 /* CurrencyRateTileViewCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRateTileViewCollector.swift; sourceTree = "<group>"; };
 		0F33EFDD2AF7A908000DDFD0 /* TileSettingsType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSettingsType.swift; sourceTree = "<group>"; };
 		0F33EFDF2AF83EE2000DDFD0 /* FilterSign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSign.swift; sourceTree = "<group>"; };
-		0F33EFE22AF862FE000DDFD0 /* FilterEntitiesFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterEntitiesFields.swift; sourceTree = "<group>"; };
+		0F33EFE22AF862FE000DDFD0 /* EntityFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityFields.swift; sourceTree = "<group>"; };
 		0F42E1DC2AE4041D00982A09 /* coin control.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "coin control.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F42E1DF2AE4041D00982A09 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0F42E1E12AE4041D00982A09 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -279,7 +279,7 @@
 			children = (
 				0F2DF84E2AE9A857002F6BA3 /* StorageService.swift */,
 				0F33EFDF2AF83EE2000DDFD0 /* FilterSign.swift */,
-				0F33EFE22AF862FE000DDFD0 /* FilterEntitiesFields.swift */,
+				0F33EFE22AF862FE000DDFD0 /* EntityFields.swift */,
 			);
 			path = storage;
 			sourceTree = "<group>";
@@ -423,7 +423,7 @@
 				0F2DF8652AEE75EB002F6BA3 /* UIDropDownList.swift in Sources */,
 				0F33EFCF2AF307AD000DDFD0 /* TileViewCollectorContainer.swift in Sources */,
 				0F33EFDE2AF7A908000DDFD0 /* TileSettingsType.swift in Sources */,
-				0F33EFE32AF862FE000DDFD0 /* FilterEntitiesFields.swift in Sources */,
+				0F33EFE32AF862FE000DDFD0 /* EntityFields.swift in Sources */,
 				0F42E1E22AE4041D00982A09 /* SceneDelegate.swift in Sources */,
 				0F2DF8222AE41C1B002F6BA3 /* DefaultColors.swift in Sources */,
 				0F2DF84A2AE99CB0002F6BA3 /* CoinActionEntity.swift in Sources */,

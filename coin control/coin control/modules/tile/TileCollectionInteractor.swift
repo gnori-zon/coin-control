@@ -60,7 +60,7 @@ public final class TileCollectionInteractor: TileCollectionInteractorProtocol {
                 return
             }
             
-            let filter: FilterEntities = (field: .coinActionTypeCode, sign: .equals, value: coinActionType.rawValue)
+            let filter: FilterEntity = (field: .coinActionTypeCode, sign: .equals, value: coinActionType.rawValue)
             let replacers = self.tileViewCollectorContainer.loadAllReplacers(for: .coinAction, tileFilters: [filter])
             
             replacers.forEach { replacer in

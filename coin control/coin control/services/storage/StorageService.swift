@@ -21,7 +21,9 @@ public protocol StorageServiceProtocol {
     
     func fetch<T: ManagedEntity>(type: T.Type) -> [T]
     func fetch<T: ManagedEntity>(type: T.Type, by id: String) -> T?
-    func fetch<T: ManagedEntity>(type: T.Type, where filters: [FilterEntities]) -> [T]
+    func fetch<T: ManagedEntity>(type: T.Type, where filters: [FilterEntity], orderBy sorting: [SortingEntity]) -> [T]
+    func fetch<T: ManagedEntity>(type: T.Type, where filters: [FilterEntity]) -> [T]
+    func fetch<T: ManagedEntity>(type: T.Type, orderBy sorting: [SortingEntity]) -> [T]
     
     func update<T: ManagedEntity>(type: T.Type, by id: String, filler: (T) -> Void)
     
@@ -77,14 +79,20 @@ public final class StorageService: NSObject, StorageServiceProtocol {
         return fetch(type: type, where: [(field: .id, .equals, id)]).first(where: { $0.id == id })
     }
     
-    public func fetch<T: ManagedEntity>(type: T.Type, where filters: [FilterEntities]) -> [T] {
+    public func fetch<T: ManagedEntity>(type: T.Type, where filters: [FilterEntity]) -> [T] {
+        return fetch(type: type, where: filters, orderBy: [])
+    }
+    
+    public func fetch<T: ManagedEntity>(type: T.Type, orderBy sorting: [SortingEntity]) -> [T] {
+        return fetch(type: type, where: [], orderBy: sorting)
+    }
+    
+    public func fetch<T: ManagedEntity>(type: T.Type, where filters: [FilterEntity], orderBy sorting: [SortingEntity]) -> [T] {
         
         let fetchRequest = type.fetchRequest()
         
-        filters.forEach { filter in
-            
-            tryAddPredicateOf(to: fetchRequest, filter: filter)
-        }
+        filters.forEach { tryAddPredicate(to: fetchRequest, filter: $0) }
+        fetchRequest.sortDescriptors = sorting.toSortDescriptors()
 
         do {
             
@@ -142,7 +150,7 @@ public final class StorageService: NSObject, StorageServiceProtocol {
         }
     }
     
-    private func tryAddPredicateOf<T>(to fetchRequest: NSFetchRequest<T>, filter: FilterEntities) {
+    private func tryAddPredicate<T>(to fetchRequest: NSFetchRequest<T>, filter: FilterEntity) {
         
         let objectFormatPattern = "%K %@ %@"
         let numberFormatPattern = "%@ %@ %i"
@@ -163,6 +171,17 @@ public final class StorageService: NSObject, StorageServiceProtocol {
             
         } else if let decimalValue = value as? NSDecimalNumber {
             fetchRequest.predicate = NSPredicate(format: String(format: decimalFormatPattern, field, sign, decimalValue))
+        }
+    }
+}
+
+fileprivate extension Array where Element == SortingEntity {
+
+    func toSortDescriptors() -> [NSSortDescriptor] {
+        
+        return self.map { (type: SortingType, direction: SortingDirection) in
+            
+            NSSortDescriptor(key: type.field, ascending: direction.isAscending)
         }
     }
 }
