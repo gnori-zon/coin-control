@@ -11,7 +11,7 @@ public typealias InstanceTileSettingsEntityProtocol = TileSettingsEntityProtocol
 
 public protocol TileSettingsServiceProtocol {
     
-    func getAllTileSettings() -> [any TileSettingsEntityProtocol]
+    func getAllTileSettings() -> [any InstanceTileSettingsEntityProtocol]
     func getAllTileSettings<T: InstanceTileSettingsEntityProtocol> (type: T.Type, tileFilters: [FilterEntities]) -> [T]
 }
 
@@ -19,9 +19,9 @@ public struct TileSettingsService: TileSettingsServiceProtocol {
     
     private let storage: some StorageServiceProtocol = StorageService.shared()
     
-    public func getAllTileSettings() -> [any TileSettingsEntityProtocol] {
+    public func getAllTileSettings() -> [any InstanceTileSettingsEntityProtocol] {
         
-        var tileSettings: [any TileSettingsEntityProtocol] = storage.fetch(type: CoinActionTileSettingsEntity.self)
+        var tileSettings: [any InstanceTileSettingsEntityProtocol] = storage.fetch(type: CoinActionTileSettingsEntity.self)
         storage.fetch(type: CurrencyRateTileSettingsEntity.self).forEach { tileSettings.append($0) }
         
         if tileSettings.count < 1 {
@@ -35,7 +35,7 @@ public struct TileSettingsService: TileSettingsServiceProtocol {
         return storage.fetch(type: type, where: tileFilters)
     }
     
-    private func createDefaultTileSettings() -> [any TileSettingsEntityProtocol] {
+    private func createDefaultTileSettings() -> [any InstanceTileSettingsEntityProtocol] {
                 
         let incomeTileSettings = CoinActionTileSettingsEntity.defaultOf(from: storage, title: "Прибыль", type: .income)
         let outcomeTileSettings = CoinActionTileSettingsEntity.defaultOf(from: storage, title: "Траты", type: .outcome)

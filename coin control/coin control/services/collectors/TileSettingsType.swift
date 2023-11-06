@@ -5,21 +5,18 @@
 //  Created by Stepan Konashenko on 05.11.2023.
 //
 
-typealias CollectorParameter<T> = (type: TileSettingsType, instance: T)
-
 public enum TileSettingsType {
     case coinAction, currencyRate
     
-    static func collectorParameterOf<T: TileSettingsEntityProtocol>(_ rawObject: T) -> CollectorParameter<T>? {
+    static func of(_ object: any InstanceTileSettingsEntityProtocol) -> TileSettingsType? {
         
-        switch rawObject {
-        case _ where rawObject is CoinActionTileSettingsEntity:
-            return (.coinAction, rawObject)
-        case _ where rawObject is CurrencyRateTileSettingsEntity:
-            return (.currencyRate, rawObject)
+        switch object {
+        case _ where object is CoinActionTileSettingsEntity:
+            return .coinAction
+        case _ where object is CurrencyRateTileSettingsEntity:
+            return .currencyRate
             
         default:
-            print("DEBUG: undefined tileSettings type")
             return nil
         }
     }

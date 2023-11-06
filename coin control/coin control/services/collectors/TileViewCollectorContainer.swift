@@ -20,12 +20,9 @@ public protocol TileViewCollectorContainerProtocol {
 public struct TileViewCollectorContainer: TileViewCollectorContainerProtocol {
     
     private var tileSettingsService: TileSettingsServiceProtocol
-    private var collectors = [TileSettingsType: any TileViewCollectorProtocol]()
     
     init (_ tileSettingsService: TileSettingsServiceProtocol) {
         self.tileSettingsService = tileSettingsService
-        collectors[.coinAction] = CoinActionTileViewCollector()
-        collectors[.currencyRate] = CurrencyRateTileViewCollector()
     }
     
     public func loadAllSetups() -> [() -> any TileProtocol] {
@@ -34,29 +31,35 @@ public struct TileViewCollectorContainer: TileViewCollectorContainerProtocol {
         
         return tileSettings.compactMap { tileSettingRaw in
             
-            if let collectorParameter = TileSettingsType.collectorParameterOf(tileSettingRaw) {
-                return collectors[collectorParameter.type]?.collectSetups(for: collectorParameter.instance)
+            guard let tileSettingsType = TileSettingsType.of(tileSettingRaw) else {
+                return nil
             }
-            return nil
+            
+            switch tileSettingsType {
+            case .coinAction:
+                return CoinActionTileViewCollector().collectSetups(for: tileSettingRaw as! CoinActionTileSettingsEntity)
+            case .currencyRate:
+                return CurrencyRateTileViewCollector().collectSetups(for: tileSettingRaw as! CurrencyRateTileSettingsEntity)
+            }
         }
     }
     
     public func loadAllReplacers(for tileSettingsType: TileSettingsType, tileFilters: [FilterEntities]) -> [TileAction] {
         
-        var tileContents = [TileAction]()
         let tileSettings = self.tileSettingsService.getAllTileSettings(type: tileSettingsType.entityType, tileFilters: tileFilters)
-
-        tileSettings.forEach { tileSettingRaw in
-            
-            guard let collectorParameter = TileSettingsType.collectorParameterOf(tileSettingRaw) else {
-                return
-            }
-            
-            if let replacer = collectors[collectorParameter.type]?.collectReplacer(for: collectorParameter.instance) {
-                tileContents.append((tileSettingRaw.id, replacer))
-            }
-        }
         
-        return tileContents
+        return tileSettings.map { tileSettingRaw in
+            
+            let replacer: (any TileProtocol) -> Void
+            
+            switch tileSettingsType {
+            case .coinAction:
+                replacer = CoinActionTileViewCollector().castedCollectReplacer(for: tileSettingRaw as! CoinActionTileSettingsEntity)
+            case.currencyRate:
+                replacer = CurrencyRateTileViewCollector().castedCollectReplacer(for: tileSettingRaw as! CurrencyRateTileSettingsEntity)
+            }
+            
+            return (tileSettingRaw.id, replacer)
+        }
     }
 }
