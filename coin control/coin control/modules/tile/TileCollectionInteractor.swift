@@ -55,12 +55,13 @@ public final class TileCollectionInteractor: TileCollectionInteractorProtocol {
         
         DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
             
-            guard notification.object is CoinActionType else {
+            guard let coinActionType = notification.object as? CoinActionType else {
                 print("DEBUG: receive undefined 'didAddCoinAction' notification")
                 return
             }
             
-            let replacers = self.tileViewCollectorContainer.loadAllReplacers(for: .coinAction)
+            let filter: FilterEntities = (field: .coinActionTypeCode, sign: .equals, value: coinActionType.rawValue)
+            let replacers = self.tileViewCollectorContainer.loadAllReplacers(for: .coinAction, tileFilters: [filter])
             
             replacers.forEach { replacer in
                 

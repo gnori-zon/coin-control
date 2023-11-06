@@ -7,10 +7,12 @@
 
 // MARK: - TileViewSetupCollectorContainerProtocol
 
+public typealias TileAction = (id: String, action: (any TileProtocol) -> Void)
+
 public protocol TileViewCollectorContainerProtocol {
     
     func loadAllSetups() -> [() -> any TileProtocol]
-    func loadAllReplacers(for tileSettingsType: TileSettingsType) -> [(id: String, action: (any TileProtocol) -> Void)]
+    func loadAllReplacers(for tileSettingsType: TileSettingsType, tileFilters: [FilterEntities]) -> [TileAction]
 }
 
 // MARK: - TileViewCollectorContainer
@@ -32,32 +34,29 @@ public struct TileViewCollectorContainer: TileViewCollectorContainerProtocol {
         
         return tileSettings.compactMap { tileSettingRaw in
             
-            return findCollector(by: tileSettingRaw)?.collectSetups(for: tileSettingRaw)
+            if let collectorParameter = TileSettingsType.collectorParameterOf(tileSettingRaw) {
+                return collectors[collectorParameter.type]?.collectSetups(for: collectorParameter.instance)
+            }
+            return nil
         }
     }
     
-    public func loadAllReplacers(for tileSettingsType: TileSettingsType) -> [(id: String, action: (any TileProtocol) -> Void)] {
+    public func loadAllReplacers(for tileSettingsType: TileSettingsType, tileFilters: [FilterEntities]) -> [TileAction] {
         
-        var tileContents = [(String, (any TileProtocol) -> Void)]()
-        let tileSettings = self.tileSettingsService.getAllTileSettings(type: tileSettingsType.entityType)
+        var tileContents = [TileAction]()
+        let tileSettings = self.tileSettingsService.getAllTileSettings(type: tileSettingsType.entityType, tileFilters: tileFilters)
 
         tileSettings.forEach { tileSettingRaw in
             
-            if let replacer = findCollector(by: tileSettingRaw)?.collectReplacer(for: tileSettingRaw) {
-                
+            guard let collectorParameter = TileSettingsType.collectorParameterOf(tileSettingRaw) else {
+                return
+            }
+            
+            if let replacer = collectors[collectorParameter.type]?.collectReplacer(for: collectorParameter.instance) {
                 tileContents.append((tileSettingRaw.id, replacer))
             }
         }
         
         return tileContents
-    }
-    
-    private func findCollector<T: TileSettingsEntityProtocol>(by object: T) -> (any TileViewCollectorProtocol)? {
-        
-        guard let type = TileSettingsType.of(object) else {
-            return nil
-        }
-        
-        return collectors[type]
     }
 }

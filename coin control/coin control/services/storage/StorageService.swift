@@ -21,6 +21,7 @@ public protocol StorageServiceProtocol {
     
     func fetch<T: ManagedEntity>(type: T.Type) -> [T]
     func fetch<T: ManagedEntity>(type: T.Type, by id: String) -> T?
+    func fetch<T: ManagedEntity>(type: T.Type, where filters: [FilterEntities]) -> [T]
     
     func update<T: ManagedEntity>(type: T.Type, by id: String, filler: (T) -> Void)
     
@@ -73,13 +74,22 @@ public final class StorageService: NSObject, StorageServiceProtocol {
     
     public func fetch<T: ManagedEntity>(type: T.Type, by id: String) -> T? {
         
+        return fetch(type: type, where: [(field: .id, .equals, id)]).first(where: { $0.id == id })
+    }
+    
+    public func fetch<T: ManagedEntity>(type: T.Type, where filters: [FilterEntities]) -> [T] {
+        
         let fetchRequest = type.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "id == %@", id)
+        
+        filters.forEach { filter in
+            
+            tryAddPredicateOf(to: fetchRequest, filter: filter)
+        }
 
         do {
             
             let entities = (try? context.fetch(fetchRequest)) as? [T]
-            return entities?.first(where: { $0.id == id })
+            return entities ?? []
         }
     }
     
@@ -129,6 +139,30 @@ public final class StorageService: NSObject, StorageServiceProtocol {
             entities?.forEach { context.delete($0) }
             
             appDelegate.saveContext()
+        }
+    }
+    
+    private func tryAddPredicateOf<T>(to fetchRequest: NSFetchRequest<T>, filter: FilterEntities) {
+        
+        let objectFormatPattern = "%K %@ %@"
+        let numberFormatPattern = "%@ %@ %i"
+        let decimalFormatPattern = "%@ %@ %x"
+        
+        let field = filter.field.rawValue
+        let sign = filter.sign.rawValue
+        let value = filter.value
+        
+        if let strValue = value as? String {
+            fetchRequest.predicate = NSPredicate(format: objectFormatPattern, field, sign, strValue)
+            
+        } else if let int16Value = value as? Int16 {
+            fetchRequest.predicate = NSPredicate(format: String(format: numberFormatPattern, field, sign, int16Value))
+            
+        }else if let dateValue = value as? NSDate {
+            fetchRequest.predicate = NSPredicate(format: objectFormatPattern, field, sign, dateValue)
+            
+        } else if let decimalValue = value as? NSDecimalNumber {
+            fetchRequest.predicate = NSPredicate(format: String(format: decimalFormatPattern, field, sign, decimalValue))
         }
     }
 }

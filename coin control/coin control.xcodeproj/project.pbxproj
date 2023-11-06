@@ -46,6 +46,8 @@
 		0F33EFD42AF30886000DDFD0 /* CoinActionTileViewCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F33EFD32AF30886000DDFD0 /* CoinActionTileViewCollector.swift */; };
 		0F33EFD62AF440E7000DDFD0 /* CurrencyRateTileViewCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F33EFD52AF440E7000DDFD0 /* CurrencyRateTileViewCollector.swift */; };
 		0F33EFDE2AF7A908000DDFD0 /* TileSettingsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F33EFDD2AF7A908000DDFD0 /* TileSettingsType.swift */; };
+		0F33EFE02AF83EE2000DDFD0 /* FilterSign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F33EFDF2AF83EE2000DDFD0 /* FilterSign.swift */; };
+		0F33EFE32AF862FE000DDFD0 /* FilterEntitiesFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F33EFE22AF862FE000DDFD0 /* FilterEntitiesFields.swift */; };
 		0F42E1E02AE4041D00982A09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F42E1DF2AE4041D00982A09 /* AppDelegate.swift */; };
 		0F42E1E22AE4041D00982A09 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F42E1E12AE4041D00982A09 /* SceneDelegate.swift */; };
 		0F42E1E42AE4041D00982A09 /* TileCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F42E1E32AE4041D00982A09 /* TileCollectionViewController.swift */; };
@@ -94,6 +96,8 @@
 		0F33EFD32AF30886000DDFD0 /* CoinActionTileViewCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinActionTileViewCollector.swift; sourceTree = "<group>"; };
 		0F33EFD52AF440E7000DDFD0 /* CurrencyRateTileViewCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRateTileViewCollector.swift; sourceTree = "<group>"; };
 		0F33EFDD2AF7A908000DDFD0 /* TileSettingsType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSettingsType.swift; sourceTree = "<group>"; };
+		0F33EFDF2AF83EE2000DDFD0 /* FilterSign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSign.swift; sourceTree = "<group>"; };
+		0F33EFE22AF862FE000DDFD0 /* FilterEntitiesFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterEntitiesFields.swift; sourceTree = "<group>"; };
 		0F42E1DC2AE4041D00982A09 /* coin control.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "coin control.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F42E1DF2AE4041D00982A09 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0F42E1E12AE4041D00982A09 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -221,8 +225,8 @@
 		0F2DF84D2AE9A83B002F6BA3 /* services */ = {
 			isa = PBXGroup;
 			children = (
+				0F33EFE12AF84202000DDFD0 /* storage */,
 				0F33EFCD2AF30786000DDFD0 /* collectors */,
-				0F2DF84E2AE9A857002F6BA3 /* StorageService.swift */,
 				0F33EFC72AF2D7A4000DDFD0 /* TileSettingsService.swift */,
 			);
 			path = services;
@@ -268,6 +272,16 @@
 				0F33EFD52AF440E7000DDFD0 /* CurrencyRateTileViewCollector.swift */,
 			);
 			path = impl;
+			sourceTree = "<group>";
+		};
+		0F33EFE12AF84202000DDFD0 /* storage */ = {
+			isa = PBXGroup;
+			children = (
+				0F2DF84E2AE9A857002F6BA3 /* StorageService.swift */,
+				0F33EFDF2AF83EE2000DDFD0 /* FilterSign.swift */,
+				0F33EFE22AF862FE000DDFD0 /* FilterEntitiesFields.swift */,
+			);
+			path = storage;
 			sourceTree = "<group>";
 		};
 		0F42E1D32AE4041D00982A09 = {
@@ -392,6 +406,7 @@
 				0F33EFC82AF2D7A4000DDFD0 /* TileSettingsService.swift in Sources */,
 				0F33EFCA2AF2DD2F000DDFD0 /* TileSettingsEntityProtocol.swift in Sources */,
 				0F2DF85E2AEC5465002F6BA3 /* CoinActionWriterRouter.swift in Sources */,
+				0F33EFE02AF83EE2000DDFD0 /* FilterSign.swift in Sources */,
 				0F2DF83A2AE7053D002F6BA3 /* CurrencyRate.swift in Sources */,
 				0F33EFD42AF30886000DDFD0 /* CoinActionTileViewCollector.swift in Sources */,
 				0F2DF8372AE6E7E3002F6BA3 /* CurrencyRateTileView.swift in Sources */,
@@ -408,6 +423,7 @@
 				0F2DF8652AEE75EB002F6BA3 /* UIDropDownList.swift in Sources */,
 				0F33EFCF2AF307AD000DDFD0 /* TileViewCollectorContainer.swift in Sources */,
 				0F33EFDE2AF7A908000DDFD0 /* TileSettingsType.swift in Sources */,
+				0F33EFE32AF862FE000DDFD0 /* FilterEntitiesFields.swift in Sources */,
 				0F42E1E22AE4041D00982A09 /* SceneDelegate.swift in Sources */,
 				0F2DF8222AE41C1B002F6BA3 /* DefaultColors.swift in Sources */,
 				0F2DF84A2AE99CB0002F6BA3 /* CoinActionEntity.swift in Sources */,
