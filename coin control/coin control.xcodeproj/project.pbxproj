@@ -54,6 +54,10 @@
 		0F42E1E72AE4041D00982A09 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F42E1E52AE4041D00982A09 /* Main.storyboard */; };
 		0F42E1E92AE4042000982A09 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F42E1E82AE4042000982A09 /* Assets.xcassets */; };
 		0F42E1EC2AE4042000982A09 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F42E1EA2AE4042000982A09 /* LaunchScreen.storyboard */; };
+		0FA79B822AF99A7B00C0F03B /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA79B812AF99A7B00C0F03B /* HttpMethod.swift */; };
+		0FA79B842AF99ADF00C0F03B /* CurrencyRateEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA79B832AF99ADF00C0F03B /* CurrencyRateEndpoint.swift */; };
+		0FA79B892AF99FAC00C0F03B /* HttpRequestSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA79B882AF99FAC00C0F03B /* HttpRequestSender.swift */; };
+		0FA79B8C2AF9A4F100C0F03B /* HttpError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA79B8B2AF9A4F100C0F03B /* HttpError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,6 +110,10 @@
 		0F42E1E82AE4042000982A09 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0F42E1EB2AE4042000982A09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0F42E1ED2AE4042000982A09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0FA79B812AF99A7B00C0F03B /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
+		0FA79B832AF99ADF00C0F03B /* CurrencyRateEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRateEndpoint.swift; sourceTree = "<group>"; };
+		0FA79B882AF99FAC00C0F03B /* HttpRequestSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpRequestSender.swift; sourceTree = "<group>"; };
+		0FA79B8B2AF9A4F100C0F03B /* HttpError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,10 +233,10 @@
 		0F2DF84D2AE9A83B002F6BA3 /* services */ = {
 			isa = PBXGroup;
 			children = (
+				0FA79B7E2AF98BA900C0F03B /* network */,
 				0FA79B7D2AF98BA100C0F03B /* dao */,
 				0F33EFE12AF84202000DDFD0 /* storage */,
 				0F33EFCD2AF30786000DDFD0 /* collectors */,
-				0F33EFC72AF2D7A4000DDFD0 /* TileSettingsService.swift */,
 			);
 			path = services;
 			sourceTree = "<group>";
@@ -319,6 +327,50 @@
 			path = "coin control";
 			sourceTree = "<group>";
 		};
+		0FA79B7D2AF98BA100C0F03B /* dao */ = {
+			isa = PBXGroup;
+			children = (
+				0F33EFC72AF2D7A4000DDFD0 /* TileSettingsService.swift */,
+			);
+			path = dao;
+			sourceTree = "<group>";
+		};
+		0FA79B7E2AF98BA900C0F03B /* network */ = {
+			isa = PBXGroup;
+			children = (
+				0FA79B8A2AF9A32100C0F03B /* error */,
+				0FA79B872AF99F7D00C0F03B /* endpoint */,
+				0FA79B852AF99F5900C0F03B /* method */,
+				0FA79B7F2AF98BE000C0F03B /* CurrencyRateParser.swift */,
+				0FA79B882AF99FAC00C0F03B /* HttpRequestSender.swift */,
+			);
+			path = network;
+			sourceTree = "<group>";
+		};
+		0FA79B852AF99F5900C0F03B /* method */ = {
+			isa = PBXGroup;
+			children = (
+				0FA79B812AF99A7B00C0F03B /* HttpMethod.swift */,
+			);
+			path = method;
+			sourceTree = "<group>";
+		};
+		0FA79B872AF99F7D00C0F03B /* endpoint */ = {
+			isa = PBXGroup;
+			children = (
+				0FA79B832AF99ADF00C0F03B /* CurrencyRateEndpoint.swift */,
+			);
+			path = endpoint;
+			sourceTree = "<group>";
+		};
+		0FA79B8A2AF9A32100C0F03B /* error */ = {
+			isa = PBXGroup;
+			children = (
+				0FA79B8B2AF9A4F100C0F03B /* HttpError.swift */,
+			);
+			path = error;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -402,8 +454,10 @@
 				0F2DF8562AEC53FE002F6BA3 /* CoinActionWriterView.swift in Sources */,
 				0F2DF82E2AE57EA3002F6BA3 /* TileCollectionInteractor.swift in Sources */,
 				0F2DF8482AE99CB0002F6BA3 /* CoinActionTileSettingsEntity.swift in Sources */,
+				0FA79B892AF99FAC00C0F03B /* HttpRequestSender.swift in Sources */,
 				0F2DF8402AE85BF4002F6BA3 /* UIStackCreatorProtocol.swift in Sources */,
 				0F33EFD12AF307C3000DDFD0 /* TileViewCollectorProtocol.swift in Sources */,
+				0FA79B8C2AF9A4F100C0F03B /* HttpError.swift in Sources */,
 				0F33EFC82AF2D7A4000DDFD0 /* TileSettingsService.swift in Sources */,
 				0F33EFCA2AF2DD2F000DDFD0 /* TileSettingsEntityProtocol.swift in Sources */,
 				0F2DF85E2AEC5465002F6BA3 /* CoinActionWriterRouter.swift in Sources */,
@@ -417,6 +471,7 @@
 				0F2DF85A2AEC5427002F6BA3 /* CoinActionWriterAssembly.swift in Sources */,
 				0F2DF8302AE57EB9002F6BA3 /* TileCollectionPresenter.swift in Sources */,
 				0F2DF8242AE41C50002F6BA3 /* TileDefaultColors.swift in Sources */,
+				0FA79B842AF99ADF00C0F03B /* CurrencyRateEndpoint.swift in Sources */,
 				0F2DF8162AE411F3002F6BA3 /* CoinActionType.swift in Sources */,
 				0F33EFC62AF2CE33000DDFD0 /* SortingDirection.swift in Sources */,
 				0F42E1E02AE4041D00982A09 /* AppDelegate.swift in Sources */,
@@ -429,6 +484,7 @@
 				0F2DF8222AE41C1B002F6BA3 /* DefaultColors.swift in Sources */,
 				0F2DF84A2AE99CB0002F6BA3 /* CoinActionEntity.swift in Sources */,
 				0F2DF8582AEC540C002F6BA3 /* CoinActionWriterPresenter.swift in Sources */,
+				0FA79B822AF99A7B00C0F03B /* HttpMethod.swift in Sources */,
 				0F2DF85C2AEC543D002F6BA3 /* CoinActionWriterInteractor.swift in Sources */,
 				0F2DF8352AE5880D002F6BA3 /* TileProtocol.swift in Sources */,
 				0F33EFC22AF05765000DDFD0 /* DefaultAnimationsProtocol.swift in Sources */,
