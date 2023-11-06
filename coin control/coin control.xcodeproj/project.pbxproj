@@ -225,6 +225,7 @@
 		0F2DF84D2AE9A83B002F6BA3 /* services */ = {
 			isa = PBXGroup;
 			children = (
+				0FA79B7D2AF98BA100C0F03B /* dao */,
 				0F33EFE12AF84202000DDFD0 /* storage */,
 				0F33EFCD2AF30786000DDFD0 /* collectors */,
 				0F33EFC72AF2D7A4000DDFD0 /* TileSettingsService.swift */,
