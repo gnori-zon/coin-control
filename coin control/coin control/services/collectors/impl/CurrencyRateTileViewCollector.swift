@@ -5,11 +5,18 @@
 //  Created by Stepan Konashenko on 02.11.2023.
 //
 
-// TODO: replace this mock
-
 public struct CurrencyRateTileViewCollector: TileViewCollectorProtocol {
     
+    let currencyRateParser: CurrencyRateParserProtocol = CurrencyRateParser(converter: CurrencyRateResponseConverter(), requestSender: HttpRequestSender())
+    
     public func collectSetups(for tileSetting: CurrencyRateTileSettingsEntity) -> () -> any TileProtocol {
+        
+        Task.init(priority: .utility) {
+            await currencyRateParser.tryParse(target: tileSetting.targetCurrencyType, ratioCurrencyTypes: tileSetting.selectedCurrencies) { currencyRate in
+                // TODO: - (1) notify success by tile id and save to userDefaults (2) added temporal data from userDefaults
+                print(currencyRate)
+            }
+        }
         
         return {
             let tileView = CurrencyRateTileView(tileSetting.id, records: [

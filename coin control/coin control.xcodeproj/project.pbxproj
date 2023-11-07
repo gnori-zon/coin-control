@@ -54,6 +54,7 @@
 		0F42E1E72AE4041D00982A09 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F42E1E52AE4041D00982A09 /* Main.storyboard */; };
 		0F42E1E92AE4042000982A09 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F42E1E82AE4042000982A09 /* Assets.xcassets */; };
 		0F42E1EC2AE4042000982A09 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F42E1EA2AE4042000982A09 /* LaunchScreen.storyboard */; };
+		0FA79B802AF98BE000C0F03B /* CurrencyRateParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA79B7F2AF98BE000C0F03B /* CurrencyRateParser.swift */; };
 		0FA79B822AF99A7B00C0F03B /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA79B812AF99A7B00C0F03B /* HttpMethod.swift */; };
 		0FA79B842AF99ADF00C0F03B /* CurrencyRateEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA79B832AF99ADF00C0F03B /* CurrencyRateEndpoint.swift */; };
 		0FA79B892AF99FAC00C0F03B /* HttpRequestSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA79B882AF99FAC00C0F03B /* HttpRequestSender.swift */; };
@@ -112,6 +113,7 @@
 		0F42E1E82AE4042000982A09 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0F42E1EB2AE4042000982A09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0F42E1ED2AE4042000982A09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0FA79B7F2AF98BE000C0F03B /* CurrencyRateParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRateParser.swift; sourceTree = "<group>"; };
 		0FA79B812AF99A7B00C0F03B /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		0FA79B832AF99ADF00C0F03B /* CurrencyRateEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRateEndpoint.swift; sourceTree = "<group>"; };
 		0FA79B882AF99FAC00C0F03B /* HttpRequestSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpRequestSender.swift; sourceTree = "<group>"; };
@@ -336,7 +338,6 @@
 				0FA79B8D2AFAD9D100C0F03B /* currency */,
 				0FA79B8A2AF9A32100C0F03B /* error */,
 				0FA79B852AF99F5900C0F03B /* method */,
-				0FA79B7F2AF98BE000C0F03B /* CurrencyRateParser.swift */,
 				0FA79B882AF99FAC00C0F03B /* HttpRequestSender.swift */,
 			);
 			path = network;
@@ -361,11 +362,11 @@
 		0FA79B8D2AFAD9D100C0F03B /* currency */ = {
 			isa = PBXGroup;
 			children = (
-				0FA79B8B2AF9A4F100C0F03B /* HttpError.swift */,
 				0FA79B832AF99ADF00C0F03B /* CurrencyRateEndpoint.swift */,
 				0FA79B8F2AFADA1300C0F03B /* CurrencyRateResponse.swift */,
 				0F2DF8392AE7053D002F6BA3 /* CurrencyRate.swift */,
 				0FA79B912AFADEBD00C0F03B /* CurrencyRateResponseConverter.swift */,
+				0FA79B7F2AF98BE000C0F03B /* CurrencyRateParser.swift */,
 			);
 			path = currency;
 			sourceTree = "<group>";
@@ -464,6 +465,7 @@
 				0F2DF83A2AE7053D002F6BA3 /* CurrencyRate.swift in Sources */,
 				0F33EFD42AF30886000DDFD0 /* CoinActionTileViewCollector.swift in Sources */,
 				0F2DF8372AE6E7E3002F6BA3 /* CurrencyRateTileView.swift in Sources */,
+				0FA79B902AFADA1300C0F03B /* CurrencyRateResponse.swift in Sources */,
 				0F2DF84F2AE9A857002F6BA3 /* StorageService.swift in Sources */,
 				0FA79B922AFADEBD00C0F03B /* CurrencyRateResponseConverter.swift in Sources */,
 				0F2DF8512AE9B63A002F6BA3 /* Entity.swift in Sources */,
@@ -477,6 +479,7 @@
 				0F42E1E02AE4041D00982A09 /* AppDelegate.swift in Sources */,
 				0F2DF82C2AE57E4F002F6BA3 /* TileCollectionAssembly.swift in Sources */,
 				0F2DF8652AEE75EB002F6BA3 /* UIDropDownList.swift in Sources */,
+				0FA79B802AF98BE000C0F03B /* CurrencyRateParser.swift in Sources */,
 				0F33EFCF2AF307AD000DDFD0 /* TileViewCollectorContainer.swift in Sources */,
 				0F33EFDE2AF7A908000DDFD0 /* TileSettingsType.swift in Sources */,
 				0F33EFE32AF862FE000DDFD0 /* EntityFields.swift in Sources */,
