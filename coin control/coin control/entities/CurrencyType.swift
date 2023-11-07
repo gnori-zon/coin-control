@@ -37,4 +37,19 @@ public enum CurrencyType: Int16, CaseIterable {
     static var validCases: [CurrencyType] {
         CurrencyType.allCases.filter { $0.rawValue >= 0 }
     }
+    
+    static func of(raw: String) -> CurrencyType? {
+        
+        switch raw.lowercased() {
+            
+        case usd.currencyRaw.str:
+            return usd
+        case eur.currencyRaw.str:
+            return eur
+        case rub.currencyRaw.str:
+            return rub
+        default:
+            return nil
+        }
+    }
 }
