@@ -147,7 +147,6 @@
 		0F2DF81B2AE4158B002F6BA3 /* tile */ = {
 			isa = PBXGroup;
 			children = (
-				0F2DF84C2AE9A1F4002F6BA3 /* dto */,
 				0F2DF8332AE57FC1002F6BA3 /* views */,
 				0F42E1E32AE4041D00982A09 /* TileCollectionViewController.swift */,
 				0F2DF82B2AE57E4F002F6BA3 /* TileCollectionAssembly.swift */,
@@ -220,14 +219,6 @@
 				0F33EFCB2AF2DF16000DDFD0 /* CurrencyRateTileSettingsEntity.swift */,
 			);
 			path = tile;
-			sourceTree = "<group>";
-		};
-		0F2DF84C2AE9A1F4002F6BA3 /* dto */ = {
-			isa = PBXGroup;
-			children = (
-				0F2DF8392AE7053D002F6BA3 /* CurrencyRate.swift */,
-			);
-			path = dto;
 			sourceTree = "<group>";
 		};
 		0F2DF84D2AE9A83B002F6BA3 /* services */ = {
@@ -338,8 +329,8 @@
 		0FA79B7E2AF98BA900C0F03B /* network */ = {
 			isa = PBXGroup;
 			children = (
+				0FA79B8D2AFAD9D100C0F03B /* currency */,
 				0FA79B8A2AF9A32100C0F03B /* error */,
-				0FA79B872AF99F7D00C0F03B /* endpoint */,
 				0FA79B852AF99F5900C0F03B /* method */,
 				0FA79B7F2AF98BE000C0F03B /* CurrencyRateParser.swift */,
 				0FA79B882AF99FAC00C0F03B /* HttpRequestSender.swift */,
@@ -355,7 +346,6 @@
 			path = method;
 			sourceTree = "<group>";
 		};
-		0FA79B872AF99F7D00C0F03B /* endpoint */ = {
 			isa = PBXGroup;
 			children = (
 				0FA79B832AF99ADF00C0F03B /* CurrencyRateEndpoint.swift */,

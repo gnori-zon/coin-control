@@ -9,18 +9,20 @@ import Foundation
 
 //MARK: - CurrencyRateProtocol
 
+public typealias RatioCurrency = (type: CurrencyType, value: Decimal)
+
 public protocol CurrencyRateProtocol {
     
-    var ratioCurrencyType: CurrencyType { get }
+    var date: Date { get }
     var targetCurrencyType: CurrencyType { get }
-    var currencyValueRatio: Decimal { get }
+    var ratioCurrencies: [RatioCurrency] { get }
 }
 
 //MARK: - CurrencyRateProtocol
 
 public struct CurrencyRate: CurrencyRateProtocol {
     
-    public let ratioCurrencyType: CurrencyType
+    public let date: Date
     public let targetCurrencyType: CurrencyType
-    public let currencyValueRatio: Decimal
+    public let ratioCurrencies: [RatioCurrency]
 }
