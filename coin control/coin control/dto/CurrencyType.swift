@@ -11,12 +11,11 @@ public typealias CurrencyRawTuple = (str: String, imagePath: String)
 
 //MARK: - CurrencyType
 
-public enum CurrencyType: Int16, CaseIterable {
+public enum CurrencyType: Int16 {
 
     case usd = 1
     case rub = 2
     case eur = 3
-    
     case undefined = -1
     
     var currencyRaw: CurrencyRawTuple {
@@ -34,10 +33,6 @@ public enum CurrencyType: Int16, CaseIterable {
         }
     }
     
-    static var validCases: [CurrencyType] {
-        CurrencyType.allCases.filter { $0.rawValue >= 0 }
-    }
-    
     static func of(raw: String) -> CurrencyType? {
         
         switch raw.lowercased() {
@@ -53,3 +48,12 @@ public enum CurrencyType: Int16, CaseIterable {
         }
     }
 }
+
+extension CurrencyType: CaseIterable {
+    
+    static var validCases: [CurrencyType] {
+        CurrencyType.allCases.filter { $0.rawValue >= 0 }
+    }
+}
+
+extension CurrencyType: Codable {}

@@ -5,11 +5,12 @@
 //  Created by Stepan Konashenko on 21.10.2023.
 //
 
-public enum CoinActionType: Int16, CaseIterable {
+
+
+public enum CoinActionType: Int16 {
     
     case income = 1
     case outcome = 2
-    
     case undefined = -1
     
     var rawStr: String {
@@ -23,6 +24,9 @@ public enum CoinActionType: Int16, CaseIterable {
             return ""
         }
     }
+}
+
+extension CoinActionType: CaseIterable {
     
     static var validCases: [CoinActionType] {
         CoinActionType.allCases.filter { $0.rawValue >= 0 }

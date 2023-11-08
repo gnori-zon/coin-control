@@ -186,8 +186,6 @@
 			isa = PBXGroup;
 			children = (
 				0F2DF83B2AE84E9B002F6BA3 /* ModelCoreData.xcdatamodeld */,
-				0F2DF8152AE411F3002F6BA3 /* CoinActionType.swift */,
-				0F2DF8172AE413A9002F6BA3 /* CurrencyType.swift */,
 				0F2DF8412AE99A6F002F6BA3 /* tile */,
 				0F2DF8122AE41098002F6BA3 /* coin */,
 				0F2DF8502AE9B63A002F6BA3 /* Entity.swift */,
@@ -309,6 +307,7 @@
 		0F42E1DE2AE4041D00982A09 /* coin control */ = {
 			isa = PBXGroup;
 			children = (
+				0FD802382AFC2C89004AF88D /* dto */,
 				0F2DF84D2AE9A83B002F6BA3 /* services */,
 				0F2DF83E2AE85BC3002F6BA3 /* utils */,
 				0F2DF82A2AE57CFD002F6BA3 /* entities */,
@@ -364,7 +363,6 @@
 			children = (
 				0FA79B832AF99ADF00C0F03B /* CurrencyRateEndpoint.swift */,
 				0FA79B8F2AFADA1300C0F03B /* CurrencyRateResponse.swift */,
-				0F2DF8392AE7053D002F6BA3 /* CurrencyRate.swift */,
 				0FA79B912AFADEBD00C0F03B /* CurrencyRateResponseConverter.swift */,
 				0FA79B7F2AF98BE000C0F03B /* CurrencyRateParser.swift */,
 			);

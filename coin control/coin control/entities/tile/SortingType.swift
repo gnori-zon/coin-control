@@ -9,7 +9,6 @@ public enum SortingType: Int16 {
     
     case date = 1
     case value = 2
-
     case undefined = -1
     
     var field: String {
