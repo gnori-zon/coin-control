@@ -61,6 +61,7 @@
 		0FA79B8C2AF9A4F100C0F03B /* HttpError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA79B8B2AF9A4F100C0F03B /* HttpError.swift */; };
 		0FA79B902AFADA1300C0F03B /* CurrencyRateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA79B8F2AFADA1300C0F03B /* CurrencyRateResponse.swift */; };
 		0FA79B922AFADEBD00C0F03B /* CurrencyRateResponseConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA79B912AFADEBD00C0F03B /* CurrencyRateResponseConverter.swift */; };
+		0FD8023A2AFC2CA3004AF88D /* RatioCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD802392AFC2CA3004AF88D /* RatioCurrency.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,6 +121,7 @@
 		0FA79B8B2AF9A4F100C0F03B /* HttpError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpError.swift; sourceTree = "<group>"; };
 		0FA79B8F2AFADA1300C0F03B /* CurrencyRateResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRateResponse.swift; sourceTree = "<group>"; };
 		0FA79B912AFADEBD00C0F03B /* CurrencyRateResponseConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRateResponseConverter.swift; sourceTree = "<group>"; };
+		0FD802392AFC2CA3004AF88D /* RatioCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatioCurrency.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -369,6 +371,17 @@
 			path = currency;
 			sourceTree = "<group>";
 		};
+		0FD802382AFC2C89004AF88D /* dto */ = {
+			isa = PBXGroup;
+			children = (
+				0F2DF8392AE7053D002F6BA3 /* CurrencyRate.swift */,
+				0FD802392AFC2CA3004AF88D /* RatioCurrency.swift */,
+				0F2DF8152AE411F3002F6BA3 /* CoinActionType.swift */,
+				0F2DF8172AE413A9002F6BA3 /* CurrencyType.swift */,
+			);
+			path = dto;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -457,6 +470,7 @@
 				0F33EFD12AF307C3000DDFD0 /* TileViewCollectorProtocol.swift in Sources */,
 				0FA79B8C2AF9A4F100C0F03B /* HttpError.swift in Sources */,
 				0F33EFC82AF2D7A4000DDFD0 /* TileSettingsService.swift in Sources */,
+				0FD8023A2AFC2CA3004AF88D /* RatioCurrency.swift in Sources */,
 				0F33EFCA2AF2DD2F000DDFD0 /* TileSettingsEntityProtocol.swift in Sources */,
 				0F2DF85E2AEC5465002F6BA3 /* CoinActionWriterRouter.swift in Sources */,
 				0F33EFE02AF83EE2000DDFD0 /* FilterSign.swift in Sources */,
