@@ -61,6 +61,7 @@
 		0FA79B8C2AF9A4F100C0F03B /* HttpError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA79B8B2AF9A4F100C0F03B /* HttpError.swift */; };
 		0FA79B902AFADA1300C0F03B /* CurrencyRateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA79B8F2AFADA1300C0F03B /* CurrencyRateResponse.swift */; };
 		0FA79B922AFADEBD00C0F03B /* CurrencyRateResponseConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA79B912AFADEBD00C0F03B /* CurrencyRateResponseConverter.swift */; };
+		0FD802352AFC271A004AF88D /* CoinActionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD802342AFC271A004AF88D /* CoinActionService.swift */; };
 		0FD8023A2AFC2CA3004AF88D /* RatioCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD802392AFC2CA3004AF88D /* RatioCurrency.swift */; };
 /* End PBXBuildFile section */
 
@@ -121,6 +122,7 @@
 		0FA79B8B2AF9A4F100C0F03B /* HttpError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpError.swift; sourceTree = "<group>"; };
 		0FA79B8F2AFADA1300C0F03B /* CurrencyRateResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRateResponse.swift; sourceTree = "<group>"; };
 		0FA79B912AFADEBD00C0F03B /* CurrencyRateResponseConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRateResponseConverter.swift; sourceTree = "<group>"; };
+		0FD802342AFC271A004AF88D /* CoinActionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinActionService.swift; sourceTree = "<group>"; };
 		0FD802392AFC2CA3004AF88D /* RatioCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatioCurrency.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -329,6 +331,7 @@
 			isa = PBXGroup;
 			children = (
 				0F33EFC72AF2D7A4000DDFD0 /* TileSettingsService.swift */,
+				0FD802342AFC271A004AF88D /* CoinActionService.swift */,
 			);
 			path = dao;
 			sourceTree = "<group>";
@@ -467,6 +470,7 @@
 				0F2DF8482AE99CB0002F6BA3 /* CoinActionTileSettingsEntity.swift in Sources */,
 				0FA79B892AF99FAC00C0F03B /* HttpRequestSender.swift in Sources */,
 				0F2DF8402AE85BF4002F6BA3 /* UIStackCreatorProtocol.swift in Sources */,
+				0FD802352AFC271A004AF88D /* CoinActionService.swift in Sources */,
 				0F33EFD12AF307C3000DDFD0 /* TileViewCollectorProtocol.swift in Sources */,
 				0FA79B8C2AF9A4F100C0F03B /* HttpError.swift in Sources */,
 				0F33EFC82AF2D7A4000DDFD0 /* TileSettingsService.swift in Sources */,

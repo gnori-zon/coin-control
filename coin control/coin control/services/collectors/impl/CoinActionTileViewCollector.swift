@@ -7,12 +7,12 @@
 
 public struct CoinActionTileViewCollector: TileViewCollectorProtocol {
     
-    private var storage: some StorageServiceProtocol = StorageService.shared()
-
+    let coinActionService: CoinActionServiceProtocol
+    
     public func collectSetups(for tileSetting: CoinActionTileSettingsEntity) -> () -> any TileProtocol {
         
-        let rawData = getData(by: tileSetting)
-        let records = rawData.convertToRecords()
+        let coinActions = coinActionService.getAll(for: tileSetting)
+        let records = coinActions.convertToRecords()
         
         return {
         
@@ -25,8 +25,8 @@ public struct CoinActionTileViewCollector: TileViewCollectorProtocol {
     
     public func collectReplacer(for tileSetting: CoinActionTileSettingsEntity) -> (any TileProtocol) -> Void {
 
-        let rawData = getData(by: tileSetting)
-        let records = rawData.convertToRecords()
+        let coinActions = coinActionService.getAll(for: tileSetting)
+        let records = coinActions.convertToRecords()
         
         return { tileView in
             
@@ -37,14 +37,6 @@ public struct CoinActionTileViewCollector: TileViewCollectorProtocol {
             
             coinActionTileView.records = records
         }
-    }
-    
-    private func getData(by entity: CoinActionTileSettingsEntity) -> [CoinActionEntity] {
-        
-        let filter: FilterEntity = (field: .actionTypeCode, sign: .equals, value: entity.coinActionType.rawValue)
-        let sorting: SortingEntity = (type: entity.sortingType, direction: entity.sortingDirection)
-        
-        return storage.fetch(type: CoinActionEntity.self, where: [filter], orderBy: [sorting])
     }
 }
 

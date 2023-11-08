@@ -19,10 +19,16 @@ public protocol TileViewCollectorContainerProtocol {
 
 public struct TileViewCollectorContainer: TileViewCollectorContainerProtocol {
     
-    private var tileSettingsService: TileSettingsServiceProtocol
+    private let tileSettingsService: TileSettingsServiceProtocol
+    private let coinActionTileViewCollector: CoinActionTileViewCollector
     
-    init (_ tileSettingsService: TileSettingsServiceProtocol) {
+    init (
+        _ tileSettingsService: TileSettingsServiceProtocol,
+        _ coinActionService: CoinActionServiceProtocol,
+    ) {
+            
         self.tileSettingsService = tileSettingsService
+        self.coinActionTileViewCollector = CoinActionTileViewCollector(coinActionService: coinActionService)
     }
     
     public func loadAllSetups() -> [() -> any TileProtocol] {
@@ -37,7 +43,7 @@ public struct TileViewCollectorContainer: TileViewCollectorContainerProtocol {
             
             switch tileSettingsType {
             case .coinAction:
-                return CoinActionTileViewCollector().collectSetups(for: tileSettingRaw as! CoinActionTileSettingsEntity)
+                return coinActionTileViewCollector.collectSetups(for: tileSettingRaw as! CoinActionTileSettingsEntity)
             case .currencyRate:
                 return CurrencyRateTileViewCollector().collectSetups(for: tileSettingRaw as! CurrencyRateTileSettingsEntity)
             }
@@ -54,7 +60,7 @@ public struct TileViewCollectorContainer: TileViewCollectorContainerProtocol {
             
             switch tileSettingsType {
             case .coinAction:
-                replacer = CoinActionTileViewCollector().collectReplacer(for: tileSettingRaw as! CoinActionTileSettingsEntity)
+                replacer = coinActionTileViewCollector.collectReplacer(for: tileSettingRaw as! CoinActionTileSettingsEntity)
             case.currencyRate:
                 replacer = CurrencyRateTileViewCollector().collectReplacer(for: tileSettingRaw as! CurrencyRateTileSettingsEntity)
             }
