@@ -21,8 +21,8 @@ public protocol StorageServiceProtocol {
     
     func fetch<T: ManagedEntity>(type: T.Type) -> [T]
     func fetch<T: ManagedEntity>(type: T.Type, by id: String) -> T?
-    func fetch<T: ManagedEntity>(type: T.Type, where filters: [FilterEntity], orderBy sorting: [SortingEntity]) -> [T]
-    func fetch<T: ManagedEntity>(type: T.Type, where filters: [FilterEntity]) -> [T]
+    func fetch<T: ManagedEntity>(type: T.Type, where filtering: CompoundFilterEntity, orderBy sorting: [SortingEntity]) -> [T]
+    func fetch<T: ManagedEntity>(type: T.Type, where filtering: CompoundFilterEntity) -> [T]
     func fetch<T: ManagedEntity>(type: T.Type, orderBy sorting: [SortingEntity]) -> [T]
     
     func update<T: ManagedEntity>(type: T.Type, by id: String, filler: (T) -> Void)
@@ -76,22 +76,22 @@ public final class StorageService: NSObject, StorageServiceProtocol {
     
     public func fetch<T: ManagedEntity>(type: T.Type, by id: String) -> T? {
         
-        return fetch(type: type, where: [(field: .id, .equals, id)]).first(where: { $0.id == id })
+        return fetch(type: type, where: CompoundFilterEntity(filters: [FilterEntity(field: .id, sign: .equals, value: id)], joiner: .and)).first(where: { $0.id == id })
     }
     
-    public func fetch<T: ManagedEntity>(type: T.Type, where filters: [FilterEntity]) -> [T] {
-        return fetch(type: type, where: filters, orderBy: [])
+    public func fetch<T: ManagedEntity>(type: T.Type, where filtering: CompoundFilterEntity) -> [T] {
+        return fetch(type: type, where: filtering, orderBy: [])
     }
     
     public func fetch<T: ManagedEntity>(type: T.Type, orderBy sorting: [SortingEntity]) -> [T] {
-        return fetch(type: type, where: [], orderBy: sorting)
+        return fetch(type: type, where: CompoundFilterEntity.empty, orderBy: sorting)
     }
     
-    public func fetch<T: ManagedEntity>(type: T.Type, where filters: [FilterEntity], orderBy sorting: [SortingEntity]) -> [T] {
+    public func fetch<T: ManagedEntity>(type: T.Type, where filtering: CompoundFilterEntity, orderBy sorting: [SortingEntity]) -> [T] {
         
         let fetchRequest = type.fetchRequest()
         
-        filters.forEach { tryAddPredicate(to: fetchRequest, filter: $0) }
+        fetchRequest.predicate = filtering.toPredicate()
         fetchRequest.sortDescriptors = sorting.toSortDescriptors()
 
         do {
@@ -149,30 +149,6 @@ public final class StorageService: NSObject, StorageServiceProtocol {
             appDelegate.saveContext()
         }
     }
-    
-    private func tryAddPredicate<T>(to fetchRequest: NSFetchRequest<T>, filter: FilterEntity) {
-        
-        let objectFormatPattern = "%K %@ %@"
-        let numberFormatPattern = "%@ %@ %i"
-        let decimalFormatPattern = "%@ %@ %x"
-        
-        let field = filter.field.rawValue
-        let sign = filter.sign.rawValue
-        let value = filter.value
-        
-        if let strValue = value as? String {
-            fetchRequest.predicate = NSPredicate(format: objectFormatPattern, field, sign, strValue)
-            
-        } else if let int16Value = value as? Int16 {
-            fetchRequest.predicate = NSPredicate(format: String(format: numberFormatPattern, field, sign, int16Value))
-            
-        }else if let dateValue = value as? NSDate {
-            fetchRequest.predicate = NSPredicate(format: objectFormatPattern, field, sign, dateValue)
-            
-        } else if let decimalValue = value as? NSDecimalNumber {
-            fetchRequest.predicate = NSPredicate(format: String(format: decimalFormatPattern, field, sign, decimalValue))
-        }
-    }
 }
 
 fileprivate extension Array where Element == SortingEntity {
@@ -183,5 +159,49 @@ fileprivate extension Array where Element == SortingEntity {
             
             NSSortDescriptor(key: type.field, ascending: direction.isAscending)
         }
+    }
+}
+
+fileprivate extension CompoundFilterEntity{
+    
+    func toPredicate() -> NSCompoundPredicate {
+        
+        let predicates = self.filters.compactMap { $0.toPredicate() }
+        
+        switch joiner {
+        case .and:
+            return NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+        case .or:
+            return NSCompoundPredicate(orPredicateWithSubpredicates: predicates)
+        }
+    }
+}
+
+fileprivate extension FilterEntity {
+    
+    func toPredicate() -> NSPredicate? {
+        
+        let objectFormatPattern = "%@ %@ %@"
+        let numberFormatPattern = "%@ %@ %i"
+        let decimalFormatPattern = "%@ %@ %x"
+        
+        let field = field.rawValue
+        let sign = sign.rawValue
+        let value = value
+        
+        if let strValue = value as? String {
+            return NSPredicate(format: String(format: objectFormatPattern, field, sign, strValue))
+            
+        } else if let int16Value = value as? Int16 {
+            return NSPredicate(format: String(format: numberFormatPattern, field, sign, int16Value))
+            
+        }else if let dateValue = value as? NSDate {
+            return NSPredicate(format: String(format: objectFormatPattern, field, sign, dateValue))
+            
+        } else if let decimalValue = value as? NSDecimalNumber {
+            return NSPredicate(format: String(format: decimalFormatPattern, field, sign, decimalValue))
+        }
+        
+        return nil
     }
 }

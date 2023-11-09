@@ -13,4 +13,5 @@ public enum FilterSign: String {
     case lower = "<"
     case largerOrEqual = ">="
     case lowerOrEqual = "<="
+    case like = "like"
 }
