@@ -15,8 +15,9 @@ public protocol TileCollectionAssemblyProtocol {
 public struct TileCollectionAssembly: TileCollectionAssemblyProtocol {
    
     public func assemble(with viewController: TileCollectionViewControllerProtocol) {
+        let container = TileViewCollectorContainer(TileSettingsService(), CoinActionService(), CurrencyRateService())
         
-        let interactor = TileCollectionInteractor(TileViewCollectorContainer(TileSettingsService()))
+        let interactor = TileCollectionInteractor(container)
         let router = TileCollectionRouter()
         let presenter = TileCollectionPresenter(router: router, interactor: interactor)
         

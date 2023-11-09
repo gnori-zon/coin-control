@@ -62,6 +62,7 @@
 		0FA79B902AFADA1300C0F03B /* CurrencyRateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA79B8F2AFADA1300C0F03B /* CurrencyRateResponse.swift */; };
 		0FA79B922AFADEBD00C0F03B /* CurrencyRateResponseConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA79B912AFADEBD00C0F03B /* CurrencyRateResponseConverter.swift */; };
 		0FD802352AFC271A004AF88D /* CoinActionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD802342AFC271A004AF88D /* CoinActionService.swift */; };
+		0FD802372AFC2A3C004AF88D /* CurrencyRateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD802362AFC2A3C004AF88D /* CurrencyRateService.swift */; };
 		0FD8023A2AFC2CA3004AF88D /* RatioCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD802392AFC2CA3004AF88D /* RatioCurrency.swift */; };
 /* End PBXBuildFile section */
 
@@ -123,6 +124,7 @@
 		0FA79B8F2AFADA1300C0F03B /* CurrencyRateResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRateResponse.swift; sourceTree = "<group>"; };
 		0FA79B912AFADEBD00C0F03B /* CurrencyRateResponseConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRateResponseConverter.swift; sourceTree = "<group>"; };
 		0FD802342AFC271A004AF88D /* CoinActionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinActionService.swift; sourceTree = "<group>"; };
+		0FD802362AFC2A3C004AF88D /* CurrencyRateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRateService.swift; sourceTree = "<group>"; };
 		0FD802392AFC2CA3004AF88D /* RatioCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatioCurrency.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -332,6 +334,7 @@
 			children = (
 				0F33EFC72AF2D7A4000DDFD0 /* TileSettingsService.swift */,
 				0FD802342AFC271A004AF88D /* CoinActionService.swift */,
+				0FD802362AFC2A3C004AF88D /* CurrencyRateService.swift */,
 			);
 			path = dao;
 			sourceTree = "<group>";
@@ -493,6 +496,7 @@
 				0F2DF8162AE411F3002F6BA3 /* CoinActionType.swift in Sources */,
 				0F33EFC62AF2CE33000DDFD0 /* SortingDirection.swift in Sources */,
 				0F42E1E02AE4041D00982A09 /* AppDelegate.swift in Sources */,
+				0FD802372AFC2A3C004AF88D /* CurrencyRateService.swift in Sources */,
 				0F2DF82C2AE57E4F002F6BA3 /* TileCollectionAssembly.swift in Sources */,
 				0F2DF8652AEE75EB002F6BA3 /* UIDropDownList.swift in Sources */,
 				0FA79B802AF98BE000C0F03B /* CurrencyRateParser.swift in Sources */,

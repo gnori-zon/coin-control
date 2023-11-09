@@ -21,14 +21,17 @@ public struct TileViewCollectorContainer: TileViewCollectorContainerProtocol {
     
     private let tileSettingsService: TileSettingsServiceProtocol
     private let coinActionTileViewCollector: CoinActionTileViewCollector
+    private let currencyRateTileViewCollector: CurrencyRateTileViewCollector
     
     init (
         _ tileSettingsService: TileSettingsServiceProtocol,
         _ coinActionService: CoinActionServiceProtocol,
+        _ currencyRateService: CurrencyRateServiceProtocol
     ) {
             
         self.tileSettingsService = tileSettingsService
         self.coinActionTileViewCollector = CoinActionTileViewCollector(coinActionService: coinActionService)
+        self.currencyRateTileViewCollector = CurrencyRateTileViewCollector(currencyRateService: currencyRateService)
     }
     
     public func loadAllSetups() -> [() -> any TileProtocol] {
@@ -45,7 +48,7 @@ public struct TileViewCollectorContainer: TileViewCollectorContainerProtocol {
             case .coinAction:
                 return coinActionTileViewCollector.collectSetups(for: tileSettingRaw as! CoinActionTileSettingsEntity)
             case .currencyRate:
-                return CurrencyRateTileViewCollector().collectSetups(for: tileSettingRaw as! CurrencyRateTileSettingsEntity)
+                return currencyRateTileViewCollector.collectSetups(for: tileSettingRaw as! CurrencyRateTileSettingsEntity)
             }
         }
     }
@@ -62,7 +65,7 @@ public struct TileViewCollectorContainer: TileViewCollectorContainerProtocol {
             case .coinAction:
                 replacer = coinActionTileViewCollector.collectReplacer(for: tileSettingRaw as! CoinActionTileSettingsEntity)
             case.currencyRate:
-                replacer = CurrencyRateTileViewCollector().collectReplacer(for: tileSettingRaw as! CurrencyRateTileSettingsEntity)
+                replacer = currencyRateTileViewCollector.collectReplacer(for: tileSettingRaw as! CurrencyRateTileSettingsEntity)
             }
             
             return (tileSettingRaw.id, replacer)

@@ -5,25 +5,24 @@
 //  Created by Stepan Konashenko on 02.11.2023.
 //
 
+import Foundation
+
 public struct CurrencyRateTileViewCollector: TileViewCollectorProtocol {
     
-    let currencyRateParser: CurrencyRateParserProtocol = CurrencyRateParser(converter: CurrencyRateResponseConverter(), requestSender: HttpRequestSender())
+    let currencyRateService: CurrencyRateServiceProtocol
     
     public func collectSetups(for tileSetting: CurrencyRateTileSettingsEntity) -> () -> any TileProtocol {
         
-        Task.init(priority: .utility) {
-            await currencyRateParser.tryParse(target: tileSetting.targetCurrencyType, ratioCurrencyTypes: tileSetting.selectedCurrencies) { currencyRate in
-                // TODO: - (1) notify success by tile id and save to userDefaults (2) added temporal data from userDefaults
-                print(currencyRate)
-            }
-        }
+        let id = tileSetting.id
+        let title = tileSetting.title
+        let currencyRate = currencyRateService.updateAndFindLast(for: tileSetting)
+        let timeUpdated = currencyRate?.date.shortFormat() ?? ""
+        let records = currencyRate?.toCurrencyRateRecordRaws() ?? []
         
         return {
-            let tileView = CurrencyRateTileView(tileSetting.id, records: [
-                (imagePath: CurrencyType.eur.currencyRaw.imagePath, text: "103 rub"),
-                (imagePath: CurrencyType.usd.currencyRaw.imagePath, text: "97 rub")
-            ])
-            tileView.setup(title: "Курсы", timeUpdate: "12:12")
+            
+            let tileView = CurrencyRateTileView(id, records: records)
+            tileView.setup(title: title, timeUpdate: timeUpdated)
             
             return tileView
         }
@@ -43,5 +42,52 @@ public struct CurrencyRateTileViewCollector: TileViewCollectorProtocol {
                 (imagePath: CurrencyType.usd.currencyRaw.imagePath, text: "97 rub")
             ]
         }
+    }
+}
+
+//MARK: - CurrencyRateProtocol.toCurrencyRateRecordRaws, ratioCurrency.toCurrencyRateRecordRaw(), decimal.cut(), date.shortFormat()
+
+fileprivate extension CurrencyRateProtocol {
+    
+    func toCurrencyRateRecordRaws() -> [CurrencyRateRecordRaw] {
+        
+        return self.ratioCurrencies.map { $0.toCurrencyRateRecordRaw(target: self.targetCurrencyType)
+        }
+    }
+}
+
+fileprivate extension RatioCurrency {
+    
+    func toCurrencyRateRecordRaw(target: CurrencyType) -> CurrencyRateRecordRaw {
+        
+        let imagePath = self.type.currencyRaw.imagePath
+        let invertValue = (1 / self.value).cut(with: 2)
+        
+        return (imagePath: imagePath, text: "\(invertValue) \(target.currencyRaw.str)")
+    }
+}
+
+extension Decimal {
+    
+    func cut(with offsetAfterPoint: Int) -> Double {
+        
+        let selfValue = self.doubleValue
+        let rounder = pow(10, offsetAfterPoint).doubleValue
+    
+        return Double(round(selfValue * rounder) / rounder)
+    }
+    
+    var doubleValue: Double {
+        (self as NSDecimalNumber).doubleValue
+    }
+}
+
+extension Date {
+    
+    func shortFormat() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d.M.yyyy"
+        
+        return dateFormatter.string(from: self)
     }
 }
