@@ -9,21 +9,22 @@ import Foundation
 
 public protocol CurrencyRateServiceProtocol {
     
-    func updateAndFindLast(for tileEntity: CurrencyRateTileSettingsEntity) -> CurrencyRateProtocol?
+    func findLast(for tileEntity: CurrencyRateTileSettingsEntity) -> CurrencyRateProtocol?
+    func updateCurrencyRate(for tileEntity: CurrencyRateTileSettingsEntity, onlyIfNeeded: Bool)
 }
 
 public struct CurrencyRateService: CurrencyRateServiceProtocol {
     
     private let pivotCurrencyType = CurrencyType.eur
-    private let key = "currency-key"
+    private let currencyKey = "currency-key"
+    private let lastUpdateKey = "last-update-key"
     
     private let userDefaults = UserDefaults.standard
     private let currencyRateParser: CurrencyRateParserProtocol = CurrencyRateParser(converter: CurrencyRateResponseConverter(), requestSender: HttpRequestSender())
-
-    public func updateAndFindLast(for tileEntity: CurrencyRateTileSettingsEntity) -> CurrencyRateProtocol? {
     
-        guard var pivotCurrencyRates = userDefaults.getPivotCurrencyRates(by: key) else {
-            updateCurrencyRate(for: tileEntity)
+    public func findLast(for tileEntity: CurrencyRateTileSettingsEntity) -> CurrencyRateProtocol? {
+        
+        guard let pivotCurrencyRates = userDefaults.getPivotCurrencyRates(by: currencyKey) else {
             return nil
         }
 
@@ -69,29 +70,62 @@ public struct CurrencyRateService: CurrencyRateServiceProtocol {
         }
     }
     
-    
-    private func updateCurrencyRate(for tileEntity: CurrencyRateTileSettingsEntity) {
+    public func updateCurrencyRate(for tileEntity: CurrencyRateTileSettingsEntity, onlyIfNeeded: Bool) {
         
-        Task.init(priority: .utility) {
-            let target = tileEntity.targetCurrencyType
-            var ratioCurrencyTypes = tileEntity.selectedCurrencies.filter { $0 != pivotCurrencyType }
+        if !onlyIfNeeded || currencyRateIsShouldUpdate() {
             
-            if target != pivotCurrencyType {
-                ratioCurrencyTypes.append(tileEntity.targetCurrencyType)
-            }
-            
-            await currencyRateParser.tryParse(target: pivotCurrencyType, ratioCurrencyTypes: ratioCurrencyTypes) { currencyRate in
-                // TODO: - (1) notify success by tile id and save to userDefaults (2) added temporal data from userDefaults
-                print(currencyRate)
-                userDefaults.addAll(currencyRate.ratioCurrencies, for: key)
+            Task.init(priority: .utility) {
+                let target = tileEntity.targetCurrencyType
+                var ratioCurrencyTypes = tileEntity.selectedCurrencies.filter { $0 != pivotCurrencyType }
+                
+                if target != pivotCurrencyType {
+                    ratioCurrencyTypes.append(tileEntity.targetCurrencyType)
+                }
+                
+                await currencyRateParser.tryParse(target: pivotCurrencyType, ratioCurrencyTypes: ratioCurrencyTypes) { currencyRate in
+                    
+                    print(currencyRate)
+                    userDefaults.addAllCurrencyRates(currencyRate.ratioCurrencies, for: currencyKey)
+                    userDefaults.setLastUpdateDate(Date(), for: lastUpdateKey)
+                    
+                    NotificationCenter.default.post(name: .didUpdateCurrencyRates, object: ratioCurrencyTypes)
+                }
             }
         }
+    }
+    
+    private func currencyRateIsShouldUpdate() -> Bool {
+        
+        guard let lastUpdateDate = userDefaults.getLastUpdateDate(by: lastUpdateKey) else {
+            return true
+        }
+        
+        let lastUpdateComponents = Calendar.current.dateComponents([.day, .year, .month], from: lastUpdateDate)
+        let currentComponents = Calendar.current.dateComponents([.day, .year, .month], from: Date())
+        
+        return lastUpdateComponents != currentComponents
     }
 }
 
 // MARK: - UserDefaults
 
 fileprivate extension UserDefaults {
+    
+    func getLastUpdateDate(by key: String) -> Date? {
+        
+        guard let data = self.value(forKey: key) as? Data else {
+            return nil
+        }
+        
+        return try? PropertyListDecoder().decode(Date.self, from: data)
+    }
+    
+    func setLastUpdateDate(_ date: Date, for key: String) {
+        
+        if let data = try? PropertyListEncoder().encode(date) {
+            self.set(data, forKey: key)
+        }
+    }
     
     func getPivotCurrencyRates(by key: String) -> [CurrencyType: Decimal]? {
         
@@ -102,7 +136,7 @@ fileprivate extension UserDefaults {
         return try? PropertyListDecoder().decode([CurrencyType: Decimal].self, from: data)
     }
     
-    func addAll(_ ratioCurrencies: [RatioCurrency], for key: String) {
+    func addAllCurrencyRates(_ ratioCurrencies: [RatioCurrency], for key: String) {
         
         var existCurrencyRates = getPivotCurrencyRates(by: key) ?? [:]
         ratioCurrencies.forEach { existCurrencyRates[$0.type] = $0.value }
@@ -111,4 +145,10 @@ fileprivate extension UserDefaults {
             self.set(data, forKey: key)
         }
     }
+}
+
+// MARK: - Notification.Name
+
+extension Notification.Name {
+    static let didUpdateCurrencyRates = Notification.Name("didUpdateCurrencyRates")
 }
