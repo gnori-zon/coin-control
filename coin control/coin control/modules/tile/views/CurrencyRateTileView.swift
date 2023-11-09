@@ -16,7 +16,7 @@ public typealias CurrencyRateRecordRaw = (imagePath: String, text: String)
 
 public protocol CurrencyRateTileProtocol: TileProtocol {
     
-    func setup(title titleText: String, timeUpdate timeUpdateText: String)
+    func setup(title titleText: String)
 }
 
 //MARK: - CurrencyRateTileView
@@ -31,11 +31,16 @@ public final class CurrencyRateTileView: UIView, CurrencyRateTileProtocol {
     private var timeUpdateLabel: UILabel
     private var currencyRateRecordsTableView: UITableView
     var currencyRateRecordRaws: [CurrencyRateRecordRaw]
+    var timeUpdateText: String
     public let id: String
     
-    public init(_ id: String, records currencyRateRecordRaws: [CurrencyRateRecordRaw]) {
+    public init(_ id: String,
+                records currencyRateRecordRaws: [CurrencyRateRecordRaw],
+                timeUpdate timeUpdateText: String
+    ) {
         
         self.id = id
+        self.timeUpdateText = timeUpdateText
         self.currencyRateRecordRaws = currencyRateRecordRaws
         titleLabel = UILabel()
         timeUpdateLabel = UILabel()
@@ -48,8 +53,7 @@ public final class CurrencyRateTileView: UIView, CurrencyRateTileProtocol {
     }
     
     public func setup(
-        title titleText: String,
-        timeUpdate timeUpdateText: String
+        title titleText: String
     ) {
         
         translatesAutoresizingMaskIntoConstraints = false
@@ -76,7 +80,7 @@ public final class CurrencyRateTileView: UIView, CurrencyRateTileProtocol {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            titleLabel.widthAnchor.constraint(equalToConstant: 75),
+            titleLabel.widthAnchor.constraint(equalToConstant: 55),
             titleLabel.heightAnchor.constraint(equalToConstant: 20),
         ])
     }
@@ -85,13 +89,14 @@ public final class CurrencyRateTileView: UIView, CurrencyRateTileProtocol {
         
         timeUpdateLabel.text = textDate
         timeUpdateLabel.textColor = TileDefaultColors.text.getUIColor()
+        timeUpdateLabel.textAlignment = .center
         timeUpdateLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(timeUpdateLabel)
         
         NSLayoutConstraint.activate([
             timeUpdateLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
             timeUpdateLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
-            timeUpdateLabel.widthAnchor.constraint(equalToConstant: 75),
+            timeUpdateLabel.widthAnchor.constraint(equalToConstant: 90),
             timeUpdateLabel.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
@@ -123,6 +128,7 @@ extension CurrencyRateTileView: UITableViewDelegate, UITableViewDataSource {
     
     public func reloadContent() {
         self.currencyRateRecordsTableView.reloadData()
+        self.timeUpdateLabel.text = timeUpdateText
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -148,6 +154,7 @@ extension UITableViewCell: UIStackCreatorProtocol {
     
     fileprivate func fill(from currencyRateRecordRaws: [CurrencyRateRecordRaw], by indexPath: IndexPath) {
         
+        self.subviews.forEach{ $0.removeFromSuperview() }
         let recordContainer = createHorizontalUIStackView(in: self)
         let row = currencyRateRecordRaws[indexPath.row]
 
