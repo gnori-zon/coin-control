@@ -19,6 +19,7 @@ public final class TileCollectionInteractor: TileCollectionInteractorProtocol {
     init(_ tileViewCollectorContainer: TileViewCollectorContainerProtocol) {
         self.tileViewCollectorContainer = tileViewCollectorContainer
         NotificationCenter.default.addObserver(self, selector: #selector(didAddCoinAction), name: .didAddCoinAction, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didUpdateCurrencyRates), name: .didUpdateCurrencyRates, object: nil)
     }
     
     public func loadTiles() {
@@ -60,8 +61,36 @@ public final class TileCollectionInteractor: TileCollectionInteractorProtocol {
                 return
             }
             
-            let filter: FilterEntity = (field: .coinActionTypeCode, sign: .equals, value: coinActionType.rawValue)
-            let replacers = self.tileViewCollectorContainer.loadAllReplacers(for: .coinAction, tileFilters: [filter])
+            let filter = FilterEntity(field: .coinActionTypeCode, sign: .equals, value: coinActionType.rawValue)
+            let compoundFilterEntity = CompoundFilterEntity(filters: [filter], joiner: .and)
+            let replacers = self.tileViewCollectorContainer.loadAllReplacers(for: .coinAction, filtering: compoundFilterEntity)
+            
+            replacers.forEach { replacer in
+                
+                self.presenter?.replaceContent(for: replacer.id) { tileView in
+                    
+                    replacer.action(tileView)
+                    
+                    DispatchQueue.main.async {
+                        tileView.reloadContent()
+                    }
+                }
+            }
+        }
+    }
+    
+    @objc private func didUpdateCurrencyRates(_ notification: Notification) {
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            
+            guard let currencyRateTypes = notification.object as? [CurrencyType] else {
+                print("DEBUG: receive undefined 'didUpdateCurrencyRates' notification")
+                return
+            }
+            
+            let filters = currencyRateTypes.map { FilterEntity(field: .selectedCurrencyCodes, sign: .like, value: "'*\($0.rawValue)*'") }
+            let compoundFilterEntity = CompoundFilterEntity(filters: filters, joiner: .or)
+            let replacers = self.tileViewCollectorContainer.loadAllReplacers(for: .currencyRate, filtering: compoundFilterEntity)
             
             replacers.forEach { replacer in
                 
