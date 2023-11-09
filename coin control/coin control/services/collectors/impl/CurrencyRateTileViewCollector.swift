@@ -13,16 +13,18 @@ public struct CurrencyRateTileViewCollector: TileViewCollectorProtocol {
     
     public func collectSetups(for tileSetting: CurrencyRateTileSettingsEntity) -> () -> any TileProtocol {
         
+        let currencyRate = currencyRateService.findLast(for: tileSetting)
+        currencyRateService.updateCurrencyRate(for: tileSetting, onlyIfNeeded: true)
+        
         let id = tileSetting.id
         let title = tileSetting.title
-        let currencyRate = currencyRateService.updateAndFindLast(for: tileSetting)
-        let timeUpdated = currencyRate?.date.shortFormat() ?? ""
+        let timeUpdated = currencyRate?.date.shortFormat() ?? "..."
         let records = currencyRate?.toCurrencyRateRecordRaws() ?? []
         
         return {
             
-            let tileView = CurrencyRateTileView(id, records: records)
-            tileView.setup(title: title, timeUpdate: timeUpdated)
+            let tileView = CurrencyRateTileView(id, records: records, timeUpdate: timeUpdated)
+            tileView.setup(title: title)
             
             return tileView
         }
@@ -30,6 +32,10 @@ public struct CurrencyRateTileViewCollector: TileViewCollectorProtocol {
     
     public func collectReplacer(for tileSetting: CurrencyRateTileSettingsEntity) -> (any TileProtocol) -> Void {
        
+        let currencyRate = currencyRateService.findLast(for: tileSetting)
+        let records: [CurrencyRateRecordRaw] = currencyRate?.toCurrencyRateRecordRaws() ?? []
+        let timeUpdated = currencyRate?.date.shortFormat() ?? "..."
+        
         return { tileView in
             
             guard let currencyRateTileView = tileView as? CurrencyRateTileView else {
@@ -37,10 +43,8 @@ public struct CurrencyRateTileViewCollector: TileViewCollectorProtocol {
                 return
             }
             
-            currencyRateTileView.currencyRateRecordRaws = [
-                (imagePath: CurrencyType.eur.currencyRaw.imagePath, text: "103 rub"),
-                (imagePath: CurrencyType.usd.currencyRaw.imagePath, text: "97 rub")
-            ]
+            currencyRateTileView.timeUpdateText = timeUpdated
+            currencyRateTileView.currencyRateRecordRaws = records
         }
     }
 }
