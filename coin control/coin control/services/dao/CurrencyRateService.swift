@@ -72,7 +72,7 @@ public struct CurrencyRateService: CurrencyRateServiceProtocol {
     
     public func updateCurrencyRate(for tileEntity: CurrencyRateTileSettingsEntity, onlyIfNeeded: Bool) {
         
-        if !onlyIfNeeded || currencyRateIsShouldUpdate() {
+        if (!onlyIfNeeded || currencyRateIsShouldUpdate()) {
             
             Task.init(priority: .utility) {
                 let target = tileEntity.targetCurrencyType
@@ -86,7 +86,7 @@ public struct CurrencyRateService: CurrencyRateServiceProtocol {
                     
                     print(currencyRate)
                     userDefaults.addAllCurrencyRates(currencyRate.ratioCurrencies, for: currencyKey)
-                    userDefaults.setLastUpdateDate(Date(), for: lastUpdateKey)
+                    userDefaults.setLastUpdateDate(Date.now, for: lastUpdateKey)
                     
                     NotificationCenter.default.post(name: .didUpdateCurrencyRates, object: ratioCurrencyTypes)
                 }
@@ -101,7 +101,7 @@ public struct CurrencyRateService: CurrencyRateServiceProtocol {
         }
         
         let lastUpdateComponents = Calendar.current.dateComponents([.day, .year, .month], from: lastUpdateDate)
-        let currentComponents = Calendar.current.dateComponents([.day, .year, .month], from: Date())
+        let currentComponents = Calendar.current.dateComponents([.day, .year, .month], from: Date.now)
         
         return lastUpdateComponents != currentComponents
     }
@@ -113,18 +113,12 @@ fileprivate extension UserDefaults {
     
     func getLastUpdateDate(by key: String) -> Date? {
         
-        guard let data = self.value(forKey: key) as? Data else {
-            return nil
-        }
-        
-        return try? PropertyListDecoder().decode(Date.self, from: data)
+        return self.object(forKey: key) as? Date
     }
     
     func setLastUpdateDate(_ date: Date, for key: String) {
         
-        if let data = try? PropertyListEncoder().encode(date) {
-            self.set(data, forKey: key)
-        }
+        self.set(date, forKey: key)
     }
     
     func getPivotCurrencyRates(by key: String) -> [CurrencyType: Decimal]? {
