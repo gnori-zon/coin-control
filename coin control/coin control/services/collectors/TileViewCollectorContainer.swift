@@ -12,7 +12,7 @@ public typealias TileAction = (id: String, action: (any TileProtocol) -> Void)
 public protocol TileViewCollectorContainerProtocol {
     
     func loadAllSetups() -> [() -> any TileProtocol]
-    func loadAllReplacers(for tileSettingsType: TileSettingsType, tileFilters: [FilterEntity]) -> [TileAction]
+    func loadAllReplacers(for tileSettingsType: TileSettingsType, filtering: CompoundFilterEntity) -> [TileAction]
 }
 
 // MARK: - TileViewCollectorContainer
@@ -53,9 +53,9 @@ public struct TileViewCollectorContainer: TileViewCollectorContainerProtocol {
         }
     }
     
-    public func loadAllReplacers(for tileSettingsType: TileSettingsType, tileFilters: [FilterEntity]) -> [TileAction] {
+    public func loadAllReplacers(for tileSettingsType: TileSettingsType, filtering: CompoundFilterEntity) -> [TileAction] {
         
-        let tileSettings = self.tileSettingsService.getAllTileSettings(type: tileSettingsType.entityType, tileFilters: tileFilters)
+        let tileSettings = self.tileSettingsService.getAllTileSettings(type: tileSettingsType.entityType, filtering: filtering)
         
         return tileSettings.map { tileSettingRaw in
             

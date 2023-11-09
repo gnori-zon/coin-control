@@ -18,9 +18,10 @@ public struct CoinActionService: CoinActionServiceProtocol {
 
     public func getAll(for tileEntity: CoinActionTileSettingsEntity) -> [CoinActionEntity] {
         
-        let filter: FilterEntity = (field: .actionTypeCode, sign: .equals, value: tileEntity.coinActionType.rawValue)
+        let filter = FilterEntity(field: .actionTypeCode, sign: .equals, value: tileEntity.coinActionType.rawValue)
+        let compoundFilterEntity = CompoundFilterEntity(filters: [filter], joiner: .and)
         let sorting: SortingEntity = (type: tileEntity.sortingType, direction: tileEntity.sortingDirection)
         
-        return storage.fetch(type: CoinActionEntity.self, where: [filter], orderBy: [sorting])
+        return storage.fetch(type: CoinActionEntity.self, where: compoundFilterEntity, orderBy: [sorting])
     }
 }

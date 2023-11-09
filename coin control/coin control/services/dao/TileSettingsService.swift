@@ -12,7 +12,7 @@ public typealias InstanceTileSettingsEntityProtocol = TileSettingsEntityProtocol
 public protocol TileSettingsServiceProtocol {
     
     func getAllTileSettings() -> [any InstanceTileSettingsEntityProtocol]
-    func getAllTileSettings<T: InstanceTileSettingsEntityProtocol> (type: T.Type, tileFilters: [FilterEntity]) -> [T]
+    func getAllTileSettings<T: InstanceTileSettingsEntityProtocol> (type: T.Type, filtering: CompoundFilterEntity) -> [T]
 }
 
 public struct TileSettingsService: TileSettingsServiceProtocol {
@@ -31,8 +31,8 @@ public struct TileSettingsService: TileSettingsServiceProtocol {
         return tileSettings
     }
         
-    public func getAllTileSettings<T: InstanceTileSettingsEntityProtocol> (type: T.Type, tileFilters: [FilterEntity] = []) -> [T] {
-        return storage.fetch(type: type, where: tileFilters)
+    public func getAllTileSettings<T: InstanceTileSettingsEntityProtocol> (type: T.Type, filtering: CompoundFilterEntity) -> [T] {
+        return storage.fetch(type: type, where: filtering)
     }
     
     private func createDefaultTileSettings() -> [any InstanceTileSettingsEntityProtocol] {
