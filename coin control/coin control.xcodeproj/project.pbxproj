@@ -295,12 +295,9 @@
 		0F33EFE12AF84202000DDFD0 /* storage */ = {
 			isa = PBXGroup;
 			children = (
+				0FF09DD22AFEF47A00848205 /* filter */,
 				0F2DF84E2AE9A857002F6BA3 /* StorageService.swift */,
-				0F33EFDF2AF83EE2000DDFD0 /* FilterSign.swift */,
 				0F33EFE22AF862FE000DDFD0 /* EntityFields.swift */,
-				0FD8023B2AFD6FAD004AF88D /* FilterJoinType.swift */,
-				0FD8023D2AFD71DF004AF88D /* CompoundFilterEntity.swift */,
-				0FD8023F2AFD738C004AF88D /* FilterEntity.swift */,
 			);
 			path = storage;
 			sourceTree = "<group>";
@@ -406,6 +403,17 @@
 				0FF09DCF2AFEE66200848205 /* DaoServiceFactory.swift */,
 			);
 			path = factory;
+			sourceTree = "<group>";
+		};
+		0FF09DD22AFEF47A00848205 /* filter */ = {
+			isa = PBXGroup;
+			children = (
+				0F33EFDF2AF83EE2000DDFD0 /* FilterSign.swift */,
+				0FD8023B2AFD6FAD004AF88D /* FilterJoinType.swift */,
+				0FD8023F2AFD738C004AF88D /* FilterEntity.swift */,
+				0FD8023D2AFD71DF004AF88D /* CompoundFilterEntity.swift */,
+			);
+			path = filter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

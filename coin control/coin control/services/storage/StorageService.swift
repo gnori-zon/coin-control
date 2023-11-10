@@ -49,7 +49,7 @@ public final class StorageService: NSObject, StorageServiceProtocol {
     private var context: NSManagedObjectContext {
         appDelegate.persistentContainer.viewContext
     }
-    // TODO: add error optional
+    
     public func create<T: ManagedEntity>(type: T.Type, filler: (T) -> Void) -> T? {
         
         guard let entityDescription = type.getDescription(in: context) else {
@@ -75,7 +75,6 @@ public final class StorageService: NSObject, StorageServiceProtocol {
     }
     
     public func fetch<T: ManagedEntity>(type: T.Type, by id: String) -> T? {
-        
         return fetch(type: type, where: CompoundFilterEntity(filters: [FilterEntity(field: .id, sign: .equals, value: id)], joiner: .and)).first(where: { $0.id == id })
     }
     
@@ -151,6 +150,8 @@ public final class StorageService: NSObject, StorageServiceProtocol {
     }
 }
 
+// MARK: - toSortDescriptors()
+
 fileprivate extension Array where Element == SortingEntity {
 
     func toSortDescriptors() -> [NSSortDescriptor] {
@@ -161,6 +162,8 @@ fileprivate extension Array where Element == SortingEntity {
         }
     }
 }
+
+// MARK: - toPredicate()
 
 fileprivate extension CompoundFilterEntity{
     
