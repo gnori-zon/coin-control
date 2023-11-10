@@ -2,7 +2,7 @@
 //  DaoServiceFactory.swift
 //  coin control
 //
-//  Created by Степан Конашенко on 11.11.2023.
+//  Created by Stepan Konashenko on 11.11.2023.
 //
 
 import Foundation
