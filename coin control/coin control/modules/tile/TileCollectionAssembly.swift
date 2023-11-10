@@ -18,7 +18,11 @@ public struct TileCollectionAssembly: TileCollectionAssemblyProtocol {
    
     public func assemble(with viewController: TileCollectionViewControllerProtocol & UIViewController) {
         
-        let container = TileViewCollectorContainer(TileSettingsService(), CoinActionService(), CurrencyRateService())
+        let daoServiceFactory = DaoServiceFactory.shared
+        let tileSettingsService = daoServiceFactory.findDaoService(type: TileSettingsServiceProtocol.self)!
+        let coinActionService = daoServiceFactory.findDaoService(type: CoinActionServiceProtocol.self)!
+        let currencyRateService = daoServiceFactory.findDaoService(type: CurrencyRateServiceProtocol.self)!
+        let container = TileViewCollectorContainer(tileSettingsService, coinActionService, currencyRateService)
         
         let interactor = TileCollectionInteractor(container)
         let router = TileCollectionRouter()

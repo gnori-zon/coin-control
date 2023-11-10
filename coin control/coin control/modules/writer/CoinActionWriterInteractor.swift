@@ -19,32 +19,13 @@ public protocol CoinActionWriterInteractorProtocol {
 public final class CoinActionWriterInteractor: CoinActionWriterInteractorProtocol {
     
     weak var presenter: CoinActionWriterPresenterProtocol?
-    private var storage: any StorageServiceProtocol = StorageService.shared()
+    var coinActionService: CoinActionServiceProtocol
+    
+    public init(_ coinActionService: CoinActionServiceProtocol) {
+        self.coinActionService = coinActionService
+    }
     
     public func saveCoinAction(_ actionType: CoinActionType, _ value: String, _ currencyType: CurrencyType) {
-        
-        DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
-            
-            let createdCoinAction = self.storage.create(type: CoinActionEntity.self) { entity in
-                
-                entity.actionType = actionType
-                entity.currencyType = currencyType
-                entity.date = .now
-                entity.value = NSDecimalNumber.init(string: value)
-            }
-            
-            guard let createdActionType = createdCoinAction?.actionType else {
-                print("DEBUG: coin action not saved")
-                return
-            }
-            
-            NotificationCenter.default.post(name: .didAddCoinAction, object: createdActionType)
-        }
+        coinActionService.saveCoinAction(actionType, value, currencyType)
     }
-}
-
-//MARK: - Notification.Name
-
-extension Notification.Name {
-    static let didAddCoinAction = Notification.Name("didAddCoinAction")
 }

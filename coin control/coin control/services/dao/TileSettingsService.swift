@@ -15,7 +15,7 @@ public protocol TileSettingsServiceProtocol {
     func getAllTileSettings<T: InstanceTileSettingsEntityProtocol> (type: T.Type, filtering: CompoundFilterEntity) -> [T]
 }
 
-public struct TileSettingsService: TileSettingsServiceProtocol {
+public final class TileSettingsService: TileSettingsServiceProtocol {
     
     private let storage: some StorageServiceProtocol = StorageService.shared()
     

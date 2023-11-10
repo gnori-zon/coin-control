@@ -13,7 +13,7 @@ public protocol CurrencyRateServiceProtocol {
     func updateCurrencyRate(for tileEntity: CurrencyRateTileSettingsEntity, onlyIfNeeded: Bool)
 }
 
-public struct CurrencyRateService: CurrencyRateServiceProtocol {
+public final class CurrencyRateService: CurrencyRateServiceProtocol {
     
     private let pivotCurrencyType = CurrencyType.eur
     private let currencyKey = "currency-key"
@@ -82,11 +82,16 @@ public struct CurrencyRateService: CurrencyRateServiceProtocol {
                     ratioCurrencyTypes.append(tileEntity.targetCurrencyType)
                 }
                 
-                await currencyRateParser.tryParse(target: pivotCurrencyType, ratioCurrencyTypes: ratioCurrencyTypes) { currencyRate in
+                await currencyRateParser.tryParse(target: pivotCurrencyType, ratioCurrencyTypes: ratioCurrencyTypes) { [weak self] currencyRate in
+                    
+                    guard let self else {
+                        print ("DEBUG: bad try parser currencyRateService is nil")
+                        return
+                    }
                     
                     print(currencyRate)
-                    userDefaults.addAllCurrencyRates(currencyRate.ratioCurrencies, for: currencyKey)
-                    userDefaults.setLastUpdateDate(Date.now, for: lastUpdateKey)
+                    userDefaults.addAllCurrencyRates(currencyRate.ratioCurrencies, for: self.currencyKey)
+                    userDefaults.setLastUpdateDate(Date.now, for: self.lastUpdateKey)
                     
                     NotificationCenter.default.post(name: .didUpdateCurrencyRates, object: ratioCurrencyTypes)
                 }

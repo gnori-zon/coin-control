@@ -12,15 +12,16 @@ public final class UIDropDownList<T>: UIView, UITableViewDelegate, UITableViewDa
     private let cellHeight: CGFloat = 44
     private let cellCornerRadius: CGFloat = 5
     private let durationAnimation: TimeInterval = 0.3
+    private let cellBackgroundColor = TileDefaultColors.background.getUIColor()
     
     private let reusableId: String
-    private var textColor: UIColor
-    private var changeSelectedItemButton: UIButton
     private var dropDownTableView: UITableView
+    private var textColor: UIColor
+    private var labelGenerator: (T) -> String
     private var isTableVisible = false
     private var items: [T]
-    private var labelGenerator: (T) -> String
     private var selectedItem: T?
+    private var changeSelectedItemButton: UIButton
    
     private var heightConstraint: NSLayoutConstraint? {
         self.dropDownTableView.constraints.first { $0.firstAttribute == .height}
@@ -56,6 +57,8 @@ public final class UIDropDownList<T>: UIView, UITableViewDelegate, UITableViewDa
         selectedItem
     }
     
+    // MARK: - UITableViewDataSource
+    
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         items.count
     }
@@ -68,14 +71,16 @@ public final class UIDropDownList<T>: UIView, UITableViewDelegate, UITableViewDa
             cell = UITableViewCell(style: .default, reuseIdentifier: reusableId)
         }
         
+        cell?.backgroundColor = cellBackgroundColor
+        cell?.layer.cornerRadius = cellCornerRadius
         cell?.textLabel?.text = labelGenerator(items[indexPath.row])
         cell?.textLabel?.textAlignment = .center
         cell?.textLabel?.textColor = textColor
-        cell?.layer.cornerRadius = cellCornerRadius
-        cell?.backgroundColor = TileDefaultColors.background.getUIColor()
         
         return cell!
     }
+    
+    // MARK: - UITableViewDelegate
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -88,6 +93,8 @@ public final class UIDropDownList<T>: UIView, UITableViewDelegate, UITableViewDa
         self.dropDownTableView.reloadData()
     }
     
+    // MARK: - self private methods
+    
     private func displayChangeSelectedButton() {
         
         if items.count > 0 {
@@ -98,7 +105,7 @@ public final class UIDropDownList<T>: UIView, UITableViewDelegate, UITableViewDa
         }
         
         changeSelectedItemButton.layer.cornerRadius = cellCornerRadius
-        changeSelectedItemButton.backgroundColor = TileDefaultColors.background.getUIColor()
+        changeSelectedItemButton.backgroundColor = cellBackgroundColor
         changeSelectedItemButton.addTarget(self, action: #selector(changeSelectedItem), for: .touchUpInside)
         changeSelectedItemButton.translatesAutoresizingMaskIntoConstraints = false
         addSubview(changeSelectedItemButton)

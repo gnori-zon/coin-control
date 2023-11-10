@@ -13,13 +13,14 @@ public protocol CoinActionWriterViewProtocol {
 
 public final class CoinActionWriterView: UIView, CoinActionWriterViewProtocol {
     
+    public var valueValidator: ((UITextField, NSRange, String) -> Bool)?
+    public var confirmHandler: ((CoinActionType, String, CurrencyType) -> Void)?
+    
     private var titleLabel: UILabel
     private var coinValueField: UITextField
     private var currencyTypeDropDown: UIDropDownList<CurrencyType>!
     private var coinActionTypeDropDown: UIDropDownList<CoinActionType>!
-    public var valueValidator: ((UITextField, NSRange, String) -> Bool)?
     private var confirmButton: UIButton
-    public var confirmHandler: ((CoinActionType, String, CurrencyType) -> Void)?
     
     init() {
         titleLabel = UILabel()
@@ -51,7 +52,7 @@ public final class CoinActionWriterView: UIView, CoinActionWriterViewProtocol {
     private func displayTitle(text: String) {
         
         titleLabel.text = text
-        titleLabel.textColor = BottomSheetDefaultColors.text.getUIColor()
+        titleLabel.textColor = BottomSheetDefaultColors.titleText.getUIColor()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
         
@@ -69,7 +70,7 @@ public final class CoinActionWriterView: UIView, CoinActionWriterViewProtocol {
             reusableId: "actionTypeCell",
             labelGenerator: { $0.rawStr },
             items: actionValues,
-            textColor: BottomSheetDefaultColors.background.getUIColor()
+            textColor: BottomSheetDefaultColors.text.getUIColor()
         )
         
         coinActionTypeDropDown.translatesAutoresizingMaskIntoConstraints = false
@@ -90,7 +91,7 @@ public final class CoinActionWriterView: UIView, CoinActionWriterViewProtocol {
             reusableId: "currencyTypeCell",
             labelGenerator: { $0.currencyRaw.str },
             items: currencyValues,
-            textColor: BottomSheetDefaultColors.background.getUIColor()
+            textColor: BottomSheetDefaultColors.text.getUIColor()
         )
         
         currencyTypeDropDown.translatesAutoresizingMaskIntoConstraints = false
@@ -107,8 +108,8 @@ public final class CoinActionWriterView: UIView, CoinActionWriterViewProtocol {
     
     private func displayCoinValueField() {
         
-        coinValueField.backgroundColor = BottomSheetDefaultColors.text.getUIColor()
-        coinValueField.textColor = BottomSheetDefaultColors.background.getUIColor()
+        coinValueField.backgroundColor = BottomSheetDefaultColors.fieldBackground.getUIColor()
+        coinValueField.textColor = BottomSheetDefaultColors.text.getUIColor()
         coinValueField.keyboardType = .decimalPad
         coinValueField.borderStyle = .roundedRect
         coinValueField.textAlignment = .center
@@ -132,9 +133,9 @@ public final class CoinActionWriterView: UIView, CoinActionWriterViewProtocol {
     private func displayConfirmButton(with title: String) {
         
         confirmButton.setTitle(title, for: .normal)
-        confirmButton.setTitleColor(MainDefaultColors.text.getUIColor(), for: .normal)
+        confirmButton.setTitleColor(BottomSheetDefaultColors.buttonText.getUIColor(), for: .normal)
         confirmButton.layer.cornerRadius = 5
-        confirmButton.backgroundColor = MainDefaultColors.background.getUIColor()
+        confirmButton.backgroundColor = BottomSheetDefaultColors.buttonBackground.getUIColor()
         confirmButton.addTarget(self, action: #selector(afterClickConfirm), for: .touchUpInside)
         confirmButton.translatesAutoresizingMaskIntoConstraints = false
         addSubview(confirmButton)
@@ -186,9 +187,6 @@ extension CoinActionWriterView: UITextFieldDelegate {
         coinValueField.endEditing(true)
     }
 }
-
-// MARK: - UIStackCreatorProtocol
-extension CoinActionWriterView: UIStackCreatorProtocol {}
 
 // MARK: - DefaultAnimationsProtocol
 extension CoinActionWriterView: DefaultAnimationsProtocol {}

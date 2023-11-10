@@ -67,6 +67,7 @@
 		0FD8023C2AFD6FAD004AF88D /* FilterJoinType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD8023B2AFD6FAD004AF88D /* FilterJoinType.swift */; };
 		0FD8023E2AFD71DF004AF88D /* CompoundFilterEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD8023D2AFD71DF004AF88D /* CompoundFilterEntity.swift */; };
 		0FD802402AFD738C004AF88D /* FilterEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD8023F2AFD738C004AF88D /* FilterEntity.swift */; };
+		0FF09DD02AFEE66200848205 /* DaoServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF09DCF2AFEE66200848205 /* DaoServiceFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -132,6 +133,7 @@
 		0FD8023B2AFD6FAD004AF88D /* FilterJoinType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterJoinType.swift; sourceTree = "<group>"; };
 		0FD8023D2AFD71DF004AF88D /* CompoundFilterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundFilterEntity.swift; sourceTree = "<group>"; };
 		0FD8023F2AFD738C004AF88D /* FilterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterEntity.swift; sourceTree = "<group>"; };
+		0FF09DCF2AFEE66200848205 /* DaoServiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoServiceFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -341,6 +343,7 @@
 		0FA79B7D2AF98BA100C0F03B /* dao */ = {
 			isa = PBXGroup;
 			children = (
+				0FF09DD12AFEE78700848205 /* factory */,
 				0F33EFC72AF2D7A4000DDFD0 /* TileSettingsService.swift */,
 				0FD802342AFC271A004AF88D /* CoinActionService.swift */,
 				0FD802362AFC2A3C004AF88D /* CurrencyRateService.swift */,
@@ -395,6 +398,14 @@
 				0F2DF8172AE413A9002F6BA3 /* CurrencyType.swift */,
 			);
 			path = dto;
+			sourceTree = "<group>";
+		};
+		0FF09DD12AFEE78700848205 /* factory */ = {
+			isa = PBXGroup;
+			children = (
+				0FF09DCF2AFEE66200848205 /* DaoServiceFactory.swift */,
+			);
+			path = factory;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -511,6 +522,7 @@
 				0F2DF8652AEE75EB002F6BA3 /* UIDropDownList.swift in Sources */,
 				0FA79B802AF98BE000C0F03B /* CurrencyRateParser.swift in Sources */,
 				0F33EFCF2AF307AD000DDFD0 /* TileViewCollectorContainer.swift in Sources */,
+				0FF09DD02AFEE66200848205 /* DaoServiceFactory.swift in Sources */,
 				0F33EFDE2AF7A908000DDFD0 /* TileSettingsType.swift in Sources */,
 				0F33EFE32AF862FE000DDFD0 /* EntityFields.swift in Sources */,
 				0F42E1E22AE4041D00982A09 /* SceneDelegate.swift in Sources */,

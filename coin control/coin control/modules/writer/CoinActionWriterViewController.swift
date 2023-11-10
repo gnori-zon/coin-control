@@ -20,11 +20,14 @@ public final class CoinActionWriterViewController: UIViewController, CoinActionW
     
     public var presenter: CoinActionWriterPresenterProtocol?
     
+    public override func loadView() {
+        view = createCoinActionWriterView()
+    }
+    
     public override func viewDidLoad() {
         
         CoinActionWriterAssembly.assemble(with: self)
-        view = createCoinActionWriterView()
-        
+        applyWriterViewHandlers()
         print("DEBUG: displayed bottom sheet view")
     }
     
@@ -38,11 +41,18 @@ public final class CoinActionWriterViewController: UIViewController, CoinActionW
             actionValues: CoinActionType.validCases
             
         )
-
+    
+        return writerView
+    }
+    
+    private func applyWriterViewHandlers() {
+        
+        guard let writerView = view as? CoinActionWriterView else {
+            return
+        }
+        
         writerView.valueValidator = TextFieldDecimalValidator.validate
         writerView.confirmHandler = presenter?.getConfirmHandler()
-        
-        return writerView
     }
     
 }

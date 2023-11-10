@@ -17,10 +17,12 @@ public protocol CoinActionWriterAssemblyProtocol {
 // MARK: - CoinActionWriterAssembly
 
 public struct CoinActionWriterAssembly: CoinActionWriterAssemblyProtocol {
-    
+        
     public static func assemble(with viewController: CoinActionWriterViewControllerProtocol) {
         
-        let interactor = CoinActionWriterInteractor()
+        let coinActionService = DaoServiceFactory.shared.findDaoService(type: CoinActionServiceProtocol.self)!
+
+        let interactor = CoinActionWriterInteractor(coinActionService)
         let router = CoinActionWriterRouter()
         let presenter = CoinActionWriterPresenter(router: router, interactor: interactor)
         
