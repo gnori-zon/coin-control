@@ -22,7 +22,3 @@ public struct RatioCurrency: RatioCurrencyProtocol {
     public let type: CurrencyType
     public let value: Decimal
 }
-
-// MARK: - extension Codable
-
-extension RatioCurrency: Codable {}

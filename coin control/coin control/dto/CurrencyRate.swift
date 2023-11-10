@@ -24,8 +24,3 @@ public struct CurrencyRate: CurrencyRateProtocol {
     public let targetCurrencyType: CurrencyType
     public let ratioCurrencies: [RatioCurrency]
 }
-
-// MARK: - extension Codable
-
-extension CurrencyRate: Codable {}
-

@@ -5,9 +5,9 @@
 //  Created by Stepan Konashenko on 21.10.2023.
 //
 
-//MARK: - CurrencyRawTuple
+//MARK: - CurrencyRaw
 
-public typealias CurrencyRawTuple = (str: String, imagePath: String)
+public typealias CurrencyRaw = (str: String, imagePath: String)
 
 //MARK: - CurrencyType
 
@@ -18,7 +18,7 @@ public enum CurrencyType: Int16 {
     case eur = 3
     case undefined = -1
     
-    var currencyRaw: CurrencyRawTuple {
+    var currencyRaw: CurrencyRaw {
         
         switch self {
             
