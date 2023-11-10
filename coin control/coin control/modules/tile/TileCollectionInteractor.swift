@@ -11,15 +11,20 @@ public protocol TileCollectionInteractorProtocol {
     func loadTiles()
 }
 
-public final class TileCollectionInteractor: TileCollectionInteractorProtocol {
+public protocol NotificationReceiverProtocol {
+    func receiveNotification(_ notification: Notification)
+}
 
+public final class TileCollectionInteractor: TileCollectionInteractorProtocol {
+    
     weak var presenter: TileCollectionPresenterProtocol?
     private let tileViewCollectorContainer: TileViewCollectorContainerProtocol
     
     init(_ tileViewCollectorContainer: TileViewCollectorContainerProtocol) {
+        
         self.tileViewCollectorContainer = tileViewCollectorContainer
-        NotificationCenter.default.addObserver(self, selector: #selector(didAddCoinAction), name: .didAddCoinAction, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didUpdateCurrencyRates), name: .didUpdateCurrencyRates, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveNotification), name: .didAddCoinAction, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveNotification), name: .didUpdateCurrencyRates, object: nil)
     }
     
     public func loadTiles() {
@@ -37,7 +42,6 @@ public final class TileCollectionInteractor: TileCollectionInteractorProtocol {
     }
     
     private func applySetups(_ setups: [() -> any TileProtocol]) -> [any TileProtocol] {
-        
         return setups.map { $0() }
     }
     
@@ -46,64 +50,68 @@ public final class TileCollectionInteractor: TileCollectionInteractorProtocol {
         if let view = tile as? UIView {
             
             let longPressGestureRecognizer = UILongPressGestureRecognizer(target: view, action: #selector(view.longPress))
-
+            
             longPressGestureRecognizer.minimumPressDuration = 1
             view.addGestureRecognizer(longPressGestureRecognizer)
         }
     }
-        
-    @objc private func didAddCoinAction(_ notification: Notification) {
+}
+
+// MARK: - NotificationReceiverProtocol
+
+extension TileCollectionInteractor: NotificationReceiverProtocol {
+    
+    @objc public func receiveNotification(_ notification: Notification) {
         
         DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
             
-            guard let coinActionType = notification.object as? CoinActionType else {
-                print("DEBUG: receive undefined 'didAddCoinAction' notification")
-                return
-            }
-            
-            let filter = FilterEntity(field: .coinActionTypeCode, sign: .equals, value: coinActionType.rawValue)
-            let compoundFilterEntity = CompoundFilterEntity(filters: [filter], joiner: .and)
-            let replacers = self.tileViewCollectorContainer.loadAllReplacers(for: .coinAction, filtering: compoundFilterEntity)
-            
-            replacers.forEach { replacer in
+            loadReplacers(for: notification).forEach { replacer in
                 
-                self.presenter?.replaceContent(for: replacer.id) { tileView in
+                presenter?.replaceContent(for: replacer.id) { tileView in
                     
                     replacer.action(tileView)
-                    
-                    DispatchQueue.main.async {
-                        tileView.reloadContent()
-                    }
+                    DispatchQueue.main.async { tileView.reloadContent() }
                 }
             }
         }
     }
     
-    @objc private func didUpdateCurrencyRates(_ notification: Notification) {
+    private func loadReplacers(for notification: Notification) -> [TileAction] {
         
-        DispatchQueue.global(qos: .userInitiated).async {
-            
-            guard let currencyRateTypes = notification.object as? [CurrencyType] else {
-                print("DEBUG: receive undefined 'didUpdateCurrencyRates' notification")
-                return
-            }
-            
-            let filters = currencyRateTypes.map { FilterEntity(field: .selectedCurrencyCodes, sign: .like, value: "'*\($0.rawValue)*'") }
-            let compoundFilterEntity = CompoundFilterEntity(filters: filters, joiner: .or)
-            let replacers = self.tileViewCollectorContainer.loadAllReplacers(for: .currencyRate, filtering: compoundFilterEntity)
-            
-            replacers.forEach { replacer in
-                
-                self.presenter?.replaceContent(for: replacer.id) { tileView in
-                    
-                    replacer.action(tileView)
-                    
-                    DispatchQueue.main.async {
-                        tileView.reloadContent()
-                    }
-                }
-            }
+        switch notification.name {
+        case .didAddCoinAction:
+            return loadReplacersForCoinActions(notification)
+        case .didUpdateCurrencyRates:
+            return loadReplacersForCurrencyRates(notification)
+        default:
+            return []
         }
+    }
+    
+    private func loadReplacersForCurrencyRates(_ notification: Notification) -> [TileAction] {
+        
+        guard let currencyRateTypes = notification.object as? [CurrencyType] else {
+            print("DEBUG: receive undefined 'didUpdateCurrencyRates' notification")
+            return []
+        }
+        
+        let filters = currencyRateTypes.map { FilterEntity(field: .selectedCurrencyCodes, sign: .like, value: "'*\($0.rawValue)*'") }
+        let compoundFilterEntity = CompoundFilterEntity(filters: filters, joiner: .or)
+        
+        return  tileViewCollectorContainer.loadAllReplacers(for: .currencyRate, filtering: compoundFilterEntity)
+    }
+    
+    private func loadReplacersForCoinActions(_ notification: Notification) -> [TileAction] {
+        
+        guard let coinActionType = notification.object as? CoinActionType else {
+            print("DEBUG: receive undefined 'didAddCoinAction' notification")
+            return []
+        }
+        
+        let filter = FilterEntity(field: .coinActionTypeCode, sign: .equals, value: coinActionType.rawValue)
+        let compoundFilterEntity = CompoundFilterEntity(filters: [filter], joiner: .and)
+        
+        return tileViewCollectorContainer.loadAllReplacers(for: .coinAction, filtering: compoundFilterEntity)
     }
 }
 
