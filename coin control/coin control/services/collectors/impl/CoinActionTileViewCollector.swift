@@ -40,6 +40,8 @@ public struct CoinActionTileViewCollector: TileViewCollectorProtocol {
     }
 }
 
+// MARK: convertToRecords()
+
 fileprivate extension Array where Element == CoinActionEntity {
     
     func convertToRecords() -> [String] {

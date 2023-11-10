@@ -49,7 +49,7 @@ public struct CurrencyRateTileViewCollector: TileViewCollectorProtocol {
     }
 }
 
-//MARK: - CurrencyRateProtocol.toCurrencyRateRecordRaws, ratioCurrency.toCurrencyRateRecordRaw(), decimal.cut(), date.shortFormat()
+//MARK: - toCurrencyRateRaw[s]()
 
 fileprivate extension CurrencyRateProtocol {
     
@@ -71,6 +71,8 @@ fileprivate extension RatioCurrency {
     }
 }
 
+// MARK: - Decimal.cut()
+
 extension Decimal {
     
     func cut(with offsetAfterPoint: Int) -> Double {
@@ -86,6 +88,7 @@ extension Decimal {
     }
 }
 
+// MARK: - Date.shortFormat()
 extension Date {
     
     func shortFormat() -> String {
