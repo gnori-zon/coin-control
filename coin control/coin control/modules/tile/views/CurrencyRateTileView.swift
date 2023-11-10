@@ -7,12 +7,7 @@
 
 import UIKit
 
-//MARK: - CurrencyRateRecord
-
-public typealias CurrencyRateRecord = (icon: UIImage, label: UILabel)
-public typealias CurrencyRateRecordRaw = (imagePath: String, text: String)
-
-//MARK: - CurrencyRateTileProtocol
+public typealias CurrencyRateRaw = (imagePath: String, text: String)
 
 public protocol CurrencyRateTileProtocol: TileProtocol {
     
@@ -21,40 +16,41 @@ public protocol CurrencyRateTileProtocol: TileProtocol {
 
 //MARK: - CurrencyRateTileView
 
-public final class CurrencyRateTileView: UIView, CurrencyRateTileProtocol {
+public final class CurrencyRateTileView: UIView {
     
     static let cellHeight: CGFloat = 30
     static let cellTextSize: CGFloat = 18
     static let reusableId = "CurrencyRateTileCell"
     
-    private var titleLabel: UILabel
-    private var timeUpdateLabel: UILabel
-    private var currencyRateRecordsTableView: UITableView
-    var currencyRateRecordRaws: [CurrencyRateRecordRaw]
-    var timeUpdateText: String
     public let id: String
+    public var timeUpdatingText: String
+    public var currencyRateRaws: [CurrencyRateRaw]
     
-    public init(_ id: String,
-                records currencyRateRecordRaws: [CurrencyRateRecordRaw],
-                timeUpdate timeUpdateText: String
-    ) {
+    private var titleLabel: UILabel
+    private var timeUpdatingLabel: UILabel
+    private var currencyRatesTableView: UITableView
+    
+    public init(_ id: String, records currencyRateRaws: [CurrencyRateRaw], timeUpdating timeUpdatingText: String) {
         
         self.id = id
-        self.timeUpdateText = timeUpdateText
-        self.currencyRateRecordRaws = currencyRateRecordRaws
+        self.timeUpdatingText = timeUpdatingText
+        self.currencyRateRaws = currencyRateRaws
         titleLabel = UILabel()
-        timeUpdateLabel = UILabel()
-        currencyRateRecordsTableView = UITableView()
+        timeUpdatingLabel = UILabel()
+        currencyRatesTableView = UITableView()
         super.init(frame: CGRect())
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+//MARK: - CurrencyRateTileProtocol
+
+extension CurrencyRateTileView: CurrencyRateTileProtocol {
     
-    public func setup(
-        title titleText: String
-    ) {
+    public func setup(title titleText: String) {
         
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = TileDefaultColors.background.getUIColor()
@@ -63,10 +59,16 @@ public final class CurrencyRateTileView: UIView, CurrencyRateTileProtocol {
         layer.cornerRadius = 15
         
         displayTitle(text: titleText)
-        displayTimeUpdate(textDate: timeUpdateText)
-        displayCurrencyRateRecords()
+        displayTimeUpdate(textDate: timeUpdatingText)
+        displayCurrencyRatesTableView()
         
         print("DEBUG: displayed CurrencyRateTileView")
+    }
+    
+    public func reloadContent() {
+        
+        self.currencyRatesTableView.reloadData()
+        self.timeUpdatingLabel.text = timeUpdatingText
     }
     
     private func displayTitle(text: String) {
@@ -87,36 +89,36 @@ public final class CurrencyRateTileView: UIView, CurrencyRateTileProtocol {
     
     private func displayTimeUpdate(textDate: String) {
         
-        timeUpdateLabel.text = textDate
-        timeUpdateLabel.textColor = TileDefaultColors.text.getUIColor()
-        timeUpdateLabel.textAlignment = .center
-        timeUpdateLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(timeUpdateLabel)
+        timeUpdatingLabel.text = textDate
+        timeUpdatingLabel.textColor = TileDefaultColors.text.getUIColor()
+        timeUpdatingLabel.textAlignment = .center
+        timeUpdatingLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(timeUpdatingLabel)
         
         NSLayoutConstraint.activate([
-            timeUpdateLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            timeUpdateLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
-            timeUpdateLabel.widthAnchor.constraint(equalToConstant: 90),
-            timeUpdateLabel.heightAnchor.constraint(equalToConstant: 20)
+            timeUpdatingLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+            timeUpdatingLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+            timeUpdatingLabel.widthAnchor.constraint(equalToConstant: 90),
+            timeUpdatingLabel.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
     
-    private func displayCurrencyRateRecords() {
+    private func displayCurrencyRatesTableView() {
         
-        currencyRateRecordsTableView.dataSource = self
-        currencyRateRecordsTableView.delegate = self
-        currencyRateRecordsTableView.allowsSelection = false
-        currencyRateRecordsTableView.rowHeight = CurrencyRateTileView.cellHeight
-        currencyRateRecordsTableView.backgroundColor = .clear
-        currencyRateRecordsTableView.isUserInteractionEnabled = false
-        currencyRateRecordsTableView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(currencyRateRecordsTableView)
+        currencyRatesTableView.dataSource = self
+        currencyRatesTableView.delegate = self
+        currencyRatesTableView.allowsSelection = false
+        currencyRatesTableView.rowHeight = CurrencyRateTileView.cellHeight
+        currencyRatesTableView.backgroundColor = .clear
+        currencyRatesTableView.isUserInteractionEnabled = false
+        currencyRatesTableView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(currencyRatesTableView)
         
         NSLayoutConstraint.activate([
-            currencyRateRecordsTableView.topAnchor.constraint(equalTo: topAnchor, constant: 35),
-            currencyRateRecordsTableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
-            currencyRateRecordsTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            currencyRateRecordsTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15)
+            currencyRatesTableView.topAnchor.constraint(equalTo: topAnchor, constant: 35),
+            currencyRatesTableView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            currencyRatesTableView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            currencyRatesTableView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15)
         ])
     }
     
@@ -126,61 +128,70 @@ public final class CurrencyRateTileView: UIView, CurrencyRateTileProtocol {
 
 extension CurrencyRateTileView: UITableViewDelegate, UITableViewDataSource {
     
-    public func reloadContent() {
-        self.currencyRateRecordsTableView.reloadData()
-        self.timeUpdateLabel.text = timeUpdateText
-    }
-    
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        currencyRateRecordRaws.count
+        currencyRateRaws.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cell = currencyRateRecordsTableView.dequeueReusableCell(withIdentifier: CurrencyRateTileView.reusableId)
+        var cell = currencyRatesTableView.dequeueReusableCell(withIdentifier: CurrencyRateTileView.reusableId)
         
         if cell == nil {
+         
             cell = UITableViewCell(style: .default, reuseIdentifier: CurrencyRateTileView.reusableId)
+            cell?.backgroundColor = .clear
         }
-        cell?.backgroundColor = .clear
-        
-        cell?.fill(from: currencyRateRecordRaws, by: indexPath)
+       
+        cell?.replaceContent(on: currencyRateRaws[indexPath.row])
 
         return cell!
     }
 }
 
+// MARK: - UITableViewCell
+
 extension UITableViewCell: UIStackCreatorProtocol {
     
-    fileprivate func fill(from currencyRateRecordRaws: [CurrencyRateRecordRaw], by indexPath: IndexPath) {
+    fileprivate func replaceContent(on row: CurrencyRateRaw) {
         
-        self.subviews.forEach{ $0.removeFromSuperview() }
+        subviews.forEach{ $0.removeFromSuperview() }
         let recordContainer = createHorizontalUIStackView(in: self)
-        let row = currencyRateRecordRaws[indexPath.row]
 
-        let image = UIImage(systemName: row.imagePath)
+        recordContainer.addImageView(with: row.imagePath)
+        recordContainer.addLabel(with: row.text)
+    }
+}
+
+fileprivate extension UIStackView {
+    
+    func addImageView(with imagePath: String) {
+        
+        let image = UIImage(systemName: imagePath)
         let iconView = UIImageView(image: image)
+        
         iconView.tintColor = .black
         iconView.translatesAutoresizingMaskIntoConstraints = false
-        
-        recordContainer.addSubview(iconView)
+        addSubview(iconView)
         
         NSLayoutConstraint.activate([
-            iconView.centerYAnchor.constraint(equalTo: recordContainer.centerYAnchor),
-            iconView.leadingAnchor.constraint(equalTo: recordContainer.leadingAnchor)
+            iconView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            iconView.leadingAnchor.constraint(equalTo: leadingAnchor)
         ])
+    }
+    
+    func addLabel(with text: String) {
         
-        let recordLabel = UILabel()
+        let label = UILabel()
         
-        recordLabel.text = row.text
-        recordLabel.font = UIFont.systemFont(ofSize: CurrencyRateTileView.cellTextSize)
-        recordLabel.translatesAutoresizingMaskIntoConstraints = false
-        recordContainer.addSubview(recordLabel)
+        label.text = text
+        label.font = UIFont.systemFont(ofSize: CurrencyRateTileView.cellTextSize)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(label)
         
         NSLayoutConstraint.activate([
-            recordLabel.topAnchor.constraint(equalTo: recordContainer.topAnchor),
-            recordLabel.bottomAnchor.constraint(equalTo: recordContainer.bottomAnchor),
-            recordLabel.trailingAnchor.constraint(equalTo: recordContainer.trailingAnchor)
+            label.topAnchor.constraint(equalTo: topAnchor),
+            label.bottomAnchor.constraint(equalTo: bottomAnchor),
+            label.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
 }

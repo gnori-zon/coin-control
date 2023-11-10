@@ -7,8 +7,6 @@
 
 import UIKit
 
-//MARK: - CoinActionTileProtocol
-
 public protocol CoinActionTileProtocol: TileProtocol {
     
     func setup(title titleText: String)
@@ -16,16 +14,17 @@ public protocol CoinActionTileProtocol: TileProtocol {
 
 //MARK: - CoinActionTileView
 
-public final class CoinActionTileView: UIView, CoinActionTileProtocol {
+public final class CoinActionTileView: UIView {
     
     static let cellHeight: CGFloat = 22
     static let cellTextSize: CGFloat = 14
     static let reusableId = "CoinActionTileCell"
     
+    public let id: String
+    public var records: [String]
+    
     private var titleLabel: UILabel
     private let recordsTableView: UITableView
-    var records: [String]
-    public let id: String
     
     public init(_ id: String, records: [String]) {
         
@@ -39,6 +38,11 @@ public final class CoinActionTileView: UIView, CoinActionTileProtocol {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+//MARK: - CoinActionTileProtocol
+
+extension CoinActionTileView: CoinActionTileProtocol {
     
     public func setup(title titleText: String = "unnamed") {
         
@@ -49,9 +53,13 @@ public final class CoinActionTileView: UIView, CoinActionTileProtocol {
         layer.cornerRadius = 15
         
         displayTitle(text: titleText)
-        displayRecords()
+        displayRecordsTableView()
         
         print("DEBUG: displayed CoinActionTileView")
+    }
+    
+    public func reloadContent() {
+        self.recordsTableView.reloadData()
     }
     
     private func displayTitle(text: String) {
@@ -70,7 +78,7 @@ public final class CoinActionTileView: UIView, CoinActionTileProtocol {
         ])
     }
     
-    private func displayRecords() {
+    private func displayRecordsTableView() {
         
         recordsTableView.delegate = self
         recordsTableView.dataSource = self
@@ -90,15 +98,9 @@ public final class CoinActionTileView: UIView, CoinActionTileProtocol {
     }
 }
 
-extension CoinActionTileView: UIStackCreatorProtocol {}
-
 // MARK: - UITableView delegates
 
 extension CoinActionTileView: UITableViewDelegate, UITableViewDataSource {
-    
-    public func reloadContent() {
-        self.recordsTableView.reloadData()
-    }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.records.count
@@ -111,6 +113,7 @@ extension CoinActionTileView: UITableViewDelegate, UITableViewDataSource {
         if cell == nil {
             cell = UITableViewCell(style: .default, reuseIdentifier: CoinActionTileView.reusableId)
         }
+        
         cell?.textLabel?.textAlignment = .left
         cell?.textLabel?.font = UIFont.systemFont(ofSize: CoinActionTileView.cellTextSize)
         cell?.textLabel?.textColor = .black

@@ -23,7 +23,7 @@ public struct CurrencyRateTileViewCollector: TileViewCollectorProtocol {
         
         return {
             
-            let tileView = CurrencyRateTileView(id, records: records, timeUpdate: timeUpdated)
+            let tileView = CurrencyRateTileView(id, records: records, timeUpdating: timeUpdated)
             tileView.setup(title: title)
             
             return tileView
@@ -33,7 +33,7 @@ public struct CurrencyRateTileViewCollector: TileViewCollectorProtocol {
     public func collectReplacer(for tileSetting: CurrencyRateTileSettingsEntity) -> (any TileProtocol) -> Void {
        
         let currencyRate = currencyRateService.findLast(for: tileSetting)
-        let records: [CurrencyRateRecordRaw] = currencyRate?.toCurrencyRateRecordRaws() ?? []
+        let records: [CurrencyRateRaw] = currencyRate?.toCurrencyRateRecordRaws() ?? []
         let timeUpdated = currencyRate?.date.shortFormat() ?? "..."
         
         return { tileView in
@@ -43,8 +43,8 @@ public struct CurrencyRateTileViewCollector: TileViewCollectorProtocol {
                 return
             }
             
-            currencyRateTileView.timeUpdateText = timeUpdated
-            currencyRateTileView.currencyRateRecordRaws = records
+            currencyRateTileView.timeUpdatingText = timeUpdated
+            currencyRateTileView.currencyRateRaws = records
         }
     }
 }
@@ -53,7 +53,7 @@ public struct CurrencyRateTileViewCollector: TileViewCollectorProtocol {
 
 fileprivate extension CurrencyRateProtocol {
     
-    func toCurrencyRateRecordRaws() -> [CurrencyRateRecordRaw] {
+    func toCurrencyRateRecordRaws() -> [CurrencyRateRaw] {
         
         return self.ratioCurrencies.map { $0.toCurrencyRateRecordRaw(target: self.targetCurrencyType)
         }
@@ -62,7 +62,7 @@ fileprivate extension CurrencyRateProtocol {
 
 fileprivate extension RatioCurrency {
     
-    func toCurrencyRateRecordRaw(target: CurrencyType) -> CurrencyRateRecordRaw {
+    func toCurrencyRateRecordRaw(target: CurrencyType) -> CurrencyRateRaw {
         
         let imagePath = self.type.currencyRaw.imagePath
         let invertValue = (1 / self.value).cut(with: 2)

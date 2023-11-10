@@ -9,7 +9,6 @@ import UIKit
 
 public typealias TileView = TileProtocol & UIView
 
-// MARK: - TileCollectionViewControllerProtocol
 public protocol TileCollectionViewControllerProtocol: AnyObject {
     
     var presenter: TileCollectionPresenterProtocol? { get set }
@@ -21,55 +20,59 @@ public protocol TileCollectionViewControllerProtocol: AnyObject {
 
 // MARK: - TileCollectionViewController
 
-public final class TileCollectionViewController: UICollectionViewController, TileCollectionViewControllerProtocol {
+public final class TileCollectionViewController: UICollectionViewController {
     
-    static let reuseIdentifier = "Cell"
+    static let reuseIdentifier = "TileCell"
     
     private var tiles = [any TileView]()
-    private var tilesPerId = [String: any TileView]()
+    private var tilesById = [String: any TileView]()
     public var presenter: TileCollectionPresenterProtocol?
     
     public override func viewDidLoad() {
         
         TileCollectionAssembly().assemble(with: self)
         
-        super.viewDidLoad()
-        collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: TileCollectionViewController.reuseIdentifier)
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: TileCollectionViewController.reuseIdentifier)
         collectionView.collectionViewLayout = createCollectionViewLayout()
-        collectionView!.backgroundColor = MainDefaultColors.background.getUIColor()
+        collectionView.backgroundColor = MainDefaultColors.background.getUIColor()
         
-        presenter?.viewDidLoad()
+        super.viewDidLoad()
         print("DEBUG: displayed main view")
     }
     
     public override func viewDidAppear(_ animated: Bool) {
-        showCoinActionWriterViewControllerInCustomizedSheet()
+        presenter?.viewDidAppear()
     }
-    
-    public func clearTiles() {
-        tiles = [any TileView]()
-        tilesPerId = [String: any TileView]()
-    }
+}
+
+//MARK: - TileCollectionViewControllerProtocol
+
+extension TileCollectionViewController: TileCollectionViewControllerProtocol {
     
     public func addTile(tile: any TileProtocol) {
         
         if let tileView = tile as? any TileView {
             tiles.append(tileView)
-            tilesPerId[tileView.id] = tileView
+            tilesById[tileView.id] = tileView
         }
     }
     
     public func findTile(by id: String) -> (any TileProtocol)? {
         
-        return tilesPerId[id]
+        return tilesById[id]
     }
     
     public func reloadData() {
         self.collectionView.reloadData()
     }
+    
+    public func clearTiles() {
+        tiles = [any TileView]()
+        tilesById = [String: any TileView]()
+    }
 }
 
-//MARK: - methods CollectionViewController
+//MARK: - CollectionViewController
 
 public extension TileCollectionViewController {
     
@@ -104,18 +107,5 @@ public extension TileCollectionViewController {
         layout.minimumInteritemSpacing = 5
         
         return layout
-    }
-}
-
-//MARK: - show CoinActionWriterViewController (may be move to Router?)
-
-fileprivate extension TileCollectionViewController {
-    
-    func showCoinActionWriterViewControllerInCustomizedSheet() {
-        
-        let viewControllerToPresent = CoinActionWriterViewController()
-        viewControllerToPresent.initSheetPresentationController();
-        
-        present(viewControllerToPresent, animated: true, completion: nil)
     }
 }

@@ -8,10 +8,13 @@
 import Foundation
 
 public protocol TileCollectionPresenterProtocol: AnyObject {
-    func viewDidLoad()
+    
+    func viewDidAppear()
     func tilesDidLoad(tiles: [any TileProtocol])
     func replaceContent(for id: String, replacer: (any TileProtocol) -> Void)
 }
+
+// MARK: - TileCollectionPresenter
 
 public final class TileCollectionPresenter: TileCollectionPresenterProtocol {
     
@@ -24,8 +27,10 @@ public final class TileCollectionPresenter: TileCollectionPresenterProtocol {
         self.interactor = interactor
     }
     
-    public func viewDidLoad() {
+    public func viewDidAppear() {
+        
         interactor.loadTiles()
+        router.viewDidAppear()
     }
     
     public func tilesDidLoad(tiles: [any TileProtocol]) {

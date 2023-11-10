@@ -9,12 +9,15 @@ import UIKit
 
 public protocol TileCollectionAssemblyProtocol {
     
-    func assemble(with viewController: TileCollectionViewControllerProtocol)
+    func assemble(with viewController: TileCollectionViewControllerProtocol & UIViewController)
 }
+
+// MARK: TileCollectionAssembly
 
 public struct TileCollectionAssembly: TileCollectionAssemblyProtocol {
    
-    public func assemble(with viewController: TileCollectionViewControllerProtocol) {
+    public func assemble(with viewController: TileCollectionViewControllerProtocol & UIViewController) {
+        
         let container = TileViewCollectorContainer(TileSettingsService(), CoinActionService(), CurrencyRateService())
         
         let interactor = TileCollectionInteractor(container)
