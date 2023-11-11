@@ -24,8 +24,8 @@ public final class TileCollectionViewController: UICollectionViewController {
     
     static let reuseIdentifier = "TileCell"
     
-    private var tiles = [any TileView]()
-    private var tilesById = [String: any TileView]()
+    private var tiles = [TileView]()
+    private var tilesById = [String: TileView]()
     public var presenter: TileCollectionPresenterProtocol?
     
     public override func viewDidLoad() {
@@ -49,26 +49,27 @@ public final class TileCollectionViewController: UICollectionViewController {
 
 extension TileCollectionViewController: TileCollectionViewControllerProtocol {
     
-    public func addTile(tile: any TileProtocol) {
+    public func addTile(tile: TileProtocol) {
         
-        if let tileView = tile as? any TileView {
+        if let tileView = tile as? TileView {
             tiles.append(tileView)
             tilesById[tileView.id] = tileView
         }
     }
     
-    public func findTile(by id: String) -> (any TileProtocol)? {
+    public func findTile(by id: String) -> (TileProtocol)? {
         
         return tilesById[id]
     }
     
     public func reloadData() {
-        self.collectionView.reloadData()
+        collectionView.reloadData()
     }
     
     public func clearTiles() {
-        tiles = [any TileView]()
-        tilesById = [String: any TileView]()
+        
+        tiles = [TileView]()
+        tilesById = [String: TileView]()
     }
 }
 

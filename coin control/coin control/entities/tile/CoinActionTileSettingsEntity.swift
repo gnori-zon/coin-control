@@ -10,9 +10,7 @@ import Foundation
 import CoreData
 
 @objc(CoinActionTileSettingsEntity)
-public final class CoinActionTileSettingsEntity: NSManagedObject {
-
-}
+public final class CoinActionTileSettingsEntity: NSManagedObject {}
 
 //MARK: - TileSettingsEntity
 
@@ -41,7 +39,7 @@ extension CoinActionTileSettingsEntity: TileSettingsEntityProtocol {
             return CoinActionType(rawValue: coinActionTypeCode) ?? .undefined
         }
         set {
-            self.coinActionTypeCode = Int16(newValue.rawValue)
+            coinActionTypeCode = Int16(newValue.rawValue)
         }
     }
     
@@ -51,7 +49,7 @@ extension CoinActionTileSettingsEntity: TileSettingsEntityProtocol {
             return CurrencyType(rawValue: currencyTypeCode) ?? .undefined
         }
         set {
-            self.currencyTypeCode = Int16(newValue.rawValue)
+            currencyTypeCode = Int16(newValue.rawValue)
         }
     }
     
@@ -61,7 +59,7 @@ extension CoinActionTileSettingsEntity: TileSettingsEntityProtocol {
             return SortingType(rawValue: sortingTypeCode) ?? .undefined
         }
         set {
-            self.sortingTypeCode = Int16(newValue.rawValue)
+            sortingTypeCode = Int16(newValue.rawValue)
         }
     }
     
@@ -71,12 +69,9 @@ extension CoinActionTileSettingsEntity: TileSettingsEntityProtocol {
             return SortingDirection(rawValue: sortingDirectionCode) ?? .undefined
         }
         set {
-            self.sortingDirectionCode = Int16(newValue.rawValue)
+            sortingDirectionCode = Int16(newValue.rawValue)
         }
     }
-
 }
 
-extension CoinActionTileSettingsEntity : Identifiable {
-
-}
+extension CoinActionTileSettingsEntity : Identifiable {}

@@ -24,50 +24,15 @@ public final class CurrencyRateService: CurrencyRateServiceProtocol {
     
     public func findLast(for tileEntity: CurrencyRateTileSettingsEntity) -> CurrencyRateProtocol? {
         
-        guard let pivotCurrencyRates = userDefaults.getPivotCurrencyRates(by: currencyKey) else {
+        guard let currencyRatesByPivot = userDefaults.getPivotCurrencyRates(by: currencyKey) else {
             return nil
         }
-
-        let target = tileEntity.targetCurrencyType
         
-        if target != pivotCurrencyType,
-           let targetValue = pivotCurrencyRates[target]
-        {
-            // TODO: - should do refactored
-            let divider = targetValue
-            let ratioCurrencies: [RatioCurrency] = tileEntity.selectedCurrencies.compactMap { selectedCurrencyType in
-                
-                let type = selectedCurrencyType
-                if type == pivotCurrencyType {
-                    return RatioCurrency(type: type, value: 1 / divider)
-                } else {
-                    guard let selectedTypeValue = pivotCurrencyRates[type] else {
-                        return nil
-                    }
-                    
-                    let value = selectedTypeValue / divider
-                    
-                    return RatioCurrency(type: type, value: value)
-                }
-            }
-            
-            return CurrencyRate(date: Date(), targetCurrencyType: target, ratioCurrencies: ratioCurrencies)
-        } else {
-            
-            let target = tileEntity.targetCurrencyType
-            let ratioCurrencies: [RatioCurrency] = tileEntity.selectedCurrencies.compactMap { selectedCurrencyType in
-                
-                let type = selectedCurrencyType
-                
-                guard let value = pivotCurrencyRates[type] else {
-                    return nil
-                }
-                
-                return RatioCurrency(type: type, value: value)
-            }
-            
-            return CurrencyRate(date: Date(), targetCurrencyType: target, ratioCurrencies: ratioCurrencies)
-        }
+        let target = tileEntity.targetCurrencyType
+        let ratioCurrencies: [RatioCurrency] = tileEntity.selectedCurrencies
+            .toRatioCurrencies(by: target, pivot: pivotCurrencyType, with: currencyRatesByPivot)
+        
+        return CurrencyRate(date: Date(), targetCurrencyType: target, ratioCurrencies: ratioCurrencies)
     }
     
     public func updateCurrencyRate(for tileEntity: CurrencyRateTileSettingsEntity, onlyIfNeeded: Bool) {
@@ -117,13 +82,11 @@ public final class CurrencyRateService: CurrencyRateServiceProtocol {
 fileprivate extension UserDefaults {
     
     func getLastUpdateDate(by key: String) -> Date? {
-        
-        return self.object(forKey: key) as? Date
+        return object(forKey: key) as? Date
     }
     
     func setLastUpdateDate(_ date: Date, for key: String) {
-        
-        self.set(date, forKey: key)
+        set(date, forKey: key)
     }
     
     func getPivotCurrencyRates(by key: String) -> [CurrencyType: Decimal]? {
@@ -141,13 +104,49 @@ fileprivate extension UserDefaults {
         ratioCurrencies.forEach { existCurrencyRates[$0.type] = $0.value }
         
         if let data = try? PropertyListEncoder().encode(existCurrencyRates) {
-            self.set(data, forKey: key)
+            set(data, forKey: key)
         }
     }
 }
 
-// MARK: - Notification.Name
-
-extension Notification.Name {
-    static let didUpdateCurrencyRates = Notification.Name("didUpdateCurrencyRates")
+fileprivate extension Array where Element == CurrencyType {
+    
+    /**
+        adjustment currency rates by target
+     
+     ```
+      if  target != pivot {
+         // adjustment currency rates by target and then mapping
+      } else { // ~ target == pivot
+         // simple mapping
+      }
+     ```
+    */
+    func toRatioCurrencies(
+        by target: CurrencyType,
+        pivot: CurrencyType,
+        with currencyRatesByPivot: [CurrencyType: Decimal]
+    ) -> [RatioCurrency] {
+        
+        if  target != pivot,
+           let divider = currencyRatesByPivot[target] {
+            
+            return self.compactMap { type in
+                
+                guard let value = currencyRatesByPivot[type] else { return nil }
+                
+                return type == pivot
+                    ? RatioCurrency(type: type, value: 1 / divider)
+                    : RatioCurrency(type: type, value: value / divider)
+            }
+        } else {
+            
+            return self.compactMap { type in
+                
+                guard let value = currencyRatesByPivot[type] else { return nil}
+                
+                return RatioCurrency(type: type, value: value)
+            }
+        }
+    }
 }

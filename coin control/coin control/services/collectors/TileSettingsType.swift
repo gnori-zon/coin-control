@@ -10,15 +10,15 @@ public enum TileSettingsType {
     
     static func of(_ object: any InstanceTileSettingsEntityProtocol) -> TileSettingsType? {
         
-        switch object {
-        case _ where object is CoinActionTileSettingsEntity:
+        if object is CoinActionTileSettingsEntity {
             return .coinAction
-        case _ where object is CurrencyRateTileSettingsEntity:
-            return .currencyRate
-            
-        default:
-            return nil
         }
+        
+        if object is CurrencyRateTileSettingsEntity {
+            return .currencyRate
+        }
+        
+        return nil
     }
     
     var entityType: any InstanceTileSettingsEntityProtocol.Type {

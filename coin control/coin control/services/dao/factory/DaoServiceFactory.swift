@@ -30,15 +30,16 @@ public final class DaoServiceFactory {
         
         if type == CurrencyRateServiceProtocol.self {
             return currencyRateService as? T
-            
-        } else if type == CoinActionServiceProtocol.self {
-            return coinActionService as? T
-            
-        } else if type == TileSettingsServiceProtocol.self {
-            return tileSettingsService as? T
-            
-        } else {
-            return nil
         }
+        
+        if type == CoinActionServiceProtocol.self {
+            return coinActionService as? T
+        }
+        
+        if type == TileSettingsServiceProtocol.self {
+            return tileSettingsService as? T
+        }
+        
+        return nil
     }
 }

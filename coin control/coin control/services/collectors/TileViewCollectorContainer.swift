@@ -36,7 +36,7 @@ public struct TileViewCollectorContainer: TileViewCollectorContainerProtocol {
     
     public func loadAllSetups() -> [() -> any TileProtocol] {
         
-        let tileSettings = self.tileSettingsService.getAllTileSettings()
+        let tileSettings = tileSettingsService.getAllTileSettings()
         
         return tileSettings.compactMap { tileSettingRaw in
             
@@ -55,7 +55,7 @@ public struct TileViewCollectorContainer: TileViewCollectorContainerProtocol {
     
     public func loadAllReplacers(for tileSettingsType: TileSettingsType, filtering: CompoundFilterEntity) -> [TileAction] {
         
-        let tileSettings = self.tileSettingsService.getAllTileSettings(type: tileSettingsType.entityType, filtering: filtering)
+        let tileSettings = tileSettingsService.getAllTileSettings(type: tileSettingsType.entityType, filtering: filtering)
         
         return tileSettings.map { tileSettingRaw in
             

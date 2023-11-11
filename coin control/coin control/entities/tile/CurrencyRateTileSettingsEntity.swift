@@ -9,9 +9,7 @@ import Foundation
 import CoreData
 
 @objc(CurrencyRateTileSettingsEntity)
-public final class CurrencyRateTileSettingsEntity: NSManagedObject {
-    
-}
+public final class CurrencyRateTileSettingsEntity: NSManagedObject {}
 
 extension CurrencyRateTileSettingsEntity: TileSettingsEntityProtocol {
    
@@ -36,7 +34,7 @@ extension CurrencyRateTileSettingsEntity: TileSettingsEntityProtocol {
             return CurrencyType(rawValue: targetCurrencyTypeCode) ?? .undefined
         }
         set {
-            self.targetCurrencyTypeCode = Int16(newValue.rawValue)
+            targetCurrencyTypeCode = Int16(newValue.rawValue)
         }
     }
     
@@ -44,17 +42,14 @@ extension CurrencyRateTileSettingsEntity: TileSettingsEntityProtocol {
         
         get {
             return selectedCurrencyCodes.split(separator: ",")
-                .map { CurrencyType(rawValue: (Int16($0) ?? -1)) ?? .undefined }
+                .map{ (Int16($0) ?? CurrencyType.undefined.rawValue) }
+                .map{ CurrencyType(rawValue: $0) ?? .undefined }
         }
         set {
-            self.selectedCurrencyCodes = newValue.map { "\($0.rawValue)" }
+            selectedCurrencyCodes = newValue.map{ "\($0.rawValue)" }
                 .joined(separator: ",")
         }
     }
-    
-    
 }
 
-extension CurrencyRateTileSettingsEntity: Identifiable {
-    
-}
+extension CurrencyRateTileSettingsEntity: Identifiable {}

@@ -10,8 +10,8 @@ import Foundation
 public protocol TileCollectionPresenterProtocol: AnyObject {
     
     func viewDidAppear()
-    func tilesDidLoad(tiles: [any TileProtocol])
-    func replaceContent(for id: String, replacer: (any TileProtocol) -> Void)
+    func tilesDidLoad(tiles: [TileProtocol])
+    func replaceContent(for id: String, replacer: (TileProtocol) -> Void)
 }
 
 // MARK: - TileCollectionPresenter
@@ -33,14 +33,14 @@ public final class TileCollectionPresenter: TileCollectionPresenterProtocol {
         router.viewDidAppear()
     }
     
-    public func tilesDidLoad(tiles: [any TileProtocol]) {
+    public func tilesDidLoad(tiles: [TileProtocol]) {
         
         viewController?.clearTiles()
         tiles.forEach { viewController?.addTile(tile: $0) }
         viewController?.reloadData()
     }
     
-    public func replaceContent(for id: String, replacer: (any TileProtocol) -> Void){
+    public func replaceContent(for id: String, replacer: (TileProtocol) -> Void){
         
         guard let tileView = viewController?.findTile(by: id) else {
             print("DEBUG: not found tile by id: \(id)")

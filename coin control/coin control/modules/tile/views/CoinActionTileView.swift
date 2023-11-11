@@ -23,15 +23,13 @@ public final class CoinActionTileView: UIView {
     public let id: String
     public var records: [String]
     
-    private var titleLabel: UILabel
-    private let recordsTableView: UITableView
+    private var titleLabel = UILabel()
+    private let recordsTableView = UITableView()
     
     public init(_ id: String, records: [String]) {
         
         self.id = id
         self.records = records
-        recordsTableView = UITableView()
-        titleLabel = UILabel()
         super.init(frame: CGRect())
     }
     
@@ -59,7 +57,7 @@ extension CoinActionTileView: CoinActionTileProtocol {
     }
     
     public func reloadContent() {
-        self.recordsTableView.reloadData()
+        recordsTableView.reloadData()
     }
     
     private func displayTitle(text: String) {
@@ -103,7 +101,7 @@ extension CoinActionTileView: CoinActionTileProtocol {
 extension CoinActionTileView: UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.records.count
+        records.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -118,7 +116,7 @@ extension CoinActionTileView: UITableViewDelegate, UITableViewDataSource {
         cell?.textLabel?.font = UIFont.systemFont(ofSize: CoinActionTileView.cellTextSize)
         cell?.textLabel?.textColor = .black
         cell?.backgroundColor = .clear
-        cell?.textLabel?.text = self.records[indexPath.row]
+        cell?.textLabel?.text = records[indexPath.row]
         
         return cell!
     }

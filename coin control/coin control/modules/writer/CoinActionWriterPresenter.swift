@@ -28,7 +28,8 @@ public final class CoinActionWriterPresenter: CoinActionWriterPresenterProtocol 
     
     public func getConfirmHandler() -> (CoinActionType, String, CurrencyType) -> Void {
         
-        return { actionType, value, currencyType in
+        return { [unowned self] actionType, value, currencyType in
+            
             self.interactor.saveCoinAction(actionType, value, currencyType)
         }
     }

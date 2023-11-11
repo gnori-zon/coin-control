@@ -15,16 +15,16 @@ public final class UIDropDownList<T>: UIView, UITableViewDelegate, UITableViewDa
     private let cellBackgroundColor = TileDefaultColors.background.getUIColor()
     
     private let reusableId: String
-    private var dropDownTableView: UITableView
+    private var dropDownTableView = UITableView()
     private var textColor: UIColor
     private var labelGenerator: (T) -> String
     private var isTableVisible = false
     private var items: [T]
     private var selectedItem: T?
-    private var changeSelectedItemButton: UIButton
+    private var changeSelectedItemButton = UIButton()
    
     private var heightConstraint: NSLayoutConstraint? {
-        self.dropDownTableView.constraints.first { $0.firstAttribute == .height}
+        dropDownTableView.constraints.first { $0.firstAttribute == .height}
     }
     
     init(
@@ -38,8 +38,6 @@ public final class UIDropDownList<T>: UIView, UITableViewDelegate, UITableViewDa
         self.textColor = textColor
         self.reusableId = reusableId
         self.labelGenerator = labelGenerator
-        changeSelectedItemButton = UIButton()
-        dropDownTableView = UITableView()
         super.init(frame: CGRect())
     }
     
@@ -87,10 +85,10 @@ public final class UIDropDownList<T>: UIView, UITableViewDelegate, UITableViewDa
         tableView.deselectRow(at: indexPath, animated: true)
 
         swapSelectedValue(on: indexPath.row)
-        self.heightConstraint?.constant = 0
-        self.isTableVisible = false
-        self.layoutIfNeeded()
-        self.dropDownTableView.reloadData()
+        heightConstraint?.constant = 0
+        isTableVisible = false
+        layoutIfNeeded()
+        dropDownTableView.reloadData()
     }
     
     // MARK: - self private methods
@@ -137,16 +135,14 @@ public final class UIDropDownList<T>: UIView, UITableViewDelegate, UITableViewDa
     
     @objc private func changeSelectedItem() {
         
-        UIView.animate(withDuration: durationAnimation) {
+        UIView.animate(withDuration: durationAnimation) { [unowned self] in
             
-            if self.isTableVisible {
-                self.heightConstraint?.constant = 0
-            } else {
-                self.heightConstraint?.constant = self.cellHeight * CGFloat(self.items.count)
-            }
+            heightConstraint?.constant = isTableVisible
+                ? 0
+                : cellHeight * CGFloat(items.count)
             
-            self.isTableVisible = !self.isTableVisible
-            self.layoutIfNeeded()
+            isTableVisible = !isTableVisible
+            layoutIfNeeded()
         }
     }
     

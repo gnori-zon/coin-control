@@ -26,18 +26,15 @@ public final class CurrencyRateTileView: UIView {
     public var timeUpdatingText: String
     public var currencyRateRaws: [CurrencyRateRaw]
     
-    private var titleLabel: UILabel
-    private var timeUpdatingLabel: UILabel
-    private var currencyRatesTableView: UITableView
+    private var titleLabel = UILabel()
+    private var timeUpdatingLabel = UILabel()
+    private var currencyRatesTableView = UITableView()
     
     public init(_ id: String, records currencyRateRaws: [CurrencyRateRaw], timeUpdating timeUpdatingText: String) {
         
         self.id = id
         self.timeUpdatingText = timeUpdatingText
         self.currencyRateRaws = currencyRateRaws
-        titleLabel = UILabel()
-        timeUpdatingLabel = UILabel()
-        currencyRatesTableView = UITableView()
         super.init(frame: CGRect())
     }
     
@@ -154,7 +151,7 @@ extension UITableViewCell: UIStackCreatorProtocol {
     
     fileprivate func replaceContent(on row: CurrencyRateRaw) {
         
-        subviews.forEach{ $0.removeFromSuperview() }
+        subviews.forEach { $0.removeFromSuperview() }
         let recordContainer = createHorizontalUIStackView(in: self)
 
         recordContainer.addImageView(with: row.imagePath)

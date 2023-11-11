@@ -23,8 +23,20 @@ public final class TileCollectionInteractor: TileCollectionInteractorProtocol {
     init(_ tileViewCollectorContainer: TileViewCollectorContainerProtocol) {
         
         self.tileViewCollectorContainer = tileViewCollectorContainer
-        NotificationCenter.default.addObserver(self, selector: #selector(receiveNotification), name: .didAddCoinAction, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(receiveNotification), name: .didUpdateCurrencyRates, object: nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(receiveNotification),
+            name: .didAddCoinAction,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(receiveNotification),
+            name: .didUpdateCurrencyRates,
+            object: nil
+        )
     }
     
     public func loadTiles() {
@@ -41,11 +53,11 @@ public final class TileCollectionInteractor: TileCollectionInteractorProtocol {
         }
     }
     
-    private func applySetups(_ setups: [() -> any TileProtocol]) -> [any TileProtocol] {
+    private func applySetups(_ setups: [() -> TileProtocol]) -> [TileProtocol] {
         return setups.map { $0() }
     }
     
-    private func addGestureIfView(for tile: any TileProtocol) {
+    private func addGestureIfView(for tile: TileProtocol) {
         
         if let view = tile as? UIView {
             
@@ -112,20 +124,6 @@ extension TileCollectionInteractor: NotificationReceiverProtocol {
         let compoundFilterEntity = CompoundFilterEntity(filters: [filter], joiner: .and)
         
         return tileViewCollectorContainer.loadAllReplacers(for: .coinAction, filtering: compoundFilterEntity)
-    }
-}
-
-// MARK: peek Array
-
-public extension Array {
-    
-    func peek(_ action: (Element) -> Void) -> [Element] {
-
-        return self.map { element in
-            
-            action(element)
-            return element
-        }
     }
 }
 

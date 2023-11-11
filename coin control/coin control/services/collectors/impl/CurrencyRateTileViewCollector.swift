@@ -39,7 +39,7 @@ public struct CurrencyRateTileViewCollector: TileViewCollectorProtocol {
         return { tileView in
             
             guard let currencyRateTileView = tileView as? CurrencyRateTileView else {
-                print("DEBUG: bad find tile view | expected:\(CurrencyRateTileView.self) | actual: \(tileView.self)")
+                print("DEBUG: bad find tile view | expected: \(CurrencyRateTileView.self) | actual: \(tileView.self)")
                 return
             }
             
@@ -55,7 +55,7 @@ fileprivate extension CurrencyRateProtocol {
     
     func toCurrencyRateRecordRaws() -> [CurrencyRateRaw] {
         
-        return self.ratioCurrencies.map { $0.toCurrencyRateRecordRaw(target: self.targetCurrencyType)
+        return self.ratioCurrencies.map { $0.toCurrencyRateRecordRaw(target: targetCurrencyType)
         }
     }
 }
@@ -64,37 +64,9 @@ fileprivate extension RatioCurrency {
     
     func toCurrencyRateRecordRaw(target: CurrencyType) -> CurrencyRateRaw {
         
-        let imagePath = self.type.currencyRaw.imagePath
-        let invertValue = (1 / self.value).cut(with: 2)
+        let imagePath = type.currencyRaw.imagePath
+        let invertValue = (1 / value).cut(with: 2)
         
         return (imagePath: imagePath, text: "\(invertValue) \(target.currencyRaw.str)")
-    }
-}
-
-// MARK: - Decimal.cut()
-
-extension Decimal {
-    
-    func cut(with offsetAfterPoint: Int) -> Double {
-        
-        let selfValue = self.doubleValue
-        let rounder = pow(10, offsetAfterPoint).doubleValue
-    
-        return Double(round(selfValue * rounder) / rounder)
-    }
-    
-    var doubleValue: Double {
-        (self as NSDecimalNumber).doubleValue
-    }
-}
-
-// MARK: - Date.shortFormat()
-extension Date {
-    
-    func shortFormat() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "d.M.yyyy"
-        
-        return dateFormatter.string(from: self)
     }
 }

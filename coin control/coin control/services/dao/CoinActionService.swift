@@ -47,9 +47,3 @@ public final class CoinActionService: CoinActionServiceProtocol {
         }
     }
 }
-
-//MARK: - Notification.Name
-
-extension Notification.Name {
-    static let didAddCoinAction = Notification.Name("didAddCoinAction")
-}

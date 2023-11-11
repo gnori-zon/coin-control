@@ -41,7 +41,7 @@ public struct CurrencyRateResponseConverter: CurrencyRateResponseConverterProtoc
     }
 }
 
-// MARK: Utils (toRatioCurrencies, appendIfExist, isNotEmpty)
+// MARK: Helpers (toRatioCurrencies, appendIfExist, isNotEmpty)
 
 fileprivate extension Rates {
     

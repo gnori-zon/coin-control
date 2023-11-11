@@ -68,6 +68,12 @@
 		0FD8023E2AFD71DF004AF88D /* CompoundFilterEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD8023D2AFD71DF004AF88D /* CompoundFilterEntity.swift */; };
 		0FD802402AFD738C004AF88D /* FilterEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD8023F2AFD738C004AF88D /* FilterEntity.swift */; };
 		0FF09DD02AFEE66200848205 /* DaoServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF09DCF2AFEE66200848205 /* DaoServiceFactory.swift */; };
+		0FF09DD52B0028F800848205 /* Notification.Name+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF09DD42B0028F800848205 /* Notification.Name+Extensions.swift */; };
+		0FF09DD72B0029B300848205 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF09DD62B0029B300848205 /* Date+Extensions.swift */; };
+		0FF09DD92B0029BF00848205 /* Decimal+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF09DD82B0029BF00848205 /* Decimal+Extensions.swift */; };
+		0FF09DDB2B002A6100848205 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF09DDA2B002A6100848205 /* String+Extensions.swift */; };
+		0FF09DDD2B002AFA00848205 /* UISheetPresentationController.Detent+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF09DDC2B002AFA00848205 /* UISheetPresentationController.Detent+Extensions.swift */; };
+		0FF09DDF2B002C8300848205 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF09DDE2B002C8300848205 /* Array+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -134,6 +140,12 @@
 		0FD8023D2AFD71DF004AF88D /* CompoundFilterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompoundFilterEntity.swift; sourceTree = "<group>"; };
 		0FD8023F2AFD738C004AF88D /* FilterEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterEntity.swift; sourceTree = "<group>"; };
 		0FF09DCF2AFEE66200848205 /* DaoServiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaoServiceFactory.swift; sourceTree = "<group>"; };
+		0FF09DD42B0028F800848205 /* Notification.Name+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+Extensions.swift"; sourceTree = "<group>"; };
+		0FF09DD62B0029B300848205 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		0FF09DD82B0029BF00848205 /* Decimal+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decimal+Extensions.swift"; sourceTree = "<group>"; };
+		0FF09DDA2B002A6100848205 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		0FF09DDC2B002AFA00848205 /* UISheetPresentationController.Detent+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISheetPresentationController.Detent+Extensions.swift"; sourceTree = "<group>"; };
+		0FF09DDE2B002C8300848205 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -321,6 +333,7 @@
 		0F42E1DE2AE4041D00982A09 /* coin control */ = {
 			isa = PBXGroup;
 			children = (
+				0FF09DD32B0028DB00848205 /* extensions */,
 				0FD802382AFC2C89004AF88D /* dto */,
 				0F2DF84D2AE9A83B002F6BA3 /* services */,
 				0F2DF83E2AE85BC3002F6BA3 /* utils */,
@@ -416,6 +429,19 @@
 			path = filter;
 			sourceTree = "<group>";
 		};
+		0FF09DD32B0028DB00848205 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0FF09DD42B0028F800848205 /* Notification.Name+Extensions.swift */,
+				0FF09DD62B0029B300848205 /* Date+Extensions.swift */,
+				0FF09DD82B0029BF00848205 /* Decimal+Extensions.swift */,
+				0FF09DDA2B002A6100848205 /* String+Extensions.swift */,
+				0FF09DDC2B002AFA00848205 /* UISheetPresentationController.Detent+Extensions.swift */,
+				0FF09DDE2B002C8300848205 /* Array+Extensions.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -498,12 +524,14 @@
 				0F33EFC42AF2CCF2000DDFD0 /* SortingType.swift in Sources */,
 				0F2DF8562AEC53FE002F6BA3 /* CoinActionWriterView.swift in Sources */,
 				0F2DF82E2AE57EA3002F6BA3 /* TileCollectionInteractor.swift in Sources */,
+				0FF09DDF2B002C8300848205 /* Array+Extensions.swift in Sources */,
 				0F2DF8482AE99CB0002F6BA3 /* CoinActionTileSettingsEntity.swift in Sources */,
 				0FA79B892AF99FAC00C0F03B /* HttpRequestSender.swift in Sources */,
 				0F2DF8402AE85BF4002F6BA3 /* UIStackCreatorProtocol.swift in Sources */,
 				0FD802352AFC271A004AF88D /* CoinActionService.swift in Sources */,
 				0F33EFD12AF307C3000DDFD0 /* TileViewCollectorProtocol.swift in Sources */,
 				0FA79B8C2AF9A4F100C0F03B /* HttpError.swift in Sources */,
+				0FF09DDD2B002AFA00848205 /* UISheetPresentationController.Detent+Extensions.swift in Sources */,
 				0F33EFC82AF2D7A4000DDFD0 /* TileSettingsService.swift in Sources */,
 				0FD8023A2AFC2CA3004AF88D /* RatioCurrency.swift in Sources */,
 				0F33EFCA2AF2DD2F000DDFD0 /* TileSettingsEntityProtocol.swift in Sources */,
@@ -515,6 +543,7 @@
 				0F2DF8372AE6E7E3002F6BA3 /* CurrencyRateTileView.swift in Sources */,
 				0FA79B902AFADA1300C0F03B /* CurrencyRateResponse.swift in Sources */,
 				0F2DF84F2AE9A857002F6BA3 /* StorageService.swift in Sources */,
+				0FF09DDB2B002A6100848205 /* String+Extensions.swift in Sources */,
 				0FA79B922AFADEBD00C0F03B /* CurrencyRateResponseConverter.swift in Sources */,
 				0F2DF8512AE9B63A002F6BA3 /* Entity.swift in Sources */,
 				0F2DF8182AE413A9002F6BA3 /* CurrencyType.swift in Sources */,
@@ -531,6 +560,7 @@
 				0FA79B802AF98BE000C0F03B /* CurrencyRateParser.swift in Sources */,
 				0F33EFCF2AF307AD000DDFD0 /* TileViewCollectorContainer.swift in Sources */,
 				0FF09DD02AFEE66200848205 /* DaoServiceFactory.swift in Sources */,
+				0FF09DD52B0028F800848205 /* Notification.Name+Extensions.swift in Sources */,
 				0F33EFDE2AF7A908000DDFD0 /* TileSettingsType.swift in Sources */,
 				0F33EFE32AF862FE000DDFD0 /* EntityFields.swift in Sources */,
 				0F42E1E22AE4041D00982A09 /* SceneDelegate.swift in Sources */,
@@ -539,11 +569,13 @@
 				0F2DF8582AEC540C002F6BA3 /* CoinActionWriterPresenter.swift in Sources */,
 				0FA79B822AF99A7B00C0F03B /* HttpMethod.swift in Sources */,
 				0F2DF85C2AEC543D002F6BA3 /* CoinActionWriterInteractor.swift in Sources */,
+				0FF09DD72B0029B300848205 /* Date+Extensions.swift in Sources */,
 				0FD802402AFD738C004AF88D /* FilterEntity.swift in Sources */,
 				0F2DF8352AE5880D002F6BA3 /* TileProtocol.swift in Sources */,
 				0F33EFC22AF05765000DDFD0 /* DefaultAnimationsProtocol.swift in Sources */,
 				0FD8023E2AFD71DF004AF88D /* CompoundFilterEntity.swift in Sources */,
 				0F2DF81F2AE41630002F6BA3 /* CoinActionTileView.swift in Sources */,
+				0FF09DD92B0029BF00848205 /* Decimal+Extensions.swift in Sources */,
 				0F2DF8622AED85E2002F6BA3 /* TextFieldDecimalValidator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

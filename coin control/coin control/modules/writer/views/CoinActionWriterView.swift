@@ -16,16 +16,13 @@ public final class CoinActionWriterView: UIView, CoinActionWriterViewProtocol {
     public var valueValidator: ((UITextField, NSRange, String) -> Bool)?
     public var confirmHandler: ((CoinActionType, String, CurrencyType) -> Void)?
     
-    private var titleLabel: UILabel
-    private var coinValueField: UITextField
+    private let titleLabel = UILabel()
+    private let confirmButton = UIButton()
+    private let coinValueField = UITextField()
     private var currencyTypeDropDown: UIDropDownList<CurrencyType>!
     private var coinActionTypeDropDown: UIDropDownList<CoinActionType>!
-    private var confirmButton: UIButton
     
     init() {
-        titleLabel = UILabel()
-        coinValueField = UITextField()
-        confirmButton = UIButton()
         super.init(frame: CGRect())
     }
     
@@ -125,9 +122,9 @@ public final class CoinActionWriterView: UIView, CoinActionWriterViewProtocol {
             coinValueField.heightAnchor.constraint(equalToConstant: 44)
         ])
         
-        let hideKeyboardRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.hideKeyboard))
+        let hideKeyboardRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         hideKeyboardRecognizer.cancelsTouchesInView = false
-        self.addGestureRecognizer(hideKeyboardRecognizer)
+        addGestureRecognizer(hideKeyboardRecognizer)
     }
     
     private func displayConfirmButton(with title: String) {
@@ -151,18 +148,17 @@ public final class CoinActionWriterView: UIView, CoinActionWriterViewProtocol {
     
     @objc private func afterClickConfirm() {
         
-        if let coinValue = coinValueField.text, !coinValue.isEmpty,
-           let selectedActionType = self.coinActionTypeDropDown.getSelectedItem(),
-           let selectedCurrencyType = self.currencyTypeDropDown.getSelectedItem()
-        {
-            coinValueField.text = ""
-            guard let handler = self.confirmHandler else {
-                return
-            }
-            handler(selectedActionType, coinValue, selectedCurrencyType)
-        } else {
-            self.snake(coinValueField)
+        guard let coinValue = coinValueField.text,
+              !coinValue.isEmpty,
+              let selectedActionType = coinActionTypeDropDown.getSelectedItem(),
+              let selectedCurrencyType = currencyTypeDropDown.getSelectedItem() else {
+            
+            snake(coinValueField)
+            return
         }
+        
+        coinValueField.text = ""
+        confirmHandler?(selectedActionType, coinValue, selectedCurrencyType)
     }
 }
 
@@ -175,12 +171,8 @@ extension CoinActionWriterView: UITextFieldDelegate {
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
     ) -> Bool {
-        
-        guard let valueValidator else {
-            return true
-        }
-        
-        return valueValidator(textField, range, string)
+    
+        return valueValidator?(textField, range, string) ?? true
     }
     
     @objc private func hideKeyboard() {
