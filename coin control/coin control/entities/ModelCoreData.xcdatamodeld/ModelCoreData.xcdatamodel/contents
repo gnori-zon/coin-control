@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22E261" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CoinActionEntity" representedClassName=".CoinActionEntity" syncable="YES">
+        <attribute name="actionTypeCode" attributeType="Integer 16" valueTransformerName="" defaultValueString="0" usesScalarValueType="YES" customClassName=".CoinActionType"/>
+        <attribute name="currencyTypeCode" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="value" attributeType="Decimal" defaultValueString="0.0"/>
+    </entity>
+    <entity name="CoinActionTileSettingsEntity" representedClassName=".CoinActionTileSettingsEntity" syncable="YES">
+        <attribute name="coinActionTypeCode" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="currencyTypeCode" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="sortingDirectionCode" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sortingTypeCode" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="title" attributeType="String"/>
+    </entity>
+    <entity name="CurrencyRateTileSettingsEntity" representedClassName="CurrencyRateTileSettingsEntity" syncable="YES">
+        <attribute name="id" attributeType="String"/>
+        <attribute name="selectedCurrencyCodes" optional="YES" attributeType="String"/>
+        <attribute name="targetCurrencyTypeCode" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="title" attributeType="String"/>
+    </entity>
+</model>
