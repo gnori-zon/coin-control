@@ -55,6 +55,7 @@
 		0F42E1E92AE4042000982A09 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F42E1E82AE4042000982A09 /* Assets.xcassets */; };
 		0F42E1EC2AE4042000982A09 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F42E1EA2AE4042000982A09 /* LaunchScreen.storyboard */; };
 		0F46D4D62B0120ED0001E5E6 /* String+ExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F46D4D52B0120ED0001E5E6 /* String+ExtensionsTests.swift */; };
+		0F46D4D92B0124C70001E5E6 /* TextFieldDecimalValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F46D4D82B0124C70001E5E6 /* TextFieldDecimalValidatorTests.swift */; };
 		0FA79B802AF98BE000C0F03B /* CurrencyRateParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA79B7F2AF98BE000C0F03B /* CurrencyRateParser.swift */; };
 		0FA79B822AF99A7B00C0F03B /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA79B812AF99A7B00C0F03B /* HttpMethod.swift */; };
 		0FA79B842AF99ADF00C0F03B /* CurrencyRateEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA79B832AF99ADF00C0F03B /* CurrencyRateEndpoint.swift */; };
@@ -140,6 +141,7 @@
 		0F42E1EB2AE4042000982A09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0F42E1ED2AE4042000982A09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0F46D4D52B0120ED0001E5E6 /* String+ExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ExtensionsTests.swift"; sourceTree = "<group>"; };
+		0F46D4D82B0124C70001E5E6 /* TextFieldDecimalValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldDecimalValidatorTests.swift; sourceTree = "<group>"; };
 		0FA79B7F2AF98BE000C0F03B /* CurrencyRateParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRateParser.swift; sourceTree = "<group>"; };
 		0FA79B812AF99A7B00C0F03B /* HttpMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		0FA79B832AF99ADF00C0F03B /* CurrencyRateEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRateEndpoint.swift; sourceTree = "<group>"; };
@@ -378,6 +380,14 @@
 			path = "coin control";
 			sourceTree = "<group>";
 		};
+		0F46D4D72B0124AA0001E5E6 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				0F46D4D82B0124C70001E5E6 /* TextFieldDecimalValidatorTests.swift */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
 		0FA79B7D2AF98BA100C0F03B /* dao */ = {
 			isa = PBXGroup;
 			children = (
@@ -483,6 +493,7 @@
 		0FF09DE52B00C68F00848205 /* coin controlTests */ = {
 			isa = PBXGroup;
 			children = (
+				0F46D4D72B0124AA0001E5E6 /* utils */,
 				0FE266C52B011179000DF098 /* extensionsTests */,
 			);
 			path = "coin controlTests";
@@ -660,6 +671,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F46D4D92B0124C70001E5E6 /* TextFieldDecimalValidatorTests.swift in Sources */,
 				0FF09DEE2B01089D00848205 /* Date+ExtensionsTests.swift in Sources */,
 				0F46D4D62B0120ED0001E5E6 /* String+ExtensionsTests.swift in Sources */,
 				0FE266C72B011198000DF098 /* Decimal+ExtensionsTests.swift in Sources */,
