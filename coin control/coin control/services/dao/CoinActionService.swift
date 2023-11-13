@@ -28,9 +28,13 @@ public final class CoinActionService: CoinActionServiceProtocol {
     
     public func saveCoinAction(_ actionType: CoinActionType, _ value: String, _ currencyType: CurrencyType) {
         
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             
-            let createdCoinAction = self.storage.create(type: CoinActionEntity.self) { entity in
+            guard let self else {
+                return
+            }
+            
+            let createdCoinAction = storage.create(type: CoinActionEntity.self) { entity in
                 
                 entity.actionType = actionType
                 entity.currencyType = currencyType

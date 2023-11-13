@@ -11,8 +11,6 @@ public struct TextFieldDecimalValidator {
     
     static let validate: (UITextField, NSRange, String) -> Bool = { textField, _, string in
         
-        let decimalRegex = "^(0[.][0-9]+|[1-9]+[.]?[0-9]*)$"
-        
         guard let text = textField.text else {
             return false
         }
@@ -21,6 +19,18 @@ public struct TextFieldDecimalValidator {
             return true
         }
         
-        return "\(text)\(string)".match(decimalRegex)
+        if text.isEmpty {
+            return string.match("^((([1-9]0*)*|0)([.][0-9]*)?)$")
+        }
+        
+        if text == "0" {
+            return string.match("^([.][0-9]*)$")
+        }
+        
+        if text.match("[.]") {
+            return string.match("^[0-9]*$")
+        }
+        
+        return string.match("^((([1-9]0?)*|0)([.][0-9]*)?)$")
     }
 }

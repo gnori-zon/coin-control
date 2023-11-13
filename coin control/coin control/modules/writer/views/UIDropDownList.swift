@@ -34,10 +34,10 @@ public final class UIDropDownList<T>: UIView, UITableViewDelegate, UITableViewDa
         textColor: UIColor
     ) {
         
-        self.items = items
-        self.textColor = textColor
         self.reusableId = reusableId
         self.labelGenerator = labelGenerator
+        self.items = items
+        self.textColor = textColor
         super.init(frame: CGRect())
     }
     
@@ -97,9 +97,9 @@ public final class UIDropDownList<T>: UIView, UITableViewDelegate, UITableViewDa
         
         if items.count > 0 {
             
-            selectedItem = self.items.removeFirst()
+            selectedItem = items.removeFirst()
             changeSelectedItemButton.setTitle(labelGenerator(selectedItem!), for: .normal)
-            changeSelectedItemButton.setTitleColor(self.textColor, for: .normal)
+            changeSelectedItemButton.setTitleColor(textColor, for: .normal)
         }
         
         changeSelectedItemButton.layer.cornerRadius = cellCornerRadius

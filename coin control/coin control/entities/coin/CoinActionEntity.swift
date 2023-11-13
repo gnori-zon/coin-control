@@ -40,7 +40,7 @@ extension CoinActionEntity: Entity {
             return CoinActionType(rawValue: actionTypeCode) ?? .undefined
         }
         set {
-            self.actionTypeCode = Int16(newValue.rawValue)
+            actionTypeCode = Int16(newValue.rawValue)
         }
     }
     
@@ -50,7 +50,7 @@ extension CoinActionEntity: Entity {
             return CurrencyType(rawValue: currencyTypeCode) ?? .undefined
         }
         set {
-            self.currencyTypeCode = Int16(newValue.rawValue)
+            currencyTypeCode = Int16(newValue.rawValue)
         }
     }
 

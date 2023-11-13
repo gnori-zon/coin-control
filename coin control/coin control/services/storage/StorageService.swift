@@ -156,7 +156,7 @@ fileprivate extension Array where Element == SortingEntity {
 
     func toSortDescriptors() -> [NSSortDescriptor] {
         
-        return self.map { (type: SortingType, direction: SortingDirection) in
+        return map { (type: SortingType, direction: SortingDirection) in
             
             NSSortDescriptor(key: type.field, ascending: direction.isAscending)
         }
@@ -169,7 +169,7 @@ fileprivate extension CompoundFilterEntity{
     
     func toPredicate() -> NSCompoundPredicate {
         
-        let predicates = self.filters.compactMap { $0.toPredicate() }
+        let predicates = filters.compactMap { $0.toPredicate() }
         
         switch joiner {
         case .and:

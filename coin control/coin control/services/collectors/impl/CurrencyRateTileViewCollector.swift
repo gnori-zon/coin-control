@@ -55,7 +55,7 @@ fileprivate extension CurrencyRateProtocol {
     
     func toCurrencyRateRecordRaws() -> [CurrencyRateRaw] {
         
-        return self.ratioCurrencies.map { $0.toCurrencyRateRecordRaw(target: targetCurrencyType)
+        return ratioCurrencies.map { $0.toCurrencyRateRecordRaw(target: targetCurrencyType)
         }
     }
 }

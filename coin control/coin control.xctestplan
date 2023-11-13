@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "EE51EC7B-4445-4928-90EE-675C634A2CEC",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:coin control.xcodeproj",
+        "identifier" : "0FF09DE32B00C68F00848205",
+        "name" : "coin controlTests"
+      }
+    }
+  ],
+  "version" : 1
+}

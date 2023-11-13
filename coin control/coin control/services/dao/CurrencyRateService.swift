@@ -91,7 +91,7 @@ fileprivate extension UserDefaults {
     
     func getPivotCurrencyRates(by key: String) -> [CurrencyType: Decimal]? {
         
-        guard let data = self.value(forKey: key) as? Data else {
+        guard let data = value(forKey: key) as? Data else {
             return nil
         }
         
@@ -131,7 +131,7 @@ fileprivate extension Array where Element == CurrencyType {
         if  target != pivot,
            let divider = currencyRatesByPivot[target] {
             
-            return self.compactMap { type in
+            return compactMap { type in
                 
                 guard let value = currencyRatesByPivot[type] else { return nil }
                 
@@ -141,7 +141,7 @@ fileprivate extension Array where Element == CurrencyType {
             }
         } else {
             
-            return self.compactMap { type in
+            return compactMap { type in
                 
                 guard let value = currencyRatesByPivot[type] else { return nil}
                 
