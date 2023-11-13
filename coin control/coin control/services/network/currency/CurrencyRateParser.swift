@@ -41,7 +41,7 @@ public struct CurrencyRateParser: CurrencyRateParserProtocol {
                 completionHandler(currencyRate)
                
             case let .failure(error):
-                // TODO: processError and publish failure notification
+                // TODO: process error and publish failure notification
                 print("DEBUG : failure -> \(error.description)")
             }
         }

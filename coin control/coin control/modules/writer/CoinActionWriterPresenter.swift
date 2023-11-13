@@ -30,7 +30,7 @@ public final class CoinActionWriterPresenter: CoinActionWriterPresenterProtocol 
         
         return { [unowned self] actionType, value, currencyType in
             
-            self.interactor.saveCoinAction(actionType, value, currencyType)
+            interactor.saveCoinAction(actionType, value, currencyType)
         }
     }
     

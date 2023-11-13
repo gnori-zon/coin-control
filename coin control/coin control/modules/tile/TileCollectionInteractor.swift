@@ -47,8 +47,8 @@ public final class TileCollectionInteractor: TileCollectionInteractorProtocol {
             
             DispatchQueue.main.async { [unowned self] in
                 
-                let tileViews = self.applySetups(setups).peek { self.addGestureIfView(for: $0) }
-                self.presenter?.tilesDidLoad(tiles: tileViews)
+                let tileViews = applySetups(setups).peek { addGestureIfView(for: $0) }
+                presenter?.tilesDidLoad(tiles: tileViews)
             }
         }
     }
@@ -144,10 +144,16 @@ fileprivate extension UIView {
     }
     
     func compressSize() {
-        UIView.animate(withDuration: 0.2, animations: { self.transform = CGAffineTransform(scaleX: 0.8, y: 0.8) })
+        UIView.animate(withDuration: 0.2) { [unowned self] in
+
+            transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        }
     }
     
     func identitySize() {
-        UIView.animate(withDuration: 0.1, animations: { self.transform = CGAffineTransform.identity })
+        UIView.animate(withDuration: 0.1) { [unowned self] in
+
+            transform = CGAffineTransform.identity
+        }
     }
 }

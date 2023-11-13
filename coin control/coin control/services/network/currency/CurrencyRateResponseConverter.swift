@@ -62,13 +62,11 @@ fileprivate extension Array where Element == RatioCurrency {
     mutating func appendIfExist(_ value: Double?, type: CurrencyType) {
         
         if let value {
-            self.append(RatioCurrency(type: type, value: Decimal(value)))
+            append(RatioCurrency(type: type, value: Decimal(value)))
         }
     }
     
     var isNotEmpty: Bool {
-        
-        let not = (!)
-        return not(self.isEmpty)
+        !isEmpty
     }
 }

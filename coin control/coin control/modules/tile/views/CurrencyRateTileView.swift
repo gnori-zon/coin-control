@@ -33,8 +33,8 @@ public final class CurrencyRateTileView: UIView {
     public init(_ id: String, records currencyRateRaws: [CurrencyRateRaw], timeUpdating timeUpdatingText: String) {
         
         self.id = id
-        self.timeUpdatingText = timeUpdatingText
         self.currencyRateRaws = currencyRateRaws
+        self.timeUpdatingText = timeUpdatingText
         super.init(frame: CGRect())
     }
     
