@@ -9,9 +9,9 @@ import XCTest
 @testable import coin_control
 
 final class CurrencyRateResponseConverterTests: XCTestCase {
-
+    
     let converter = CurrencyRateResponseConverter()
-
+    
     func testConvertSuccessShouldValidConvertFromCurrencyRateResponseToCurrencyRateProtocol() throws {
         
         try defaultAssertsConvert(
@@ -59,7 +59,7 @@ final class CurrencyRateResponseConverterTests: XCTestCase {
         month: Int = 11,
         day: Int = 20
     ) throws {
-    
+        
         let dateWithRepresentation = dateWithRepresentationOf(year: year, month: month, day: day)
         
         let responseToConvert = CurrencyRateResponse(
@@ -79,35 +79,12 @@ final class CurrencyRateResponseConverterTests: XCTestCase {
         XCTAssertEqual(dateWithRepresentation.date, actualCurrencyRate?.date)
         XCTAssertEqual(baseType, actualCurrencyRate?.targetCurrencyType)
         XCTAssertEqual(typesWithValues.count, actualCurrencyRate?.ratioCurrencies.count)
-       
+        
         actualCurrencyRate?.ratioCurrencies.forEach { ratioCurrency in
-                XCTAssertEqual("\(typesWithValues[ratioCurrency.type]!)", "\(ratioCurrency.value)")
-            }
+            XCTAssertEqual("\(typesWithValues[ratioCurrency.type]!)", "\(ratioCurrency.value)")
+        }
     }
     
-    private func dateWithRepresentationOf(
-        year: Int,
-        month: Int,
-        day: Int
-    ) -> (date: Date, representation: String) {
-        
-        let dayString = day.representation(prefix: "0", if: { $0 < 10})
-        let monthString = month.representation(prefix: "0", if: { $0 < 10})
-        
-        let dateStringRepresentation = "\(year)-\(monthString)-\(dayString)"
-        
-        let date = DateComponents(calendar: Calendar.current, year: year, month: month, day: day).date!
-        
-        return (date, dateStringRepresentation)
-    }
 }
 
-fileprivate extension Int {
-    
-    func representation(prefix: String, if condition: (Int) -> Bool) -> String {
-        
-        return condition(self)
-            ? "\(prefix)\(self)"
-            : "\(self)"
-    }
-}
+extension CurrencyRateResponseConverterTests: DateWithRepresentationProtocol {}
