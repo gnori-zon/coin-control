@@ -448,14 +448,41 @@
 			path = dto;
 			sourceTree = "<group>";
 		};
-		0FE266C52B011179000DF098 /* extensionsTests */ = {
+		0FDAA29E2B0166E4000EAB89 /* services */ = {
+			isa = PBXGroup;
+			children = (
+				0FDAA2A62B0169CC000EAB89 /* network */,
+			);
+			path = services;
+			sourceTree = "<group>";
+		};
+		0FDAA29F2B016750000EAB89 /* currency */ = {
+			isa = PBXGroup;
+			children = (
+				0FDAA2A42B016917000EAB89 /* CurrencyRateResponseConverterTests.swift */,
+				0FDAA2A72B017876000EAB89 /* CurrencyRateParserTests.swift */,
+				0F72442A2B02A3F200F54FA3 /* MockCurrencyRateResponseConverter.swift */,
+				0F72442C2B02A41300F54FA3 /* MockHttpRequestSender.swift */,
+			);
+			path = currency;
+			sourceTree = "<group>";
+		};
+		0FDAA2A62B0169CC000EAB89 /* network */ = {
+			isa = PBXGroup;
+			children = (
+				0FDAA29F2B016750000EAB89 /* currency */,
+			);
+			path = network;
+			sourceTree = "<group>";
+		};
+		0FE266C52B011179000DF098 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
 				0FF09DED2B01089D00848205 /* Date+ExtensionsTests.swift */,
 				0FE266C62B011198000DF098 /* Decimal+ExtensionsTests.swift */,
 				0F46D4D52B0120ED0001E5E6 /* String+ExtensionsTests.swift */,
 			);
-			path = extensionsTests;
+			path = extensions;
 			sourceTree = "<group>";
 		};
 		0FF09DD12AFEE78700848205 /* factory */ = {
@@ -493,8 +520,9 @@
 		0FF09DE52B00C68F00848205 /* coin controlTests */ = {
 			isa = PBXGroup;
 			children = (
+				0FDAA29E2B0166E4000EAB89 /* services */,
 				0F46D4D72B0124AA0001E5E6 /* utils */,
-				0FE266C52B011179000DF098 /* extensionsTests */,
+				0FE266C52B011179000DF098 /* extensions */,
 			);
 			path = "coin controlTests";
 			sourceTree = "<group>";
