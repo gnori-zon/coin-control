@@ -10,7 +10,7 @@ Mobile application for monitoring on your finance activity
 
 
 <p align="center">
-   <img src="https://img.shields.io/badge/Version-0.1-blueviolet" alt="App Version">
+   <img src="https://img.shields.io/badge/Version-0.0.1-blueviolet" alt="App Version">
    <img src="https://img.shields.io/badge/Lecense-MIT-9cf" alt="License">
 </p>
 
@@ -26,7 +26,7 @@ VIPER architecture is used and used next lib
 * Foundation
 * UIKit
 * CoreData
-*XCTest
+* XCTest
 
 The plan for the application is that 
 - the tiles should be configurable and interactive, 
